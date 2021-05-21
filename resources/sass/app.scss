@@ -1,0 +1,45 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// BootstrapVue
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+
+
+html,
+body {
+  height: 100%;
+}
+
+.intro-homepage {
+  height: 100%;
+
+  h1 {
+    font-size: 3.25rem;
+  }
+
+  p {
+    font-size: 1.25rem;
+  }
+
+  .jumbotron {
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+
+
+#intro .jumbotron {
+  border-radius: unset;
+
+}
