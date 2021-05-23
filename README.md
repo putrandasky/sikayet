@@ -1,62 +1,39 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# COMPANY REVIEW APP
+I. SCOPE OF WORK
+A. Main Application
+1. [v] Homepage (with show listing company based on top company)
+2. [v] Companies Category by Alphabetical Page
+3. [v] Company detail page with dedicated Url Link (showing review, total rating)
+4. [v] User Login Form Page
+5. [v] User Register Form Page
+6. [v] User Forgot password Page 
+7. [v] User Dashboard (showing total review and list of review posted from current user)
+8. [v] User Profile/Setting Page (Name, email)
+9. [v] Business/Company  Dashboard (show rating, total review, list of review posted for current company, current membership plan/offering membership, billing history, answering review section for paid membership)
+10. [v] Business/Company  Register Form Page
+11. [v] Business/Company  Login Form Page
+12. [v] Business/Company Profile form page (Company/Brand name, domain site, business email)
+13. [v] Write review form page for any Company
+14. [v] Write review form page for registered Company 
+15. [v] Thank you page for write review page
+16. [v] Thank you page for register new company
+17. Payment membership process Page
+18. [v] 404 not found page
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+B. Admin Page
+1. Admin Login Page
+2. Admin Registration Page
+3. Admin Dashboard (Showing Total User, Total Company, Total Review, Top Company, Recent Review Posted, Recent Company Registered)
+4. List All Registered Companies
+5. Detail Company (showing all review with admin ability to moderation/approving / delete inappropriate review, ability to verifying company)
+6. Payment methods Page (ability for update API Key for Stripe and Paypal, Ability for update availability payment for stripe and paypal )
+7. Company membership page (Ability to create and update availability membership price and duration)
+8. Common editor (ability to update about + terms+ privacy + FAQ + info pages + update URL social account)
+9. Adsense Page (ability to update update adsense code for each section)
 
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+II. TECHNOLOGY
+The Project will be developed with the technology as below :
+A. Front End : Vue.js Framework (Javascript) 
+B. Back End : PHP with Laravel Framework
+C. CSS : Bootstrap
+D. Database : MySQL

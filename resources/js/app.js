@@ -5,8 +5,12 @@
  */
 
 require('./bootstrap');
-
+import BootstrapVue from 'bootstrap-vue';
 window.Vue = require('vue').default;
+window.Vue2 = require('vue').default;
+window.Vue3 = require('vue').default;
+Vue.use(BootstrapVue);
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +23,16 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('review-action', require('./components/CompanyDetailReviewAction.vue').default);
+Vue.component('user-dashboard', require('./components/UserDashboard.vue').default);
+Vue.component('company-dashboard', require('./components/CompanyDashboard.vue').default);
+Vue.component('company-login', require('./components/CompanyLogin.vue').default);
+Vue.component('company-register', require('./components/CompanyRegister.vue').default);
+Vue.component('user-write-review', require('./components/UserWriteReview.vue').default);
+Vue.component('user-write-review-anycompany', require('./components/UserWriteReviewAnycompany.vue').default);
+// Vue.component('sidebar-menu', require('./components/SidebarMenu.vue').default);
+// Vue.component('sidebar-button', require('./components/SidebarButton.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,5 +41,11 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app',
+  el: '#app',
 });
+// const app2 = new Vue({
+//   el: '#sidebar',
+// });
+// const app3 = new Vue({
+//   el: '#sidebar-button',
+// });

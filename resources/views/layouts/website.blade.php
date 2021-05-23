@@ -14,38 +14,13 @@
   <title>Document</title>
 </head>
 
-<body>
-  <nav id="main-navbar" class="navbar navbar-expand-sm navbar--ontop fixed-top bg-c-dark px-md-5 shadow">
-    <a class="navbar-brand" href="{{url("")}}">
-      COMREVAPP
-      {{-- <img src="{{ asset('images/icon_signfinger.svg') }}" alt="">
-      <img src="{{ asset('images/signfinger.svg') }}" alt=""> --}}
-    </a>
-    <ul class="navbar-nav ml-auto d-flex">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Contact</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">FAQ</span></a>
-      </li>
-    </ul>
-    <div class="navbar justify-content-end d-none d-md-flex">
-      <a class="mr-2 btn btn-primary btn-sm" href="{{url("")}}">Write a Review</a>
-      <a class=" btn btn-dark btn-sm " href="{{url("/id")}}">For Companies</a>
-    </div>
-    <ul class="nav justify-content-end d-flex d-md-none">
-      <button type="button" class="btn btn-primary btn-sm">
-        Write a Review
-      </button>
-      <button type="button" class="btn btn-dark btn-sm">
-        For Companies
-      </button>
-    </ul>
-  </nav>
+<body style="background: #eef3f7;">
+<div id="app">
+
   @yield('content')
+</div>
+  <script src="{{ mix('/js/app.js') }}"></script>
+
 </body>
 
 </html>
