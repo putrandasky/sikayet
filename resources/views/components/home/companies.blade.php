@@ -29,7 +29,7 @@
        {{$rating}}
           </div>
           <div class="text-center">
-            <a class="btn btn-primary btn-sm" href="/company-detail">Read More</a>
+            <a class="btn btn-primary btn-sm" href="/good-company">Read More</a>
           </div>
         </div>
       </div>

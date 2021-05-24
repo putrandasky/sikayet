@@ -22,7 +22,7 @@
           <div>
             <div class="text-light text-center text-sm-left">Show</div>
             <div class="text-white text-center text-sm-left">
-              <h3>Good Electronics</h3>
+              <h3>Good Company</h3>
             </div>
             <div class="d-flex mb-3 justify-content-center justify-content-sm-start">
               <x-rating-green></x-rating-green>

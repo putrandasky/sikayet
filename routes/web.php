@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::get('/company-brands', function () {
     return view('pages.company-brands');
 });
-Route::get('/company-detail', function () {
+Route::get('/good-company', function () {
     return view('pages.company-detail');
 });
 Route::get('/user-login', function () {

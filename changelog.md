@@ -1,5 +1,8 @@
 # 24-May-21
-## 0.0.1
+## 0.1.1
+### FIXED
+1. Url for each company (instead detail-company)
+## 0.1
 ### ADDED
 View for page below
 1. [v] Homepage (with show listing company based on top company)
