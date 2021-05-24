@@ -1,4 +1,7 @@
 # 24-May-21
+## 0.1.2
+### FIXED
+1. Reset Password Page
 ## 0.1.1
 ### FIXED
 1. Url for each company (instead detail-company)

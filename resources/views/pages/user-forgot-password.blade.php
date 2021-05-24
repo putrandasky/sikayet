@@ -6,9 +6,9 @@
   @slot('image')
   cover-login.jpg
   @endslot
-  <div class="h-100">
-    <div id="login-form" class="text-center bg-white h-100 px-3" ">
-      <div class=" py-3 border-bottom">
+  <div class="d-flex justify-content-center align-items-center h-100 px-3">
+    <div id="login-form" class="text-center card  p-3">
+      <div class=" pb-3 border-bottom">
       <h3 class="mb-0">APP Logo</h3>
     </div>
     <form action="" class="mt-3">
