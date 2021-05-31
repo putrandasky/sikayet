@@ -25,9 +25,17 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@tiptap/extension-highlight": "^2.0.0-beta.13",
+        "@tiptap/extension-image": "^2.0.0-beta.13",
+        "@tiptap/extension-task-item": "^2.0.0-beta.16",
+        "@tiptap/extension-task-list": "^2.0.0-beta.15",
+        "@tiptap/extension-text-align": "^2.0.0-beta.17",
+        "@tiptap/starter-kit": "^2.0.0-beta.70",
+        "@tiptap/vue-2": "^2.0.0-beta.34",
         "bootstrap-vue": "^2.21.2",
         "js-cookie": "^2.2.1",
         "laravel-mix-alias": "^1.0.2",
+        "remixicon": "^2.5.0",
         "vue-lottie": "^0.2.1",
         "vue-router": "^3.0.1",
         "vuex": "^3.0.1"

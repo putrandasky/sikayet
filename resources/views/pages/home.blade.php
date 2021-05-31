@@ -3,7 +3,7 @@
 
 @section('content')
 <x-base>
-<x-hero addClass=" h-100 parallax">
+<x-hero addClass="mt-5  parallax">
   <x-slot name="title">
     Every Review is an Experience!
   </x-slot>

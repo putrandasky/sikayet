@@ -34,6 +34,17 @@ body,
 
 }
 
+#admin-sidebar .list-group {
+  .list-group-item {
+    background-color: #343a40;
+
+  }
+
+  :hover {
+    background-color: $blue !important;
+  }
+}
+
 .background-full {
   /* Full height */
   /* Center and scale the image nicely */

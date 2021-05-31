@@ -55,3 +55,9 @@ Route::get('/about', function () {
 Route::get('/404', function () {
     return view('pages.404');
 });
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::get('/{vue_capture?}', function () {
+        return View::make('layouts.admin');
+    })->where('vue_capture', '[\/\w\.-]*');
+});

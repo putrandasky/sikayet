@@ -1,3 +1,20 @@
+# 31-May-21
+## 0.2.0
+### ADDED
+Admin Page
+1. [v] Admin Login Page
+2. [v] Admin Registration Page 
+3. [v] Admin Dashboard (Showing Total User, Total Company, Total Review, Top Company, Recent Review Posted, Recent Company Registered)
+4. [v] List All Registered Companies
+5. [v] Detail Company (showing all review with admin ability to moderation/approving / delete inappropriate review, ability to verifying company) (moderation for review separated "review page")
+6. [v] Payment methods Page (ability for update API Key for Stripe and Paypal, Ability for update availability payment for stripe and paypal ) (in page "third party page", altogether with page for defining secret key id for social login page)
+7. [v] Company membership page (Ability to create and update availability membership price and duration)
+8. [v] Common editor (ability to update about + terms+ privacy + FAQ + info pages + update URL social account)
+9. [v] Adsense Page (ability to update update adsense code for each section) (for store client secret id)
+
+### FIXED
+1. Restore Hero big image for landing page
+
 # 24-May-21
 ## 0.1.2
 ### FIXED
