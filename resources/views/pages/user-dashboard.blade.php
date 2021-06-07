@@ -19,9 +19,12 @@
           @slot('data_area')
           <div>
             <div class="text-white text-center text-sm-left">
-              <h3>John Doe</h3>
+              <h3>{{$user->name}}
+
+
+              </h3>
             </div>
-            <div class="text-light text-center text-sm-left">Turkey</div>
+            {{-- <div class="text-light text-center text-sm-left">Turkey</div> --}}
           </div>
           @endslot
 
@@ -31,7 +34,7 @@
         <div class="d-flex">
           <x-user-dashboard.summary>
             @slot('value')
-            300
+            {{$user->review }}
             @endslot
             @slot('title')
             <i class="fa fa-star"></i> Reviews
@@ -39,18 +42,18 @@
           </x-user-dashboard.summary>
           <x-user-dashboard.summary>
             @slot('value')
-            30
+            {{$user->like}}
             @endslot
             @slot('title')
-            <i class="fa fa-user"></i> Reads
+            <i class="fa fa-thumbs-up"></i> Likes
             @endslot
           </x-user-dashboard.summary>
           <x-user-dashboard.summary>
             @slot('value')
-            3
+            {{$user->dislike}}
             @endslot
             @slot('title')
-            <i class="fa fa-thumbs-up"></i> Useful
+            <i class="fa fa-thumbs-down"></i> Dislikes
             @endslot
           </x-user-dashboard.summary>
 

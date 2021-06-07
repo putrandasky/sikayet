@@ -46,3 +46,5 @@ View for page below
 ### Backlog
 [] payment membership process page
 [] sidebar not working
+[] account status need to define after register (user & company)
+[] refine logic update active / suspend status in database while updating in admin,check view page , do not using created_at for this field

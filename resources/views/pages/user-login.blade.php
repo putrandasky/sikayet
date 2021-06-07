@@ -22,14 +22,25 @@
       <div>
         OR
       </div>
-      <form action="" class="mt-2">
+      <form method="POST" action="{{ route('user-login') }}"class="mt-2">
+         @csrf
         <div class="form-group  position-relative">
-          <input type="email" class="form-control pl-5" id="formGroupExampleInput" placeholder="Email">
+          <input id="email" type="email" class="form-control pl-5 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
           <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
+           @error('email')
+           <span class="invalid-feedback" role="alert">
+             <strong>{{ $message }}</strong>
+           </span>
+           @enderror
         </div>
         <div class="form-group  position-relative">
-          <input type="password" class="form-control pl-5" id="formGroupExampleInput" placeholder="Password">
+          <input id="password" type="password" class="form-control pl-5 @error('password') is-invalid @enderror" name="password" required placeholder="Password">
           <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
+            @error('password')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <div class="d-flex    justify-content-between">
           <div class="">
@@ -45,7 +56,7 @@
           </div>
         </div>
         <div class=" mt-3 ">
-          <a class="btn btn-primary btn-block rounded" href="/user-dashboard">Login</a>
+          <button type="submit" class="btn btn-primary btn-block rounded" >Login</button>
         </div>
         <div class="mt-3 text-center">
           Don't have Account? <a href="/user-register">Sign Up</a>

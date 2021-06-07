@@ -11,7 +11,7 @@ export const FieldTableData = {
           }
         },
         {
-          key: 'name',
+          key: 'user.name',
           label: 'From',
           tdClass: 'truncate-cell',
           thStyle: {
@@ -19,7 +19,7 @@ export const FieldTableData = {
           }
         },
         {
-          key: 'company',
+          key: 'company.name',
           label: 'To',
           tdClass: 'truncate-cell',
           thStyle: {
@@ -70,8 +70,43 @@ export const FieldTableData = {
             width: '50px'
           },
         },
-      ]
+      ],
+      itemsData: [],
+      selectedInputSearch: this.$route.query.searchKey || 'name',
+      optionsInputSearch: [{
+          value: 'name',
+          text: 'Name'
+        },
+        {
+          value: 'company',
+          text: 'company'
+        },
+        {
+          value: 'title',
+          text: 'company'
+        },
+
+      ],
     };
   },
+  computed: {
+    filteredItemsData() {
+      if (this.selectedInputSearch == 'name') {
+        return this.itemsData.filter(result =>
+          result.user.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
+      if (this.selectedInputSearch == 'company') {
+        return this.itemsData.filter(result =>
+          result.company.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
+      if (this.selectedInputSearch == 'title') {
+        return this.itemsData.filter(result =>
+          result.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
 
+    }
+  }
 };

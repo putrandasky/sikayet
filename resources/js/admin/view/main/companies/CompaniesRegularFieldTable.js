@@ -37,7 +37,16 @@ export const FieldTableData = {
           }
         },
         {
-          key: 'total_reviewed',
+          key: 'rating',
+          label: 'Rating',
+          class: 'text-center',
+          thStyle: {
+            minWidth: '100px',
+            width: '100px',
+          }
+        },
+        {
+          key: 'review',
           label: 'Reviewed',
           class: 'text-center',
           thStyle: {
@@ -46,7 +55,25 @@ export const FieldTableData = {
           }
         },
         {
-          key: 'total_complain',
+          key: 'review_general',
+          label: 'General',
+          class: 'text-center',
+          thStyle: {
+            minWidth: '100px',
+            width: '100px',
+          }
+        },
+        {
+          key: 'review_solution',
+          label: 'Solution',
+          class: 'text-center',
+          thStyle: {
+            minWidth: '100px',
+            width: '100px',
+          }
+        },
+        {
+          key: 'review_complaint',
           label: 'Complain',
           class: 'text-center',
           thStyle: {
@@ -63,16 +90,16 @@ export const FieldTableData = {
         //     width: '100px'
         //   },
         // },
-        // {
-        //   key: 'membership',
-        //   label: 'Membership',
-        //   class: 'text-center',
+        {
+          key: 'membership',
+          label: 'Membership',
+          class: 'text-center',
 
-        //   thStyle: {
-        //     minWidth: '100px',
-        //     width: '100px'
-        //   },
-        // },
+          thStyle: {
+            minWidth: '100px',
+            width: '100px'
+          },
+        },
         {
           key: 'created_at',
           label: 'Registered On',
@@ -90,8 +117,34 @@ export const FieldTableData = {
             width: '50px'
           },
         },
-      ]
+      ],
+      itemsData: [],
+      selectedInputSearch: this.$route.query.searchKey || 'name',
+      optionsInputSearch: [{
+          value: 'name',
+          text: 'Name'
+        },
+        {
+          value: 'email',
+          text: 'Email'
+        },
+
+      ],
     };
   },
+  computed: {
+    filteredItemsData() {
+      if (this.selectedInputSearch == 'name') {
+        return this.itemsData.filter(result =>
+          result.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
+      if (this.selectedInputSearch == 'email') {
+        return this.itemsData.filter(result =>
+          result.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
 
+    }
+  }
 };

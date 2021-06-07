@@ -4,7 +4,7 @@
       <b-nav-item :active="component == 'MyReview'" @click="component = 'MyReview'">My Review</b-nav-item>
       <b-nav-item :active="component == 'MyProfile'" @click="component = 'MyProfile'">My Profile</b-nav-item>
       <b-nav-item>
-        <b-btn variant="danger" size="sm">Log Out</b-btn>
+        <b-btn variant="danger" size="sm" @click="logout()">Log Out</b-btn>
 
       </b-nav-item>
     </b-nav>
@@ -27,7 +27,11 @@
       }
     },
     created() {},
-    methods: {},
+    methods: {
+      logout() {
+        window.open('/user-logout', '_self')
+      }
+    },
   }
 </script>
 <style>

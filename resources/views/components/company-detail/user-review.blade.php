@@ -25,6 +25,7 @@
     </div>
     <p>
       {{$review_content}}
+
     </p>
     <div>
         {{$user_action}}

@@ -10,11 +10,34 @@ import './filter/filter';
 import BootstrapVue from 'bootstrap-vue';
 import axios from "axios";
 // import InterceptorSetup from './interceptor';
-
+window.dayjs = require('dayjs');
 require('./bootstrap');
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
-
+Vue.mixin({
+  methods: {
+    toastSuccess: function(content) {
+      this.$bvToast.toast(content, {
+        title: `SUCCESS!`,
+        headerClass: 'font-weight-bold',
+        variant: 'success',
+        solid: true,
+        autoHideDelay: 1000,
+        toaster: 'b-toaster-top-right'
+      })
+    },
+    toastError: function(content) {
+      this.$bvToast.toast(content, {
+        title: `ERROR!`,
+        headerClass: 'font-weight-bold',
+        variant: 'danger',
+        solid: true,
+        autoHideDelay: 1000,
+        toaster: 'b-toaster-top-right'
+      })
+    }
+  }
+});
 // InterceptorSetup()
 const app = new Vue({
   el: '#app',

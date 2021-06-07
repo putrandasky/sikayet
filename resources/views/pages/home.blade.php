@@ -5,12 +5,16 @@
 <x-base>
 <x-hero addClass="mt-5  parallax">
   <x-slot name="title">
-    Every Review is an Experience!
+    {{$data['header']['title']}}
   </x-slot>
   <x-slot name="subtitle">
-  Check Ratings of Businesses, Read Reviews & Make a review
+  {{$data['header']['subtitle']}}
   </x-slot>
-<x-home.search/>
+  <div class="row justify-content-center">
+
+    <home-search></home-search>
+  </div>
+{{-- <x-home.search/> --}}
 </x-hero>
 
 <section class="d-md-block d-none shadow-sm bg-white">
@@ -21,33 +25,10 @@
 
         <b>Company Brand : </b>
       </h4>
-      <a class="" href="/company-brands">A</a>
-      <a class="" href="/company-brands">B</a>
-      <a class="" href="/company-brands">C</a>
-      <a class="" href="/company-brands">D</a>
-      <a class="" href="/company-brands">E</a>
-      <a class="" href="/company-brands">F</a>
-      <a class="" href="/company-brands">G</a>
-      <a class="" href="/company-brands">H</a>
-      <a class="" href="/company-brands">I</a>
-      <a class="" href="/company-brands">J</a>
-      <a class="" href="/company-brands">K</a>
-      <a class="" href="/company-brands">L</a>
-      <a class="" href="/company-brands">M</a>
-      <a class="" href="/company-brands">N</a>
-      <a class="" href="/company-brands">O</a>
-      <a class="" href="/company-brands">P</a>
-      <a class="" href="/company-brands">Q</a>
-      <a class="" href="/company-brands">R</a>
-      <a class="" href="/company-brands">S</a>
-      <a class="" href="/company-brands">T</a>
-      <a class="" href="/company-brands">U</a>
-      <a class="" href="/company-brands">V</a>
-      <a class="" href="/company-brands">W</a>
-      <a class="" href="/company-brands">X</a>
-      <a class="" href="/company-brands">Y</a>
-      <a class="" href="/company-brands">Z</a>
-      <a class="" href="/company-brands">Show All</a>
+      @foreach ( range('A', 'Z') as $char )
+        <a class="" href="/brands/{{$char}}">{{$char}}</a>
+      @endforeach
+      <a class="" href="/brands">Show All</a>
     </div>
 
   </div>
@@ -63,45 +44,39 @@
         </strong>
       </h2>
     </div>
+    @foreach ($data['top-company'] as $company)
+
     <x-home.companies>
+      @slot('name')
+          {{$company['name']}}
+      @endslot
+      @slot('profile')
+          {{$company['profile']}}
+      @endslot
+      @slot('review')
+          {{$company['review']}}
+      @endslot
       @slot('rating')
+      @php
+        $mod = fmod($company['rating'],1) > 0.5 ? 1 : 0;
+        $rating = intval($company['rating']) + $mod;
+
+      @endphp
+      @for ($i = 1 ; $i <= $rating; $i++ )
       <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
+      @endfor
+      @for ($a = 1 ;  $a <= (5 - $rating); $a++ )
       <x-rating-grey></x-rating-grey>
+      @endfor
+      @endslot
+      @slot('slug')
+          {{$company['slug']}}
       @endslot
     </x-home.companies>
-    <x-home.companies>
-      @slot('rating')
-      <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
-      <x-rating-grey></x-rating-grey>
-      @endslot
-    </x-home.companies>
-    <x-home.companies>
-      @slot('rating')
-      <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
-      <x-rating-grey></x-rating-grey>
-      @endslot
-    </x-home.companies>
-    <x-home.companies>
-      @slot('rating')
-      <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
-      <x-rating-green></x-rating-green>
-      <x-rating-grey></x-rating-grey>
-      @endslot
-    </x-home.companies>
-    <div class="w-100 text-center">
+    @endforeach
+    {{-- <div class="w-100 text-center">
       <button class="btn btn-primary px-5"> Load More </button>
-    </div>
+    </div> --}}
   </div>
 </section>
 </x-base>

@@ -27,6 +27,26 @@ export const FieldTableData = {
           }
         },
         {
+          key: 'verified',
+          label: 'Verified',
+          class: 'text-center',
+
+          thStyle: {
+            minWidth: '75px',
+            width: '75px',
+          }
+        },
+        {
+          key: 'status',
+          label: 'Status',
+          class: 'text-center',
+
+          thStyle: {
+            minWidth: '100px',
+            width: '100px'
+          },
+        },
+        {
           key: 'created_at',
           label: 'Registered On',
           class: 'text-right',
@@ -43,8 +63,34 @@ export const FieldTableData = {
             width: '50px'
           },
         },
-      ]
+      ],
+      itemsData: [],
+      selectedInputSearch: this.$route.query.searchKey || 'name',
+      optionsInputSearch: [{
+          value: 'name',
+          text: 'Name'
+        },
+        {
+          value: 'email',
+          text: 'Email'
+        },
+
+      ],
     };
   },
+  computed: {
+    filteredItemsData() {
+      if (this.selectedInputSearch == 'name') {
+        return this.itemsData.filter(result =>
+          result.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
+      if (this.selectedInputSearch == 'email') {
+        return this.itemsData.filter(result =>
+          result.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
 
+    }
+  }
 };

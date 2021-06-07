@@ -16,7 +16,8 @@ export const FieldTableData = {
           tdClass: 'truncate-cell',
           thStyle: {
             minWidth: '175px',
-          }
+          },
+          sortable: true
         },
         {
           key: 'email',
@@ -24,34 +25,38 @@ export const FieldTableData = {
           tdClass: 'truncate-cell',
           thStyle: {
             minWidth: '175px',
-          }
+          },
+          sortable: true
         },
         {
-          key: 'total_review',
+          key: 'review',
           label: 'Review',
           class: 'text-center',
           thStyle: {
             minWidth: '100px',
             width: '100px',
-          }
+          },
+          sortable: true
         },
         {
-          key: 'total_useful',
-          label: 'Useful',
+          key: 'like',
+          label: 'Like',
           class: 'text-center',
           thStyle: {
             minWidth: '100px',
             width: '100px',
-          }
+          },
+          sortable: true
         },
         {
-          key: 'total_unuseful',
-          label: 'Unuseful',
+          key: 'dislike',
+          label: 'Dislike',
           class: 'text-center',
           thStyle: {
             minWidth: '100px',
             width: '100px',
-          }
+          },
+          sortable: true
         },
         {
           key: 'status',
@@ -62,6 +67,7 @@ export const FieldTableData = {
             minWidth: '100px',
             width: '100px'
           },
+          sortable: true
         },
         {
           key: 'created_at',
@@ -71,6 +77,7 @@ export const FieldTableData = {
             minWidth: '125px',
             width: '125px',
           },
+          sortable: true
         },
         {
           key: 'action',
@@ -80,8 +87,34 @@ export const FieldTableData = {
             width: '50px'
           },
         },
-      ]
+      ],
+      itemsData: [],
+      selectedInputSearch: this.$route.query.searchKey || 'name',
+      optionsInputSearch: [{
+          value: 'name',
+          text: 'Name'
+        },
+        {
+          value: 'email',
+          text: 'Email'
+        },
+
+      ],
     };
   },
+  computed: {
+    filteredItemsData() {
+      if (this.selectedInputSearch == 'name') {
+        return this.itemsData.filter(result =>
+          result.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
+      if (this.selectedInputSearch == 'email') {
+        return this.itemsData.filter(result =>
+          result.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
 
+    }
+  }
 };

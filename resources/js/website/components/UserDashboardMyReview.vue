@@ -1,48 +1,85 @@
 <template>
   <div>
     <h3>My Reviews</h3>
-    <div style="overflow:auto">
+    <div v-if="isLoaded && itemsData.length > 0">
+      <b-row>
+        <b-col xl="4" md="6" class="mb-3">
+          <b-input-group>
+            <b-input-group-prepend>
+              <b-form-select plain v-model="selectedInputSearch" :options="optionsInputSearch" />
+            </b-input-group-prepend>
+            <b-form-input autofocus v-model="search" @input="onInput" type="text" placeholder="Instant Search">
+            </b-form-input>
+            <b-input-group-append>
+              <b-btn :disabled="!search" @click="search = ''">Clear</b-btn>
+            </b-input-group-append>
+          </b-input-group>
+        </b-col>
+        <b-col xl="8" md="6" style="overflow-y:auto" v-if="getTotalPages > 1">
+          <b-pagination align="right" class="justify-content-end mb-0" :total-rows="getTotalRows" v-model="currentPage" />
+        </b-col>
+      </b-row>
+      <div style="overflow-y:auto">
+        <b-table small stacked="sm" :fields="FieldTableItems" :items="filteredItemsData" :current-page="currentPage" :per-page="perPage">
+          <template v-slot:cell(no)="data">
+            {{ data.index + 1 + (currentPage - 1) * perPage }}
+            <!-- {{data.index+1+((currentPage-1)*perPage)}} -->
+          </template>
+          <template v-slot:cell(company_name)="data">
+            {{data.item.company_name}}
+          </template>
+          <template v-slot:cell(review_title)="data">
+            {{data.item.review_title}}
+          </template>
+          <template v-slot:cell(type)="data">
+            <b-badge :variant="getBadgeReviewType(data.item.type)" class="p-1">
+              {{ data.item.type }}
+            </b-badge>
+          </template>
+          <template v-slot:cell(status)="data">
+            <b-badge :variant="getBadgeStatus(data.item.status)" class="p-1">
+              {{ data.item.status }}
+            </b-badge>
+          </template>
+          <template v-slot:cell(rating)="data">
+            <div class="w-100">
 
-      <b-table stacked="sm" stack hover :fields="FieldTableItems" :items="items" thead-class="thead-light">
-        <template v-slot:cell(no)="data">
-          {{data.index+1}}
-          <!-- {{data.index+1+((currentPage-1)*perPage)}} -->
-        </template>
-        <template v-slot:cell(company_name)="data">
-          {{data.item.company_name}}
-        </template>
-        <template v-slot:cell(review_title)="data">
-          {{data.item.review_title}}
-        </template>
-        <template v-slot:cell(rating)="data">
-          <div class="w-100">
+              <i v-for="v in data.item.rating" :key="v" class="fa fa-star"></i>
+            </div>
+            {{data.item.rating}} / 5
+          </template>
+          <template v-slot:cell(created_at)="data">
+            {{data.item.created_at | dateFormated}}
+          </template>
 
-            <i v-for="v in data.item.rating" :key="v" class="fa fa-star"></i>
-          </div>
-          {{data.item.rating}} / 5
-        </template>
-        <template v-slot:cell(created_at)="data">
-          {{data.item.created_at}}
-        </template>
-        <template v-slot:cell(action)="data">
-          <div class="d-inline-block">
+          <template v-slot:cell(action)="data">
 
-            <b-btn variant="success" size="sm" @click="showModalEditReview(data.index)">
-              <i class="fa fa-pencil"></i>
-            </b-btn>
-            <b-btn variant="danger" size="sm">
-              <i class="fa fa-trash"></i>
-            </b-btn>
-          </div>
-        </template>
-      </b-table>
+            <div class="d-inline-block">
+
+              <b-btn v-if="data.item.status == 'SUSPENDED'" variant="success" size="sm" @click="showModalEditReview(data.item.id)">
+                <i class="fa fa-pencil"></i>
+              </b-btn>
+              <b-btn variant="danger" size="sm">
+                <i class="fa fa-trash"></i>
+              </b-btn>
+            </div>
+          </template>
+        </b-table>
+      </div>
     </div>
-    <b-modal v-model="modalEditReview" title="Edit Review">
+    <b-alert show v-if="isLoaded && itemsData.length == 0">
+      <h4>No Review Data</h4>
+      <hr>
+      <div>
+        Review from you will be shown here
+      </div>
+    </b-alert>
+    <b-modal v-if="isLoaded && itemsData.length > 0" v-model="modalEditReview" title="Edit Review">
       <b-form-group id="review-title" label="Title" label-for="review-title-input">
         <b-form-input id="review-title-input" v-model="input.title" trim></b-form-input>
       </b-form-group>
       <b-form-group id="review-content" label="Review" label-for="review-content-input">
-        <b-form-textarea id="review-content-input" v-model="input.content" rows="3"></b-form-textarea>
+        <b-form-textarea id="review-content-input" v-model="input.description" rows="3"></b-form-textarea>
       </b-form-group>
       <b-form-group id="rating" label="Rating" label-for="rating-input">
         <b-form-rating id="rating-input" class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="input.rating"></b-form-rating>
@@ -52,64 +89,103 @@
 </template>
 <script>
   import {
+    Badge
+  } from "../mixins/MixinBadge";
+  import {
+    instantSearch
+  } from "../mixins/instantSearch";
+  import {
+    OperationPage
+  } from "../mixins/OperationPage";
+  import {
     MyReviewTable
   } from "./UserDashboardMyReviewTable"
   export default {
     name: 'UserDashboardMyReview',
-    mixins: [MyReviewTable],
+    mixins: [Badge, MyReviewTable, instantSearch, OperationPage],
 
     data: function() {
       return {
+        isLoaded: false,
         modalEditReview: false,
         input: {
           title: '',
-          content: '',
+          description: '',
           rating: null
         },
-        items: [{
-            id: 1,
-            company_name: "GreenHolt LLC",
-            review_title: 'test',
-            review_content: 'lorem ipsum dolor sit amet',
-            rating: 4,
-            created_at: "20-Jul-21",
-          },
-          {
-            id: 1,
-            company_name: "GreenHolt LLC",
-            review_title: 'test',
-            review_content: 'lorem ipsum dolor sit amet',
-            rating: 4,
-            created_at: "20-Jul-21",
-          },
-          {
-            id: 1,
-            company_name: "GreenHolt LLC",
-            review_title: 'test',
-            review_content: 'lorem ipsum dolor sit amet',
-            rating: 4,
-            created_at: "20-Jul-21",
-          },
-          {
-            id: 1,
-            company_name: "GreenHolt LLC",
-            review_title: 'test',
-            review_content: 'lorem ipsum dolor sit amet',
-            rating: 4,
-            created_at: "20-Jul-21",
-          },
-        ]
+        items: [],
+        // items: [{
+        //     id: 1,
+        //     company_name: "GreenHolt LLC",
+        //     review_title: 'test',
+        //     review_description: 'lorem ipsum dolor sit amet',
+        //     rating: 4,
+        //     created_at: "20-Jul-21",
+        //   },
+        //   {
+        //     id: 1,
+        //     company_name: "GreenHolt LLC",
+        //     review_title: 'test',
+        //     review_description: 'lorem ipsum dolor sit amet',
+        //     rating: 4,
+        //     created_at: "20-Jul-21",
+        //   },
+        //   {
+        //     id: 1,
+        //     company_name: "GreenHolt LLC",
+        //     review_title: 'test',
+        //     review_description: 'lorem ipsum dolor sit amet',
+        //     rating: 4,
+        //     created_at: "20-Jul-21",
+        //   },
+        //   {
+        //     id: 1,
+        //     company_name: "GreenHolt LLC",
+        //     review_title: 'test',
+        //     review_description: 'lorem ipsum dolor sit amet',
+        //     rating: 4,
+        //     created_at: "20-Jul-21",
+        //   },
+        // ]
       }
     },
-    created() {},
+    mounted() {
+      this.getData()
+    },
     methods: {
-      showModalEditReview(i) {
-
-        this.input.title = this.items[i].review_title
-        this.input.content = this.items[i].review_content
-        this.input.rating = this.items[i].rating
+      showModalEditReview(id) {
+        let i = this.itemsData.findIndex(a => a.id == id)
+        this.input.title = this.itemsData[i].review_title
+        this.input.description = this.itemsData[i].review_description
+        this.input.rating = this.itemsData[i].rating
         this.modalEditReview = true
-      }
+      },
+      getData() {
+        axios.get(`user-dashboard/review`)
+          .then((response) => {
+            this.itemsData = this.mutateKey(response.data)
+            console.log(this.input)
+            this.isLoaded = true
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      },
+      mutateKey(data) {
+        let mutateData = data.map(function(item) {
+          return {
+            id: item.id,
+            company_name: item.company.name,
+            review_title: item.title,
+            review_description: item.description,
+            rating: item.rating,
+            type: item.review_type.name,
+            status: item.review_status.name,
+            created_at: item.created_at,
+          };
+        });
+        return mutateData;
+      },
     },
   }
 </script>

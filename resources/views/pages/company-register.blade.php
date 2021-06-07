@@ -6,6 +6,6 @@
   @slot('image')
   company-login.jpg
   @endslot
-<company-register/>
+<company-register :category='@json($category)'/>
 </x-base-plain>
 @endsection

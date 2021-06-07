@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,6 +19,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'account_status_id',
     ];
 
     /**
@@ -40,4 +40,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /**
+     * Get all of the reviews for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function scopeId($query, $value)
+    {
+        return $query->where('id', $value);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function account_status()
+    {
+        return $this->belongsTo(AccountStatus::class);
+    }
 }

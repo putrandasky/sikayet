@@ -15,111 +15,31 @@
   </div>
   <div  class="alphabet w-100  d-sm-flex d-none  align-items-center justify-content-between">
 
-    <a class="" href="">A</a>
-    <a class="" href="">B</a>
-    <a class="" href="">C</a>
-    <a class="" href="">D</a>
-    <a class="" href="">E</a>
-    <a class="" href="">F</a>
-    <a class="" href="">G</a>
-    <a class="" href="">H</a>
-    <a class="" href="">I</a>
-    <a class="" href="">J</a>
-    <a class="" href="">K</a>
-    <a class="" href="">L</a>
-    <a class="" href="">M</a>
-    <a class="" href="">N</a>
-    <a class="" href="">O</a>
-    <a class="" href="">P</a>
-    <a class="" href="">Q</a>
-    <a class="" href="">R</a>
-    <a class="" href="">S</a>
-    <a class="" href="">T</a>
-    <a class="" href="">U</a>
-    <a class="" href="">V</a>
-    <a class="" href="">W</a>
-    <a class="" href="">X</a>
-    <a class="" href="">Y</a>
-    <a class="" href="">Z</a>
-    <a class="" href="">Show All</a>
+      @foreach ( range('A', 'Z') as $char )
+      <a class="" href="/brands/{{$char}}">{{$char}}</a>
+      @endforeach
+      <a class="" href="/brands">Show All</a>
   </div>
 
 </div>
 <section class=" bg-white">
 
   <div class="container-fluid py-5">
+    @foreach ( $data as $key => $brands)
+
     <x-company-brand.brand-list>
-      @slot('title') A @endslot
+      @slot('title') {{$key}} @endslot
+      @foreach ( $brands as $brand )
+
       <x-company-brand.brand-list-item>
-        Ark Naturals
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Arm & Hammer
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Ark
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Armstrong
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          AtlantickAuthority
-        </x-company-brand.brand-list-item>
+      @slot('slug') {{$brand['slug']}} @endslot
+        {{$brand['name']}}
+      </x-company-brand.brand-list-item>
+      @endforeach
+
     </x-company-brand.brand-list>
-    <x-company-brand.brand-list>
-      @slot('title') B @endslot
-      <x-company-brand.brand-list-item>
-        Ark Naturals
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Arm & Hammer
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Ark
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Armstrong
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          AtlantickAuthority
-        </x-company-brand.brand-list-item>
-    </x-company-brand.brand-list>
-    <x-company-brand.brand-list>
-      @slot('title') C @endslot
-      <x-company-brand.brand-list-item>
-        Ark Naturals
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Arm & Hammer
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Ark
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Armstrong
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          AtlantickAuthority
-        </x-company-brand.brand-list-item>
-    </x-company-brand.brand-list>
-    <x-company-brand.brand-list>
-      @slot('title') D @endslot
-      <x-company-brand.brand-list-item>
-        Ark Naturals
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Arm & Hammer
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Ark
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          Armstrong
-        </x-company-brand.brand-list-item>
-        <x-company-brand.brand-list-item>
-          AtlantickAuthority
-        </x-company-brand.brand-list-item>
-    </x-company-brand.brand-list>
+       @endforeach
+
   </div>
 </section>
 </x-base>

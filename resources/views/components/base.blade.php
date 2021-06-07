@@ -26,10 +26,27 @@
       </li>
     </ul>
     <div class="navbar justify-content-end d-none d-sm-flex">
+
+ @if (!auth('company')->check() )
+
       <a class="mr-2 btn btn-primary btn-sm" href="/write-review-anycompany">Write a Review</a>
+
+ @endif
+ @if (!auth('company')->check() && !auth('web')->check())
+
       <a class="mr-2 btn btn-dark btn-sm " href="/company-login">For Companies</a>
       <a class="btn btn-outline-secondary btn-sm" href="/user-login"><i class="fa fa-sign-in"></i></a>
-      {{-- <ul class="nav justify-content-end d-flex d-md-none">
+ @endif
+ @if (auth('web')->check())
+
+ <a class="btn btn-outline-secondary btn-sm" href="/user-dashboard"><i class="fa fa-user"></i></a>
+ @endif
+ @if (auth('company')->check())
+
+ <a class="btn btn-outline-secondary btn-sm" href="/company-dashboard"><i class="fa fa-briefcase"></i></a>
+ @endif
+
+ {{-- <ul class="nav justify-content-end d-flex d-md-none">
         <button type="button" class="btn btn-primary btn-sm" v-b-toggle.sidebar-1>
           Write a Review
         </button>

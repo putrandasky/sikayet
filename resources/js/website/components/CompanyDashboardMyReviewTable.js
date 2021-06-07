@@ -19,6 +19,15 @@ export const MyReviewTable = {
 
         },
         {
+          key: 'user.name',
+          label: 'From',
+          class: 'text-center',
+          thStyle: {
+            minWidth: '125px',
+            width: '125px'
+          },
+        },
+        {
           key: 'rating',
           label: 'Rating',
           class: 'text-center',
@@ -30,17 +39,34 @@ export const MyReviewTable = {
 
 
         {
-          key: 'created_at',
-          label: 'Review Date',
-          class: 'text-center',
+          key: 'type',
+          label: 'Type',
           thStyle: {
-            minWidth: '125px',
-            width: '125px'
+            minWidth: '100px',
+            width: '100px'
           },
         },
         {
           key: 'status',
           label: 'Status',
+          thStyle: {
+            minWidth: '100px',
+            width: '100px'
+          },
+        },
+        {
+          key: 'answered',
+          label: 'Answered',
+          class: 'text-center',
+
+          thStyle: {
+            minWidth: '75px',
+            width: '75px'
+          },
+        },
+        {
+          key: 'created_at',
+          label: 'Review Date',
           class: 'text-center',
           thStyle: {
             minWidth: '125px',
@@ -58,6 +84,33 @@ export const MyReviewTable = {
         },
 
       ],
+      itemsData: [],
+      selectedInputSearch: 'title',
+      optionsInputSearch: [{
+          value: 'title',
+          text: 'Title'
+        },
+        {
+          value: 'from',
+          text: 'From'
+        },
+
+      ],
     };
   },
+  computed: {
+    filteredItemsData() {
+      if (this.selectedInputSearch == 'title') {
+        return this.itemsData.filter(result =>
+          result.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
+      if (this.selectedInputSearch == 'from') {
+        return this.itemsData.filter(result =>
+          result.user.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
+
+    }
+  }
 };

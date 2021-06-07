@@ -1,9 +1,9 @@
 <template>
-  <b-container class="py-3">
+  <b-container fluid class="py-3">
     <b-card header-tag="nav">
       <template #header>
         <b-nav card-header tabs>
-          <b-nav-item active-class="active" to="/companies/unverified">Unverified</b-nav-item>
+          <b-nav-item active-class="active" to="/companies/unactive">Unactive</b-nav-item>
           <b-nav-item active-class="active" to="/companies/regular">Regular</b-nav-item>
           <b-nav-item active-class="active" to="/companies/premium">Premium</b-nav-item>
           <b-nav-item active-class="active" to="/companies/suspended">Suspended</b-nav-item>

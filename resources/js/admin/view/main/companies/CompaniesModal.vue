@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="isModalShow" title="User Data" @hidden="modalShow(false)" @show="show" @ok="submit">
+  <b-modal v-model="isModalShow" title="User Data" @hidden="modalShow(false)" @show="show" @ok.prevent="submit">
     <b-form-group label="Name">
       <b-form-input disabled v-model="data.name"></b-form-input>
     </b-form-group>
@@ -8,7 +8,7 @@
     </b-form-group>
     <b-form-group label="Is Verified?">
 
-      <b-form-select plain v-model="data.verified" :options="options.verified">
+      <b-form-select plain v-model="data.is_verified" :options="options.is_verified">
         <template slot="first">
           <option :value="null" disabled>-- Please Select Company Verification --</option>
         </template>
@@ -16,7 +16,7 @@
     </b-form-group>
     <b-form-group label="Status">
 
-      <b-form-select plain v-model="data.status" :options="options.company_status">
+      <b-form-select plain v-model="data.account_status_id" :options="options.company_status">
         <template slot="first">
           <option :value="null" disabled>-- Please Select Company Status --</option>
         </template>
@@ -27,48 +27,41 @@
 <script>
   export default {
     name: 'CompaniesModal',
-    props: ['propsData'],
+    props: ['propsData', 'propsOptions'],
     data: function() {
       return {
         data: {
+          id: null,
           index: null,
           name: '',
           email: '',
-          status: '',
-          verified: null,
+          account_status_id: null,
+          is_verified: null,
         },
         isModalShow: false,
         options: {
-          verified: [{
-              value: false,
+          is_verified: [{
+              value: 0,
               text: 'Unverified'
             },
             {
-              value: true,
+              value: 1,
               text: 'Verified'
             }
           ],
-          company_status: [{
-              value: 'UNACTIVE',
-              text: 'UNACTIVE'
-            },
-            {
-              value: 'ACTIVE',
-              text: 'ACTIVE'
-            },
-            {
-              value: 'SUSPENDED',
-              text: 'SUSPENDED'
-            }
-          ]
+          company_status: []
         },
       }
     },
-    created() {},
+    mounted() {
+      this.options.company_status = this.propsOptions
+      console.log('aaa');
+      console.log(this.propsOptions);
+    },
     watch: {
-      // 'propsData.name': function(newData, oldData) {
-      //   this.data.name = newData
-      // },
+      'propsOptions': function(newData, oldData) {
+        this.options.company_status = newData
+      },
       // 'propsData.index': function(newData, oldData) {
       //   this.data.index = newData
       // },
@@ -87,11 +80,13 @@
     },
     methods: {
       show() {
+        this.data.id = this.propsData.id
         this.data.name = this.propsData.name
         this.data.index = this.propsData.index
         this.data.email = this.propsData.email
-        this.data.verified = this.propsData.verified
-        this.data.status = this.propsData.status
+        this.data.is_verified = this.propsData.is_verified
+        this.data.account_status_id = this.propsData.account_status_id
+        console.log(this.propsData.is_verified);
       },
       modalShow(value) {
         this.isModalShow = value
@@ -99,11 +94,12 @@
       submit() {
         this.$emit('submitted', this.data)
         let data = {
+          id: null,
           index: null,
           name: '',
           email: '',
-          status: '',
-          verified: null,
+          account_status_id: null,
+          is_verified: null,
         }
 
         this.data = data

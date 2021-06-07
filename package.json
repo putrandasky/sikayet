@@ -33,9 +33,11 @@
         "@tiptap/starter-kit": "^2.0.0-beta.70",
         "@tiptap/vue-2": "^2.0.0-beta.34",
         "bootstrap-vue": "^2.21.2",
+        "dayjs": "^1.10.5",
         "js-cookie": "^2.2.1",
         "laravel-mix-alias": "^1.0.2",
         "remixicon": "^2.5.0",
+        "vue-bootstrap-typeahead": "^0.2.6",
         "vue-lottie": "^0.2.1",
         "vue-router": "^3.0.1",
         "vuex": "^3.0.1"

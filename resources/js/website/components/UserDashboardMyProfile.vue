@@ -58,8 +58,20 @@
       }
     },
     created() {},
+    mounted() {
+      this.getData()
+    },
     methods: {
+      getData() {
+        axios.get(`user-dashboard/profile`)
+          .then((response) => {
+            console.log(response.data)
 
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      }
     },
   }
 </script>

@@ -10,6 +10,32 @@ window.Vue = require('vue').default;
 window.Vue2 = require('vue').default;
 window.Vue3 = require('vue').default;
 Vue.use(BootstrapVue);
+window.dayjs = require('dayjs');
+Vue.mixin({
+  methods: {
+    toastSuccess: function(content) {
+      this.$bvToast.toast(content, {
+        title: `SUCCESS!`,
+        headerClass: 'font-weight-bold',
+        variant: 'success',
+        solid: true,
+        autoHideDelay: 1000,
+        toaster: 'b-toaster-top-right'
+      })
+    },
+    toastError: function(content) {
+      this.$bvToast.toast(content, {
+        title: `ERROR!`,
+        headerClass: 'font-weight-bold',
+        variant: 'danger',
+        solid: true,
+        autoHideDelay: 1000,
+        toaster: 'b-toaster-top-right'
+      })
+    }
+  }
+});
+import './filter/filter';
 
 
 /**
@@ -25,6 +51,7 @@ Vue.use(BootstrapVue);
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('review-action', require('./components/CompanyDetailReviewAction.vue').default);
+Vue.component('home-search', require('./components/HomeSearch.vue').default);
 Vue.component('user-dashboard', require('./components/UserDashboard.vue').default);
 Vue.component('company-dashboard', require('./components/CompanyDashboard.vue').default);
 Vue.component('company-login', require('./components/CompanyLogin.vue').default);

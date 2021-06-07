@@ -11,7 +11,7 @@ import AppMain from '../view/main/AppMain.vue'
 import Dashboard from '../view/main/dashboard/Dashboard.vue'
 import Users from '../view/main/users/Users.vue'
 import Companies from '../view/main/companies/Companies.vue'
-import CompaniesUnverified from '../view/main/companies/CompaniesUnverified.vue'
+import CompaniesUnactive from '../view/main/companies/CompaniesUnverified.vue'
 import CompaniesRegular from '../view/main/companies/CompaniesRegular.vue'
 import CompaniesPremium from '../view/main/companies/CompaniesPremium.vue'
 import CompaniesSuspended from '../view/main/companies/CompaniesSuspended.vue'
@@ -62,12 +62,12 @@ const routes = [{
       {
         path: '/companies',
         name: 'companies',
-        redirect: '/companies/unverified',
+        redirect: '/companies/unactive',
         component: Companies,
         children: [{
-            path: 'unverified',
-            name: 'companiesUnverified',
-            component: CompaniesUnverified,
+            path: 'unactive',
+            name: 'companiesUnactive',
+            component: CompaniesUnactive,
           },
           {
             path: 'regular',

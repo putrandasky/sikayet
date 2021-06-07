@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="isModalShow" title="User Data" @hidden="modalShow(false)" @show="show" @ok="submit">
+  <b-modal v-model="isModalShow" title="User Data" @hidden="modalShow(false)" @show="show" @ok.prevent="submit">
     <b-form-group label="Name">
       <b-form-input disabled v-model="data.name"></b-form-input>
     </b-form-group>
@@ -17,7 +17,7 @@
     </b-form-group>
     <b-form-group label="Status">
 
-      <b-form-select plain v-model="data.status" :options="options.review_status">
+      <b-form-select plain v-model="data.review_status_id" :options="options.review_status">
         <template slot="first">
           <option :value="null" disabled>-- Please Select Review Status --</option>
         </template>
@@ -28,39 +28,30 @@
 <script>
   export default {
     name: 'ReviewsModal',
-    props: ['propsData'],
+    props: ['propsData', 'propsOptions'],
     data: function() {
       return {
         data: {
+          id: null,
           index: null,
           name: '',
           company: '',
           title: '',
           description: '',
           rating: null,
-          status: ''
+          review_status_id: ''
         },
         isModalShow: false,
         options: {
-
-          review_status: [{
-              value: 'UNAPPROVED',
-              text: 'UNAPPROVED'
-            },
-            {
-              value: 'APPROVED',
-              text: 'APPROVED'
-            },
-            {
-              value: 'SUSPENDED',
-              text: 'SUSPENDED'
-            }
-          ]
+          review_status: []
         },
       }
     },
-    created() {},
+    mounted() {
+      this.options.review_status = this.propsOptions
+    },
     watch: {
+
       // 'propsData.name': function(newData, oldData) {
       //   this.data.name = newData
       // },
@@ -82,9 +73,10 @@
     },
     methods: {
       show() {
+        this.data.id = this.propsData.id
         this.data.index = this.propsData.index
         this.data.name = this.propsData.name
-        this.data.status = this.propsData.status
+        this.data.review_status_id = this.propsData.review_status_id
         this.data.company = this.propsData.company
         this.data.title = this.propsData.title
         this.data.description = this.propsData.description
@@ -96,13 +88,14 @@
       submit() {
         this.$emit('submitted', this.data)
         let data = {
+          id: null,
           index: null,
           name: '',
           company: '',
           title: '',
           description: '',
           rating: null,
-          status: ''
+          review_status_id: ''
         }
 
         this.data = data
