@@ -23,14 +23,16 @@ class ProfileController extends Controller
         $current_membership = Models\MembershipActive::companyId($company->id)->first();
         if (!$current_package && $current_membership) {
             $current_membership->delete();
+            $company->respond_unlimited = 0;
+            $company->save();
         }
         if ($current_package) {
             $this->updateMembershipActive($current_membership, $current_package, $company->id);
+            $company->respond_unlimited = $current_package->respond_quota == -1 ? 1 : 0;
+            $company->save();
         }
 
         $this->checkReservedQuota($company->id);
-        $company->respond_unlimited = $current_package->respond_quota == -1 ? 1 : 0;
-        $company->save();
 
         $data['company'] = Models\Company::where('id', $company->id)->with('business_category')->first();
 
