@@ -39,9 +39,22 @@ class Company extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
+
+    public function membership_active()
+    {
+        return $this->hasOne(MembershipActive::class);
+    }
     public function scopeId($query, $value)
     {
         return $query->where('id', $value);
+    }
+    public function scopeHasMembershipActive($query, $value)
+    {
+        if ($value) {
+            return $query->has('membership_active')->with('membership_active');
+        } else {
+            return $query->doesnthave('membership_active');
+        }
     }
     public function scopeIsVerified($query, $value)
     {
@@ -49,7 +62,7 @@ class Company extends Authenticatable
     }
     public function scopeHasStatus($query, $value)
     {
-        return $query->where('account_status_id', $value);
+        return $query->where('account_status_id', $value)->with('account_status');
     }
 
 }

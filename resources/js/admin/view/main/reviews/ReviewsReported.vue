@@ -85,6 +85,7 @@
           index: null,
           name: '',
           company: '',
+          photo: null,
           title: '',
           description: '',
           rating: null,
@@ -130,6 +131,7 @@
         this.selected.name = value.user.name
         this.selected.company = value.company.name
         this.selected.title = value.title
+        this.selected.photo = value.photo
         this.selected.description = value.description
         this.selected.rating = value.rating
         this.selected.index = index

@@ -8,7 +8,7 @@
 
       </b-nav-item>
     </b-nav>
-    <component v-bind:is="component"></component>
+    <component :userdata="user" v-bind:is="component"></component>
   </div>
 </template>
 <script>
@@ -17,6 +17,7 @@
   export default {
 
     name: 'UserDashboard',
+    props: ['user'],
     components: {
       MyReview,
       MyProfile

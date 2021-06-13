@@ -26,6 +26,14 @@
         @slot('name')
         {{$company['name']}}
         @endslot
+              @slot('avatar')
+              @if ($company['avatar'])
+
+              <img class="img-fluid " src="{{ asset("/storage/company/{$company['avatar']}") }}" alt="">
+              @else
+              <span class="b-avatar badge-secondary rounded-sm" style="width:120px;height:120px"><i class="fa fa-briefcase fa-3x"></i></span>
+              @endif
+              @endslot
         @slot('profile')
         {{$company['profile']}}
         @endslot

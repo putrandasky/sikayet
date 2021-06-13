@@ -11,12 +11,45 @@ class HomePageController extends Controller
     public function show()
     {
 
-        $data['header']['title'] = Models\Editor::key('header-title');
-        $data['header']['subtitle'] = Models\Editor::key('header-subtitle');
+        $data['header']['title'] = Models\Editor::key('header-title')->value;
+        $data['header']['subtitle'] = Models\Editor::key('header-subtitle')->value;
         $data['top-company'] = Models\Company::where('rating', '>', 4)->orderBy('rating')->orderBy('review')->get(['id', 'name', 'profile', 'rating', 'review', 'slug'])->take(5);
         // return $data;
         return view('pages.home', compact("data"));
 
+    }
+    public function showTermOfUse()
+    {
+        $text = Models\Editor::key('term-of-use')->value;
+        return view('pages.home-term-of-use', compact("text"));
+    }
+    public function showAbout()
+    {
+        $text = Models\Editor::where('key', 'like', "about_%")->get();
+        return view('pages.about', compact("text"));
+    }
+    public function showPrivacyPolicy()
+    {
+        $text = Models\Editor::key('privacy-policy')->value;
+        return view('pages.home-privacy-policy', compact("text"));
+    }
+    public function showAgreement()
+    {
+        $text = Models\Editor::key('agreement')->value;
+        return view('pages.home-agreement', compact("text"));
+    }
+    public function showContact()
+    {
+        return view('pages.home-contact');
+    }
+    public function postContact(Request $request)
+    {
+        $store = new Models\Contact();
+        $store->name = $request->name;
+        $store->email = $request->email;
+        $store->message = $request->message;
+        $store->save();
+        return response()->json(['status' => 'success', 'message' => 'Your message has been submitted succesfuly'], 200);
     }
     public function search(Request $request)
     {

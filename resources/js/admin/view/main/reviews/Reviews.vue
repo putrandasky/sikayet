@@ -7,6 +7,7 @@
           <!-- <b-nav-item active-class="active" to="/reviews/active">Active Review</b-nav-item> -->
           <b-nav-item active-class="active" to="/reviews/reported">Reported</b-nav-item>
           <b-nav-item active-class="active" to="/reviews/suspended">Suspended</b-nav-item>
+          <b-nav-item active-class="active" to="/reviews/orphans">Orphans</b-nav-item>
         </b-nav>
       </template>
       <router-view></router-view>

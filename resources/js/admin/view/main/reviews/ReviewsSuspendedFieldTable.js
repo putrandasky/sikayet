@@ -54,7 +54,7 @@ export const FieldTableData = {
         },
         {
           key: 'like',
-          label: 'Dislike',
+          label: 'Like',
           class: 'text-center',
           thStyle: {
             minWidth: '100px',
@@ -110,7 +110,7 @@ export const FieldTableData = {
         },
         {
           value: 'title',
-          text: 'company'
+          text: 'Title'
         },
 
       ],

@@ -1,6 +1,23 @@
 @extends('layouts.website')
 
+@section('meta')
+<title>{{$company->name}}</title>
+<meta name="description" content="{{$company->profile}}">
+<meta name="keywords" content="{{$company->business_category->name}}">
+<meta property="og:title" content="{{$company->name}}" />
+<meta property="og:site_name" content="{{$company->name}}" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="{{$company->profile}}">
+<meta property="og:image" content="{{ asset("/storage/company/{$company->avatar}") }}">
+<meta property="og:url" content="{{url()->current()}}" />
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{$company->name}}">
+<meta name="twitter:description" content="{{$company->profile}}">
+<meta name="twitter:image:src" content="{{ asset("/storage/company/{$company->avatar}") }}">
+<meta name="twitter:image" content="{{ asset("/storage/company/{$company->avatar}") }}">
 
+
+@endsection
 @section('content')
 <x-base>
   <x-header-wrapper>
@@ -15,14 +32,19 @@
           @endslot
           @slot('image_area')
           <div class="bg-white  rounded" style="height: auto;width:120px">
-            <img class="img-fluid " src="{{ asset('images/websites/logo-company.png') }}" alt="">
+            @if ($company->avatar)
+
+            <img class="img-fluid " src="{{ asset("/storage/company/{$company->avatar}") }}" alt="">
+            @else
+            <span class="b-avatar badge-secondary rounded-sm" style="width:120px;height:120px"><i class="fa fa-briefcase fa-3x"></i></span>
+            @endif
           </div>
           @endslot
           @slot('data_area')
           <div>
             <div class="text-light text-center text-sm-left">{{$company->business_category->name}}</div>
             <div class="text-white text-center text-sm-left">
-              <h3>{{$company->name}}</h3>
+              <h1>{{$company->name}}</h1>
             </div>
             <div class="d-flex mb-3 justify-content-center justify-content-sm-start">
               @php
@@ -38,9 +60,9 @@
                   @endfor
             </div>
             <div class="d-flex">
-              <div class="text-success">Solutions : {{$company->review_solution}}</div>
-              <div class="text-danger ml-3">Complaints : {{$company->review_complaint}}</div>
-              <div class="text-secondary ml-3">Generals : {{$company->review_general}}</div>
+              <div class="text-success">Solutions : {{$company->review_solution ?? 0}}</div>
+              <div class="text-danger ml-3">Complaints : {{$company->review_complaint ?? 0}}</div>
+              <div class="text-secondary ml-3">Generals : {{$company->review_general ?? 0}}</div>
             </div>
           </div>
           @endslot
@@ -55,7 +77,7 @@
           @endphp
           <x-progress>
             @slot('value')
-            {{  $total_star_count ? ($company->star_5 * 100) /($total_star_count ) : 0 }}
+            {{ $total_star_count ? ($company->star_5 * 100) /($total_star_count ) : 0 }}
             @endslot
             5 stars
           </x-progress>
@@ -87,10 +109,10 @@
       </div>
     </div>
     <div class="w-100 text-right mt-3">
-       @if (auth('web')->check())
+      @if (auth('web')->check())
       <a class="btn btn-success" href="/brand/{{$company->slug}}/write-review">Review this Company</a>
       @endif
-       @if (!auth('web')->check() && !auth('company')->check())
+      @if (!auth('web')->check() && !auth('company')->check())
       <a class="btn btn-success" href="/user-login">Login to review this company</a>
       @endif
     </div>
@@ -126,82 +148,30 @@
             <a class="text-dark mr-3 {{(request()->input('rating') == 5) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$url_rating}}rating=5">
               <h5 class="mb-0">
 
-                5 Stars ({{$company->star_5}})
+                5 Stars ({{$company->star_5 ?? 0}})
               </h5>
             </a>
             <a class="text-dark mr-3 {{(request()->input('rating') == 4) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$url_rating}}rating=4">
               <h5 class="mb-0">
-                4 Stars ({{$company->star_4}})
+                4 Stars ({{$company->star_4 ?? 0}})
               </h5>
             </a>
             <a class="text-dark mr-3 {{(request()->input('rating') == 3) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$url_rating}}rating=3">
               <h5 class="mb-0">
-                3 Stars ({{$company->star_3}})
+                3 Stars ({{$company->star_3 ?? 0}})
               </h5>
             </a>
             <a class="text-dark mr-3 {{(request()->input('rating') == 2) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$url_rating}}rating=2">
               <h5 class="mb-0">
-                2 Stars ({{$company->star_2}})
+                2 Stars ({{$company->star_2 ?? 0}})
               </h5>
             </a>
             <a class="text-dark mr-3 {{(request()->input('rating') == 1) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$url_rating}}rating=1">
               <h5 class="mb-0">
-                1 Stars ({{$company->star_1}})
+                1 Stars ({{$company->star_1 ?? 0}})
               </h5>
             </a>
           </div>
-          {{-- <x-company-detail.card-review>
-
-            <x-company-detail.user-review>
-
-              @slot('user_avatar')
-              avatar1.jpg
-              @endslot
-              @slot('user_name')
-              John Doe
-              @endslot
-              @slot('rating')
-              <x-rating-green></x-rating-green>
-              <x-rating-green></x-rating-green>
-              <x-rating-green></x-rating-green>
-              <x-rating-green></x-rating-green>
-              <x-rating-grey></x-rating-grey>
-              @endslot
-              @slot('posted_date')
-              Published 54 minutes ago
-              @endslot
-              @slot('review_title')
-              "Awesome Company"
-              @endslot
-              @slot('review_content')
-              Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his. Tollit molestie suscipiantur his et.
-              @endslot
-              @slot('user_action')
-              <review-action />
-              @endslot
-            </x-company-detail.user-review>
-            <x-company-detail.company-reply>
-
-              @slot('company_avatar')
-              avatar.jpg
-              @endslot
-              @slot('company_name')
-              Good Company
-              @endslot
-
-              @slot('posted_date')
-              Published 54 minutes ago
-              @endslot
-
-              @slot('reply_content')
-              Hi Monika,
-
-              Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his. Tollit molestie suscipiantur his et.
-
-              Thanks
-              @endslot
-            </x-company-detail.company-reply>
-          </x-company-detail.card-review> --}}
           @foreach ( $reviews as $review )
 
           <x-company-detail.card-review>
@@ -209,7 +179,11 @@
             <x-company-detail.user-review>
 
               @slot('user_avatar')
-              avatar2.jpg
+              @if ($review->user->avatar)
+              <img class="rounded rounded-circle img-fluid" src="{{ asset("/storage/user/tmb128-{$review->user->avatar}") }}" alt="" style="width: 50px;heigh:auto">
+              @else
+              <span class="b-avatar badge-secondary rounded rounded-circle" style="width:50px;height:50px"><i class="fa fa-user fa-2x "></i></span>
+              @endif
               @endslot
               @slot('user_name')
               {{$review->user->name}}
@@ -245,13 +219,22 @@
                   @slot('user_action')
                   <review-action />
                   @endslot
+                  @if ($review->photo)
+                  <div>
+                    <img  class="img-fluid" src="{{ asset("/storage/reviewasset/{$review->photo}") }}" alt="" srcset="">
+                  </div>
+                  @endif
             </x-company-detail.user-review>
             @if ($review->company_respond)
 
             <x-company-detail.company-reply>
 
               @slot('company_avatar')
-              avatar.jpg
+              @if ($company->avatar)
+              <img class="rounded rounded-circle img-fluid" src="{{ asset("/storage/company/tmb128-{$company->avatar}") }}" alt="" style="width: 50px;heigh:auto">
+              @else
+              <span class="b-avatar badge-secondary rounded rounded-circle" style="width:50px;height:50px"><i class="fa fa-briefcase fa-2x "></i></span>
+              @endif
               @endslot
               @slot('company_name')
               {{$review->company_respond->company->name}}
@@ -302,7 +285,44 @@
               </li>  --}}
             </ul>
           </nav>
-   @endif
+          @endif
+        </div>
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="mb-3">
+                <strong>Profile</strong>
+                <div>
+                  {{$company->profile}}
+                </div>
+              </div>
+              <div class="mb-3">
+                <strong>Website</strong>
+                <div>
+                  <a href="{{$company->website}}">{{$company->website}}</a>
+                </div>
+              </div>
+              <div>
+                <strong>Our Social Media</strong>
+                <div>
+
+                  @if ($company->facebook_url)
+                  <a href="{{$company->facebook_url}}" class="badge badge-primary p-1" style="background-color: #1877f2"><i class="fa fa-facebook"></i> Facebook</a>
+                  @endif
+                  @if ($company->twitter_url)
+                  <a href="{{$company->twitter_url}}" class="badge badge-primary p-1" style="background-color: #1da1f2"><i class="fa fa-twitter"></i> Twitter</a>
+                  @endif
+                  @if ($company->linkedin_url)
+                  <a href="{{$company->linkedin_url}}" class="badge badge-primary p-1" style="background-color: #007bb5"><i class="fa fa-linkedin"></i> Linkedin</a>
+                  @endif
+                  @if ($company->instagram_url)
+                  <a href="{{$company->instagram_url}}" class="badge badge-primary p-1" style="background-color: #c32aa3"><i class="fa fa-instagram"></i> Instagram</a>
+                  @endif
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 

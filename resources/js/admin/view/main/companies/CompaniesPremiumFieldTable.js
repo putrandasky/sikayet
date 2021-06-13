@@ -91,7 +91,7 @@ export const FieldTableData = {
         //   },
         // },
         {
-          key: 'membership',
+          key: 'membership_active',
           label: 'Membership',
           class: 'text-center',
 

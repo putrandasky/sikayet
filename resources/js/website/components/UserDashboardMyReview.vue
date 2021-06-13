@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <h3>My Reviews</h3>
+  <div style="min-height:100px">
+    <h3 class="mb-3">My Reviews</h3>
+    <b-overlay variant="dark" :show="!isLoaded" blur=""></b-overlay>
     <div v-if="isLoaded && itemsData.length > 0">
       <b-row>
         <b-col xl="4" md="6" class="mb-3">
@@ -56,7 +57,7 @@
 
             <div class="d-inline-block">
 
-              <b-btn v-if="data.item.status == 'SUSPENDED'" variant="success" size="sm" @click="showModalEditReview(data.item.id)">
+              <b-btn variant="success" size="sm" @click.prevent.stop="showModalEditReview(data.item.id)">
                 <i class="fa fa-pencil"></i>
               </b-btn>
               <b-btn variant="danger" size="sm">
@@ -74,16 +75,30 @@
         Review from you will be shown here
       </div>
     </b-alert>
-    <b-modal v-if="isLoaded && itemsData.length > 0" v-model="modalEditReview" title="Edit Review">
+    <b-modal v-if="isLoaded && itemsData.length > 0" v-model="modalEditReview" :hide-footer="input.status !== 'SUSPENDED'" @ok="updateData">
+      <template #modal-title>
+        <strong>Your review for {{input.company}}</strong>
+      </template>
       <b-form-group id="review-title" label="Title" label-for="review-title-input">
-        <b-form-input id="review-title-input" v-model="input.title" trim></b-form-input>
+        <b-form-input id="review-title-input" v-model="input.title" trim :disabled="input.status !== 'SUSPENDED'"></b-form-input>
       </b-form-group>
       <b-form-group id="review-content" label="Review" label-for="review-content-input">
-        <b-form-textarea id="review-content-input" v-model="input.description" rows="3"></b-form-textarea>
+        <b-form-textarea id="review-content-input" v-model="input.description" rows="3" :disabled="input.status !== 'SUSPENDED'"></b-form-textarea>
       </b-form-group>
       <b-form-group id="rating" label="Rating" label-for="rating-input">
-        <b-form-rating id="rating-input" class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="input.rating"></b-form-rating>
+        <b-form-rating id="rating-input" class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="input.rating" :disabled="input.status !== 'SUSPENDED'"></b-form-rating>
       </b-form-group>
+      <b-form-group id="type" label="Type" label-for="type-input">
+        <b-badge :variant="getBadgeReviewType(input.type)" class="p-1">
+          {{ input.type }}
+        </b-badge>
+      </b-form-group>
+      <b-form-group id="status" label="Status" label-for="status-input">
+        <b-badge :variant="getBadgeStatus(input.status)" class="p-1">
+          {{ input.status }}
+        </b-badge>
+      </b-form-group>
+
     </b-modal>
   </div>
 </template>
@@ -109,9 +124,13 @@
         isLoaded: false,
         modalEditReview: false,
         input: {
+          id: null,
+          index: null,
+          company: '',
           title: '',
           description: '',
-          rating: null
+          rating: null,
+          status: ''
         },
         items: [],
         // items: [{
@@ -156,9 +175,32 @@
       showModalEditReview(id) {
         let i = this.itemsData.findIndex(a => a.id == id)
         this.input.title = this.itemsData[i].review_title
+        this.input.id = this.itemsData[i].id
         this.input.description = this.itemsData[i].review_description
         this.input.rating = this.itemsData[i].rating
+        this.input.type = this.itemsData[i].type
+        this.input.status = this.itemsData[i].status
+        this.input.company = this.itemsData[i].company_name
+        this.input.index = i
+
         this.modalEditReview = true
+      },
+      updateData(e) {
+        e.preventDefault()
+        axios.patch(`/user-dashboard/review/${this.input.id}`, this.input)
+          .then((response) => {
+            this.itemsData[this.input.index].review_title = this.input.title
+            this.itemsData[this.input.index].review_description = this.input.description
+            this.itemsData[this.input.index].rating = this.input.rating
+            this.itemsData[this.input.index].status = 'IN REVIEW'
+            console.log(response.data)
+            this.toastSuccess(response.data.message)
+            this.modalEditReview = false
+
+          })
+          .catch((error) => {
+            console.log(error);
+          })
       },
       getData() {
         axios.get(`user-dashboard/review`)

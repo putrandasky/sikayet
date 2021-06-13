@@ -51,9 +51,14 @@
             url: '/reviews'
           },
           {
-            name: 'Membership',
+            name: 'Subscription Plan',
             icon: ' fa fa-id-badge',
             url: '/membership'
+          },
+          {
+            name: 'Billing List',
+            icon: ' fa fa-dollar',
+            url: '/billings'
           },
           {
             name: '3rd Parties',
@@ -64,6 +69,11 @@
             name: 'Editor',
             icon: ' fa fa-edit',
             url: '/editor'
+          },
+          {
+            name: 'Contact',
+            icon: ' fa fa-envelope',
+            url: '/contact'
           },
           {
             name: 'Adsense',

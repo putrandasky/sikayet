@@ -1,6 +1,11 @@
 @extends('layouts.website')
 
+@section('meta')
+<title>Dashboard | {{$user->name}}</title>
 
+
+
+@endsection
 @section('content')
 <x-base>
   <x-header-wrapper>
@@ -14,7 +19,8 @@
           7
           @endslot
           @slot('image_area')
-          <img class="img-fluid rounded-circle" style="height: auto;width:120px" src="{{ asset('images/websites/avatar1.jpg') }}" alt="">
+          <user-profile-image :profileimage="'{{$user->avatar}}'"></user-profile-image>
+          {{-- <img class="img-fluid rounded-circle" style="height: auto;width:120px" src="{{ asset('images/websites/avatar1.jpg') }}" alt=""> --}}
           @endslot
           @slot('data_area')
           <div>
@@ -65,7 +71,7 @@
     <div class="container">
       <div class="card">
         <div class="card-body">
-          <user-dashboard></user-dashboard>
+          <user-dashboard :user="{{$user}}"></user-dashboard>
 
         </div>
       </div>

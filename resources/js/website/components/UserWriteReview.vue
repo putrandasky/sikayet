@@ -15,7 +15,7 @@
       <b-form-textarea v-model="input.description" rows="4" placeholder="Describe your review to help others"></b-form-textarea>
     </b-form-group>
     <b-form-group label="Photo(optional)">
-      <b-form-file v-model="input.file" placeholder="Choose a file or drop it here..." drop-placeholder="Drop file here..."></b-form-file>
+      <b-form-file ref="photo" name="photo" v-model="file" placeholder="Choose a file or drop it here..." drop-placeholder="Drop file here..." @change="onFileChange"></b-form-file>
     </b-form-group>
     <b-form-group label="Type of Review">
       <b-form-select v-model="input.review_type_id" :options="review_type_options">
@@ -28,8 +28,8 @@
     <b-btn variant="primary" class="float-right" size="sm" @click="submit" :disabled="!input.rating || !input.title || !input.description || !input.review_type_id || input.accept_tnc == 'not_accepted'">
       Submit Review
     </b-btn>
-    <b-modal v-model="tncModal" hide-footer title="Terms and Condition">
-      {{term}}
+    <b-modal size="lg" v-model="tncModal" hide-footer title="Terms and Condition">
+      <div v-html="term"></div>
     </b-modal>
     <b-modal v-model="submitedModal" hide-footer @close="backToCompanyDetail" title="Thank you for your business review" no-close-on-backdrop no-close-on-esc>
       <lottie :options="defaultOptions" v-on:animCreated="handleAnimation" :height="200" />
@@ -61,12 +61,13 @@
         isLoading: false,
         submitedModal: false,
         tncModal: false,
+        maxFileSize: 1000,
+        file: null,
         input: {
           company_id: null,
           rating: null,
           title: '',
           description: '',
-          file: null,
           accept_tnc: 'not_accepted',
           review_type_id: null,
         }
@@ -78,6 +79,17 @@
       this.input.company_id = this.companyid
     },
     methods: {
+      onFileChange(e) {
+        const file = e.target.files[0];
+        if (file.size > this.maxFileSize * 1024) {
+          this.toastError(`Maximum file size is ${this.$options.filters.formatSize(this.maxFileSize * 1024)}`, 'ERROR');
+          this.$refs.photo.reset()
+          e.preventDefault();
+          return;
+        }
+        console.log(e.target.files.length);
+        this.file = file
+      },
       handleAnimation: function(anim) {
         this.anim = anim;
       },
@@ -96,7 +108,16 @@
       },
       submit() {
         this.isLoading = true
-        axios.post(`/brand/${this.companyid}/write-review`, this.input)
+        let itemInput = JSON.stringify(this.input);
+        let form = new FormData();
+        form.append("itemInput", itemInput);
+        form.append('itemFile', this.file);
+
+        axios.post(`/brand/${this.companyid}/write-review`, form, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          })
           .then((response) => {
             console.log(response.data)
             this.isLoading = false

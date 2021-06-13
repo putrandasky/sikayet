@@ -25,7 +25,15 @@ class LoginController extends Controller
     {
         return view('pages.company-login');
     }
+    protected function redirectPath()
+    {
+        return route('company-login');
+    }
 
+    protected function authenticated()
+    {
+
+    }
     protected function guard()
     {
         return Auth::guard('company');

@@ -38,9 +38,9 @@
                   @endfor
             </div>
             <div class="d-flex">
-              <div class="text-success">Solutions : {{$company->review_solution}}</div>
-              <div class="text-danger ml-3">Complaints : {{$company->review_complaint}}</div>
-              <div class="text-secondary ml-3">Generals : {{$company->review_general}}</div>
+              <div class="text-success">Solutions : {{$company->review_solution ?? 0}}</div>
+              <div class="text-danger ml-3">Complaints : {{$company->review_complaint ?? 0}}</div>
+              <div class="text-secondary ml-3">Generals : {{$company->review_general ?? 0}}</div>
             </div>
           </div>
           @endslot

@@ -7,7 +7,7 @@
       <div class="mt-3">
         <h4>Business Account Login</h4>
       </div>
-      <div class="mt-3">
+      <b-form @submit="submit" class="mt-3">
         <b-form-group class="position-relative" :invalid-feedback="errors.email" :state="stateEmail">
           <b-form-input type="email" class="form-control pl-5" placeholder="Work Email Address" v-model="input.email" :state="stateEmail"></b-form-input>
           <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
@@ -30,12 +30,12 @@
           </div>
         </div>
         <div class=" mt-3 ">
-          <a class="btn btn-primary btn-block rounded" @click="submit">Login</a>
+          <b-btn type="submit" variant="primary" block class="rounded">Login</b-btn>
         </div>
         <div class="mt-3 text-center">
           Don't have Business Account? <a href="/company-register">Sign Up</a>
         </div>
-      </div>
+      </b-form>
 
     </div>
     <b-overlay variant="dark" :show="isLoading" blur="" fixed no-wrap></b-overlay>
@@ -71,7 +71,9 @@
       },
     },
     methods: {
-      submit() {
+      submit(e) {
+        e.preventDefault()
+
         let self = this
         this.isLoading = true
         axios.post(`/company-login`, this.input)

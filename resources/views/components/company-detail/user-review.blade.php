@@ -1,7 +1,8 @@
 <div class="row pt-md-5 pt-3">
-  <div class="col-md-2 mb-3 mb-md-0">
+  <div class="col-md-2 mb-3 mb-md-0 text-md-center">
     <div class="float-md-none float-left mr-3 mr-md-0">
-      <img class="rounded rounded-circle img-fluid" src="{{ asset("images/websites/{$user_avatar}") }}" alt="" style="width: 50px;heigh:auto">
+      {{$user_avatar}}
+      {{-- <img class="rounded rounded-circle img-fluid" src="{{ asset("images/websites/{$user_avatar}") }}" alt="" style="width: 50px;heigh:auto"> --}}
     </div>
     <div class="mt-2 mt-md-0">
       {{$user_name}}
@@ -30,5 +31,6 @@
     <div>
         {{$user_action}}
     </div>
+      {{$slot}}
   </div>
 </div>

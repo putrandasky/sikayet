@@ -3,7 +3,7 @@
     <b-card-text>
       <b-media>
         <template #aside>
-          <i :class="`fa fa-${icon} fa-2x text-primary mt-2`"></i>
+          <i :class="`ri-${icon} fa-2x text-primary`"></i>
         </template>
         <h4 class="mb-0">
           <slot name="title"></slot>

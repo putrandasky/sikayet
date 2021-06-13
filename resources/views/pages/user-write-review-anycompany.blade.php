@@ -12,7 +12,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8">
-          <user-write-review-anycompany/>
+          <user-write-review-anycompany :reviewtype='@json($review_type)' :term='@json($term)' />
         </div>
       </div>
     </div>

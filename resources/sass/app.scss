@@ -1,6 +1,6 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
+// @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 // Variables
 @import 'variables';
 
@@ -71,6 +71,42 @@ body,
   .alphabet {
     font-size: 1.4rem;
   }
+}
+
+.btn-- {
+
+
+  &corner {
+    right: 1px;
+    top: 1px;
+    position: absolute;
+    padding: 0rem 0.2rem;
+  }
+
+  &corner-3 {
+    right: 3px;
+    top: 3px;
+    position: absolute;
+    padding: 0rem 0.2rem;
+  }
+
+  &corner-15 {
+    right: 15px;
+    top: 3px;
+    position: absolute;
+    padding: 0rem 0.2rem;
+  }
+
+  &corner-offset {
+    right: -30px;
+    top: 1px;
+    position: absolute;
+    padding: 0rem 0.2rem;
+  }
+}
+
+.btn--xs {
+  padding: 0rem 0.2rem;
 }
 
 .brand-list {

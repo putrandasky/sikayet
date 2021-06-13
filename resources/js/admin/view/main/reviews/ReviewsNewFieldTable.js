@@ -79,11 +79,11 @@ export const FieldTableData = {
         },
         {
           value: 'company',
-          text: 'company'
+          text: 'Company'
         },
         {
           value: 'title',
-          text: 'company'
+          text: 'Title'
         },
 
       ],

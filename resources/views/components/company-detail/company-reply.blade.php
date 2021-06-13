@@ -1,7 +1,7 @@
 <div class="row pt-5">
   <div class="col-md-2 d-md-block d-none">
     <div>
-      <img class="rounded rounded-circle img-fluid" src="{{ asset("images/websites/{$company_avatar}") }}" alt="" style="width: 50px;heigh:auto">
+      {{$company_avatar}}
     </div>
   </div>
   <div class="col-md-10">

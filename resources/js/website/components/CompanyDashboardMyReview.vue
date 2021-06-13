@@ -1,6 +1,8 @@
 <template>
   <div style="min-height:100px">
     <h3 class="mb-3">Company Reviews</h3>
+    <b-overlay variant="dark" :show="!isLoaded" blur=""></b-overlay>
+
     <div v-if="isLoaded && itemsData.length > 0">
       <b-row v-show="!detailMode">
         <b-col xl="4" md="6" class="mb-3">
@@ -108,33 +110,53 @@
                   </p>
                 </b-col>
               </b-row>
-              <div v-if="!respondData">
-                <b-form-textarea placeholder="Reply Your User Review" v-model="respond" rows="4"></b-form-textarea>
-                <b-btn variant="primary" size="sm" class="float-right mt-3" @click="sendData">Reply</b-btn>
+              <div>
+                <div v-if="!respondData && company.membership_active && (company.respond_quota > 0|| company.respond_unlimited == 1)">
+                  <b-form-textarea placeholder="Reply Your User Review" v-model="respond" rows="4"></b-form-textarea>
+                  <b-btn variant="primary" size="sm" class="float-right mt-3" @click="sendData">Reply</b-btn>
+                </div>
+                <div class="border-left ml-3 pl-3" v-if="respondData">
+                  <div class="d-flex mb-3 justify-content-between w-100">
+                    <div class="d-flex">
+                      Replied from you
+                    </div>
+                    <div class="text-muted">
+                      <em>{{detail.company_respond.created_at | dateFormated}}</em>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="float-left mr-3 ">
+                      <b-avatar></b-avatar>
+                      <!-- <b-img class="rounded rounded-circle img-fluid" src="images/websites/avatar1.jpg" alt="" style="width: 50px;heigh:auto"></b-img> -->
+                    </div>
+                    <div class="mt-2 ">
+                      {{detail.company_respond.company.name}}
+                    </div>
+                  </div>
+                  <div class="pt-3">
+                    <p>
+                      {{detail.company_respond.description}}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div class="border-left ml-3 pl-3" v-if="respondData">
-                <div class="d-flex mb-3 justify-content-between w-100">
-                  <div class="d-flex">
-                    Replied from you
+              <div v-if="!company.membership_active && !respondData">
+                <b-alert show>
+                  <h4>Please Subscribe to Respond</h4>
+                  <hr>
+                  <div>
+                    For responding a review for your company, you need to get quotas and subscribtion any available premium membership.
                   </div>
-                  <div class="text-muted">
-                    <em>{{detail.company_respond.created_at | dateFormated}}</em>
+                </b-alert>
+              </div>
+              <div v-if="company.membership_active && !respondData && company.respond_quota==0">
+                <b-alert show>
+                  <h4>Out of Quota</h4>
+                  <hr>
+                  <div>
+                    Your quota for responding a review has been exceded.
                   </div>
-                </div>
-                <div class="mb-3">
-                  <div class="float-left mr-3 ">
-                    <b-avatar></b-avatar>
-                    <!-- <b-img class="rounded rounded-circle img-fluid" src="images/websites/avatar1.jpg" alt="" style="width: 50px;heigh:auto"></b-img> -->
-                  </div>
-                  <div class="mt-2 ">
-                    {{detail.company_respond.company.name}}
-                  </div>
-                </div>
-                <div class="pt-3">
-                  <p>
-                    {{detail.company_respond.description}}
-                  </p>
-                </div>
+                </b-alert>
               </div>
             </b-col>
 
@@ -151,14 +173,13 @@
         Your review from users will be shown here
       </div>
     </b-alert>
-    <b-overlay variant="dark" :show="!isLoaded" blur=""></b-overlay>
 
   </div>
 </template>
 <script>
-  import {
-    EventBus
-  } from "../event.js";
+  // import {
+  //   EventBus
+  // } from "../event.js";
   import {
     Badge
   } from "../mixins/MixinBadge";
@@ -179,7 +200,13 @@
       return {
         isLoaded: false,
         detailMode: false,
+        company: {},
         respond: '',
+        review: {
+          unanswered: 0,
+          answered: 0,
+          total: 0,
+        },
         detail: {
           index: null,
           title: '',
@@ -218,8 +245,11 @@
           .then((response) => {
             console.log(response.data)
             this.itemsData = response.data.reviews
+            this.review = response.data.review
+            this.company = response.data.company
             this.isLoaded = true
-            EventBus.$emit('initReviewsSummary', respond.data.review)
+            self.$emit('updateReviewSummary', response.data.review)
+            self.$emit('updateQuota', response.data.company.respond_quota)
           })
           .catch((error) => {
             console.log(error);
@@ -262,6 +292,15 @@
             self.respond = ''
             self.itemsData[this.detail.index].company_respond = response.data.data
             self.detail.company_respond = response.data.data
+            if (!self.company.respond_unlimited) {
+              self.company.respond_quota--
+              self.$emit('updateQuota', self.company.respond_quota)
+            }
+
+            self.review.answered++
+            self.review.unanswered--
+            self.$emit('updateReviewSummary', self.review)
+
             console.log(self.detail.company_respond);
             this.toastSuccess(response.data.message)
 

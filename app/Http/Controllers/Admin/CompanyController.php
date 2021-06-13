@@ -14,16 +14,16 @@ class CompanyController extends Controller
         $data['account_statuses'] = Models\AccountStatus::get();
 
         if ($condition == 'unactive') {
-            $companies = Models\Company::hasStatus(1)->latest()->with('account_status')->get();
+            $companies = Models\Company::hasStatus(1)->latest()->get();
         }
         if ($condition == 'regular') {
-            $companies = Models\Company::hasStatus(2)->latest()->with('account_status')->where('membership_id', 0)->get();
+            $companies = Models\Company::hasStatus(2)->hasMembershipActive(false)->latest()->get();
         }
         if ($condition == 'premium') {
-            $companies = Models\Company::hasStatus(2)->latest()->with('account_status')->where('membership_id', '!=', 0)->get();
+            $companies = Models\Company::hasStatus(2)->hasMembershipActive(true)->latest()->get();
         }
         if ($condition == 'suspended') {
-            $companies = Models\Company::hasStatus(3)->latest()->with('account_status')->get();
+            $companies = Models\Company::hasStatus(3)->latest()->get();
         }
         $data['companies'] = $companies;
         return $data;

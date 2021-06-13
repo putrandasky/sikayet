@@ -7,6 +7,8 @@
 require('./bootstrap');
 import BootstrapVue from 'bootstrap-vue';
 window.Vue = require('vue').default;
+window.EventBus = new Vue();
+
 window.Vue2 = require('vue').default;
 window.Vue3 = require('vue').default;
 Vue.use(BootstrapVue);
@@ -37,7 +39,6 @@ Vue.mixin({
 });
 import './filter/filter';
 
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -56,7 +57,11 @@ Vue.component('user-dashboard', require('./components/UserDashboard.vue').defaul
 Vue.component('company-dashboard', require('./components/CompanyDashboard.vue').default);
 Vue.component('company-login', require('./components/CompanyLogin.vue').default);
 Vue.component('company-register', require('./components/CompanyRegister.vue').default);
+Vue.component('company-profile-image', require('./components/CompanyProfileImage.vue').default);
+Vue.component('user-profile-image', require('./components/UserProfileImage.vue').default);
 Vue.component('user-write-review', require('./components/UserWriteReview.vue').default);
+Vue.component('contact', require('./components/Contact.vue').default);
+Vue.component('faq', require('./components/Faq.vue').default);
 Vue.component('user-write-review-anycompany', require('./components/UserWriteReviewAnycompany.vue').default);
 // Vue.component('sidebar-menu', require('./components/SidebarMenu.vue').default);
 // Vue.component('sidebar-button', require('./components/SidebarButton.vue').default);

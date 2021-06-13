@@ -16,13 +16,13 @@ export const MyPackageTable = {
 
         },
         {
-          key: 'last_payment',
+          key: 'date_payment',
           label: 'Last Payment',
 
         },
         {
-          key: 'next_payment',
-          label: 'Next Payment Date',
+          key: 'ending_period',
+          label: 'Ending Period',
         },
         {
           key: 'payment_method',

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models;
 use Auth;
+use File;
 use Illuminate\Http\Request;
+use ImageResize;
 
 class CompanyController extends Controller
 {
@@ -43,7 +45,7 @@ class CompanyController extends Controller
     {
         //to modified with company is active or not suspended
         $company = Models\Company::where('slug', $company_name)->with('business_category')->first();
-        $term = Models\Editor::key('term');
+        $term = Models\Editor::key('term-of-use')->value;
         $reviewed = Models\Review::where([
             'user_id' => Auth::guard('web')->user()->id,
             'company_id' => $company->id,
@@ -51,18 +53,66 @@ class CompanyController extends Controller
         $review_type = Models\ReviewType::all();
         return view('pages.user-write-review', compact("company", "review_type", "term", "reviewed"));
     }
+    public function showReviewAnyCompanyForm()
+    {
+        $term = Models\Editor::key('term-of-use')->value;
+
+        $review_type = Models\ReviewType::all();
+        return view('pages.user-write-review-anycompany', compact("review_type", "term"));
+    }
+    public function reviewAnyCompany(Request $request)
+    {
+        $item = json_decode($request->input('itemInput'), true);
+        $review = new Models\ReviewOrphan();
+        $review->rating = $item['rating'];
+        $review->title = $item['title'];
+        $review->description = $item['description'];
+        $review->review_type_id = $item['review_type_id'];
+        $review->review_status_id = 1;
+        $review->company_name = $item['company_name'];
+        $review->accept_tnc = $item['accept_tnc'];
+        $review->user_id = Auth::guard('web')->user()->id;
+        if ($request->hasfile('itemFile')) {
+            $path = storage_path('app/public/reviewasset');
+            File::exists($path) or File::makeDirectory($path);
+            $img = ImageResize::make($request->file('itemFile'));
+            $hashName = $request->file('itemFile')->hashName();
+            $img->resize(512, 512, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($path . '/' . $hashName);
+            $review->photo = $hashName;
+        }
+        $review->save();
+
+        if ($review->id) {
+            return response()->json(['status' => 'success', 'message' => 'Review Stored'], 200);
+        }
+
+    }
     public function review(Request $request, $company_id)
     {
+        $item = json_decode($request->input('itemInput'), true);
         $review = new Models\Review();
-        $review->rating = $request->rating;
-        $review->title = $request->title;
-        $review->description = $request->description;
-        $review->review_type_id = $request->review_type_id;
+        $review->rating = $item['rating'];
+        $review->title = $item['title'];
+        $review->description = $item['description'];
+        $review->review_type_id = $item['review_type_id'];
         $review->review_status_id = 1;
-        $review->company_id = $request->company_id;
-        $review->accept_tnc = $request->accept_tnc;
+        $review->company_id = $item['company_id'];
+        $review->accept_tnc = $item['accept_tnc'];
         $review->user_id = Auth::guard('web')->user()->id;
+        if ($request->hasfile('itemFile')) {
+            $path = storage_path('app/public/reviewasset');
+            File::exists($path) or File::makeDirectory($path);
+            $img = ImageResize::make($request->file('itemFile'));
+            $hashName = $request->file('itemFile')->hashName();
+            $img->resize(512, 512, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($path . '/' . $hashName);
+            $review->photo = $hashName;
+        }
         $review->save();
+
         if ($review->id) {
             return response()->json(['status' => 'success', 'message' => 'Review Stored'], 200);
         }

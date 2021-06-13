@@ -1,3 +1,57 @@
+# 14-Jun-21
+## 0.4.0
+### ADDED
+- Membership creator in admin
+- Membership system in company
+- Payment system with Stripe and Paypal
+- Update Profile and upload photo for company and user
+- Review any company system
+- Editor feature (faq, about, membership plan, privacy policy, terms condition, agreement)
+- Contact Form system
+- Page for faq, contact, generel page for privacy policy, agreement, temr condition
+- Submit review feature with upload photo
+- photo placeholder (for user not yet upload photo)
+
+### Backlog
+- Social Login for user
+- Admin dashboard
+
+# 7-Jun-21
+## 0.3.0
+### ADDED
+User Side
+- Login System
+- Register System (via social media not yet)
+- Review system in company detail (admin need to approve before publish to the main website)
+- Review list in user dashboard (with instant search)
+Company Side
+- Login System
+- Register System (after final production, company account need to be activated by admin)
+- Respond/comment a Review system (currently all company can respond, will be lock to membership premium on the final producion)
+- Report a review to admin (just incase user give a violence review, so admin will be suspending the review)
+- Review List in company dashbaord (with instant search)
+Website
+- Autocomplete search
+- Company listing
+- Review listing in company detail
+Admin Side
+- Approval system for review
+- Change Status for user
+- Change Status for company
+- User list (with instant search)
+- Company list (with instant search)
+- Review list (with instant search)
+
+Backlog
+- Login system for admin
+- Update profile system for user and company
+- Membership system
+- General Editor system in admin
+- Membership system in admin
+- Social login system for user
+- Write any company system (for unregistered company)
+- Dashboard admin system
+
 # 31-May-21
 ## 0.2.0
 ### ADDED

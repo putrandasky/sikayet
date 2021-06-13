@@ -11,8 +11,9 @@ export const MyPackageTable = {
           }
         },
         {
-          key: 'last_payment',
-          label: 'Last Payment',
+          key: 'date_payment',
+          label: 'Date Payment',
+          class: 'text-center',
         },
         {
           key: 'payment_invoice',
@@ -23,16 +24,29 @@ export const MyPackageTable = {
           label: 'Subscription Type',
         },
         {
+          key: 'respond_quota',
+          label: 'Respond Quota',
+        },
+        {
           key: 'payment_method',
           label: 'Payment Method',
+          class: 'text-center',
+        },
+        {
+          key: 'status',
+          label: 'Status',
+          class: 'text-center',
         },
         {
           key: 'payment_status',
-          label: 'Status',
+          label: 'Payment Status',
+          class: 'text-center',
         },
         {
-          key: 'payment_amount',
+          key: 'amount',
           label: 'Amount',
+          class: 'text-right',
+
         },
 
 

@@ -150,7 +150,7 @@ export const OperationPage = {
         'success';
     },
     getBadgeActive(status) {
-      return status ?
+      return status == 1 ?
         'success' :
         'secondary';
     },
@@ -159,6 +159,11 @@ export const OperationPage = {
         "success" :
         status === "SUSPENDED" ?
         "danger" :
+        "secondary";
+    },
+    getBadgePaymentStatus(status) {
+      return status === "PAID" ?
+        "success" :
         "secondary";
     },
 

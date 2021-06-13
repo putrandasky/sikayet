@@ -1,33 +1,42 @@
 <template>
   <b-container>
-    <b-row class="mb-3">
-      <b-col sm="4">
-        <b-card class="text-center">
-          <h1>{{review_unanswered}}</h1>
+
+    <b-row class="mb-3" v-show="!isPaymentProcess">
+      <b-col sm="3">
+        <b-card v-show="isLoaded" class="text-center">
+          <h1>{{review.unanswered}}</h1>
           <div>
             New Review
           </div>
         </b-card>
       </b-col>
-      <b-col sm="4">
-        <b-card class="text-center">
-          <h1>{{review_answered}}</h1>
+      <b-col sm="3">
+        <b-card v-show="isLoaded" class="text-center">
+          <h1>{{review.answered}}</h1>
           <div>
             Answered Review
           </div>
         </b-card>
       </b-col>
-      <b-col sm="4">
-        <b-card class="text-center">
-          <h1>{{review_total}}</h1>
+      <b-col sm="3">
+        <b-card v-show="isLoaded" class="text-center">
+          <h1>{{review.total}}</h1>
           <div>
             Total Answered
           </div>
         </b-card>
       </b-col>
+      <b-col sm="3">
+        <b-card v-show="isLoaded" class="text-center">
+          <h1>{{respond_quota}}</h1>
+          <div>
+            Respond Quotas
+          </div>
+        </b-card>
+      </b-col>
 
     </b-row>
-    <b-card class="mb-3">
+    <b-card class="mb-3" v-show="!isPaymentProcess">
 
       <b-nav tabs class="mb-3">
         <b-nav-item :active="component == 'MyReview'" @click="component = 'MyReview'">My Review</b-nav-item>
@@ -39,15 +48,18 @@
           <b-btn variant="danger" size="sm" @click="logout">Log Out</b-btn>
         </b-nav-item>
       </b-nav>
-      <component v-bind:is="component"></component>
+      <component :companydata="company" @updateReviewSummary="updateReviewSummary" @updateQuota="updateQuota" v-bind:is="component"></component>
     </b-card>
-    <plans />
+    <plans v-if="!company.respond_unlimited" @updateQuota="updateQuota" @setpaymentprocess="setpaymentprocess($event)" />
+    <membership-info></membership-info>
   </b-container>
 </template>
 <script>
   import {
     EventBus
   } from "../event.js";
+  import SummaryData from './CompanyDashboardSummary'
+  import MembershipInfo from './CompanyDashboardMembershipInfo'
   import MyReview from './CompanyDashboardMyReview'
   import MyAccount from './CompanyDashboardMyAccount'
   import MyPackage from './CompanyDashboardMyPackage'
@@ -56,19 +68,25 @@
   import Plans from './CompanyDashboardPlans'
   export default {
     name: 'CompanyDashboard',
-    props: ['review_total', 'review_answered', 'review_unanswered'],
+    props: ['company'],
     components: {
       MyAccount,
       Plans,
       MyPackage,
       MyBillingHistory,
       Password,
-      MyReview
+      MyReview,
+      SummaryData,
+      MembershipInfo
 
     },
     data: function() {
       return {
+
         component: 'MyReview',
+        isPaymentProcess: false,
+        isLoaded: false,
+        respond_quota: 0,
         review: {
           unanswered: 0,
           answered: 0,
@@ -76,18 +94,30 @@
         }
       }
     },
-    created() {
-      EventBus.$on('initReviewsSummary', data => {
-        console.log(data);
+    mounted() {
+      // let self = this
+      // EventBus.$on('initReviewsSummary', function(data) {
+      //   console.log(data);
+      //   console.log('emit');
+      //   self.review.answered = data.answered
+      //   self.review.unanswered = data.unanswered
+      //   self.review.total = data.total
+      // }.bind(self))
+      console.log(this.company);
+    },
+    methods: {
+      setpaymentprocess(e) {
+        this.isPaymentProcess = e
+      },
+      updateQuota(data) {
+        this.respond_quota = data
+
+      },
+      updateReviewSummary(data) {
         this.review.answered = data.answered
         this.review.unanswered = data.unanswered
         this.review.total = data.total
-      })
-    },
-    methods: {
-      initReviewsSummary(data) {
-        console.log(data);
-
+        this.isLoaded = true
       },
       logout() {
         window.open('/company-logout', '_self')

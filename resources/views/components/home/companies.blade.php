@@ -5,7 +5,8 @@
             <div class="row">
               <div class="col-md-3  justify-content-center d-flex align-items-center">
                 <div class="border border-light p-2">
-                  <img class=" " src="{{ asset('images/websites/company1.png') }}" alt="">
+                  {{$avatar}}
+                  {{-- <img class=" " src="{{ asset('images/websites/company1.png') }}" alt=""> --}}
                 </div>
               </div>
               <div class="col-md-9">

@@ -25,7 +25,7 @@
         </b-row>
       </div>
       <div style="overflow-y:auto">
-        <b-table small stacked="sm" :fields="FieldTableItems" :items="filteredItemsData" :sort-by.sync="querySortBy" :sort-desc.sync="querySortDesc" @sort-changed="sortingChanged" :current-page="currentPage" :per-page="perPage">
+        <b-table small stacked="sm" :fields="FieldTableItems" :items="filteredItemsData" :current-page="currentPage" :per-page="perPage">
           <template v-slot:cell(no)="data">
             {{ data.index + 1 + (currentPage - 1) * perPage }}
           </template>

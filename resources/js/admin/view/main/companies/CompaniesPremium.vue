@@ -36,9 +36,9 @@
               <i class="fa fa-close"></i>
             </b-badge>
           </template>
-          <template v-slot:cell(membership)="data">
-            <b-badge :variant="getBadgeMembership(data.item.membership)" class="p-1">
-              {{ data.item.membership }}
+          <template v-slot:cell(membership_active)="data">
+            <b-badge :variant="getBadgeMembership(data.item.membership_active.subscription_type)" class="p-1">
+              {{ data.item.membership_active.subscription_type }}
             </b-badge>
           </template>
           <template v-slot:cell(created_at)="data">

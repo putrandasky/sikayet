@@ -9,6 +9,7 @@
           <b-nav-item active-class="active" to="/editor/membership-information">Membership</b-nav-item>
           <b-nav-item active-class="active" to="/editor/privacy-policy">Privacy</b-nav-item>
           <b-nav-item active-class="active" to="/editor/terms">Terms</b-nav-item>
+          <b-nav-item active-class="active" to="/editor/agreement">Agreement</b-nav-item>
           <b-nav-item active-class="active" to="/editor/social">Social</b-nav-item>
         </b-nav>
       </template>

@@ -7,8 +7,14 @@
 <script>
   import {
     Editor,
-    EditorContent
+    EditorContent,
   } from '@tiptap/vue-2'
+  import {
+    Node,
+    mergeAttributes
+  } from '@tiptap/core'
+  import debounce from '../../utils/debounce'
+
   import StarterKit from '@tiptap/starter-kit'
   import TaskList from '@tiptap/extension-task-list'
   import TaskItem from '@tiptap/extension-task-item'
@@ -34,14 +40,17 @@
       }
     },
     mounted() {
+      let self = this
       this.editor = new Editor({
+
         extensions: [
           StarterKit,
           Highlight,
           TaskList,
           TaskItem,
           Image,
-          TextAlign
+          TextAlign,
+
         ],
         content: this.value,
         onFocus({
@@ -54,14 +63,19 @@
         }) {
 
         },
-        onUpdate: () => {
+        // hide the drop position indicator
+        dropCursor: {
+          width: 0,
+          color: 'transparent'
+        },
+        onUpdate: debounce(function() {
           // HTML
 
-          this.$emit('input', this.editor.getHTML())
+          self.$emit('input', self.editor.getHTML())
 
           // JSON
           // this.$emit('input', this.editor.getJSON())
-        },
+        }, 500)
       })
     },
     beforeDestroy() {

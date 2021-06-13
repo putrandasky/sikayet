@@ -20,6 +20,10 @@ import ReviewsNew from '../view/main/reviews/ReviewsNew.vue'
 // import ReviewsActive from '../view/main/reviews/ReviewsActive.vue'
 import ReviewsReported from '../view/main/reviews/ReviewsReported.vue'
 import ReviewsSuspended from '../view/main/reviews/ReviewsSuspended.vue'
+import ReviewsOrphans from '../view/main/reviews/ReviewsOrphans.vue'
+import Billing from '../view/main/billing/Billing.vue'
+import BillingList from '../view/main/billing/BillingList.vue'
+import Contact from '../view/main/contact/Contact.vue'
 import Editor from '../view/main/editor/Editor.vue'
 import EditorHomepage from '../view/main/editor/EditorHomepage.vue'
 import EditorAbout from '../view/main/editor/EditorAbout.vue'
@@ -27,6 +31,7 @@ import EditorFaq from '../view/main/editor/EditorFaq.vue'
 import EditorMembershipInfo from '../view/main/editor/EditorMembershipInfo.vue'
 import EditorPrivacyPolicy from '../view/main/editor/EditorPrivacyPolicy.vue'
 import EditorTerms from '../view/main/editor/EditorTerms.vue'
+import EditorAgreement from '../view/main/editor/EditorAgreement.vue'
 import EditorSocial from '../view/main/editor/EditorSocial.vue'
 import Membership from '../view/main/membership/Membership.vue'
 import Adsense from '../view/main/adsense/Adsense.vue'
@@ -93,10 +98,26 @@ const routes = [{
         component: Adsense,
       },
       {
+        path: '/contact',
+        name: 'contact',
+
+        component: Contact,
+      },
+      {
         path: '/membership',
         name: 'membership',
 
         component: Membership,
+      },
+      {
+        path: '/billings',
+        redirect: '/billings/unpaid',
+        component: Billing,
+        children: [{
+          path: ':condition',
+          name: 'bilingList',
+          component: BillingList,
+        }, ]
       },
       {
         path: '/reviews',
@@ -116,6 +137,11 @@ const routes = [{
             path: 'suspended',
             name: 'reviewsSuspended',
             component: ReviewsSuspended,
+          },
+          {
+            path: 'orphans',
+            name: 'reviewOrphans',
+            component: ReviewsOrphans,
           },
         ]
       },
@@ -173,6 +199,11 @@ const routes = [{
             path: 'privacy-policy',
             name: 'editorPrivacyPolicy',
             component: EditorPrivacyPolicy,
+          },
+          {
+            path: 'agreement',
+            name: 'editorAgreement',
+            component: EditorAgreement,
           },
           {
             path: 'terms',

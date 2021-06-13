@@ -11,6 +11,6 @@ class Editor extends Model
 
     public function scopeKey($query, $key)
     {
-        return $query->where('key', $key)->first()->value;
+        return $query->where('key', $key)->first();
     }
 }

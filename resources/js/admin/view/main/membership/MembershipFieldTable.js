@@ -11,7 +11,7 @@ export const FieldTableData = {
           }
         },
         {
-          key: 'plan_name',
+          key: 'subscription_type',
           label: 'Plan Name',
           tdClass: 'truncate-cell',
           thStyle: {
@@ -19,7 +19,7 @@ export const FieldTableData = {
           }
         },
         {
-          key: 'plan_subtitle',
+          key: 'subscription_subtitle',
           label: 'Subtitle',
           tdClass: 'truncate-cell',
           thStyle: {
@@ -27,7 +27,7 @@ export const FieldTableData = {
           }
         },
         {
-          key: 'answer_quota',
+          key: 'respond_quota',
           label: 'Quota',
           class: 'text-center',
           thStyle: {

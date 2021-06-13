@@ -17,7 +17,7 @@ export const FieldTableData = {
           thStyle: {
             minWidth: '175px',
           },
-          sortable: true
+
         },
         {
           key: 'email',
@@ -26,7 +26,7 @@ export const FieldTableData = {
           thStyle: {
             minWidth: '175px',
           },
-          sortable: true
+
         },
         {
           key: 'review',
@@ -36,7 +36,7 @@ export const FieldTableData = {
             minWidth: '100px',
             width: '100px',
           },
-          sortable: true
+
         },
         {
           key: 'like',
@@ -46,7 +46,7 @@ export const FieldTableData = {
             minWidth: '100px',
             width: '100px',
           },
-          sortable: true
+
         },
         {
           key: 'dislike',
@@ -56,7 +56,7 @@ export const FieldTableData = {
             minWidth: '100px',
             width: '100px',
           },
-          sortable: true
+
         },
         {
           key: 'status',
@@ -67,7 +67,7 @@ export const FieldTableData = {
             minWidth: '100px',
             width: '100px'
           },
-          sortable: true
+
         },
         {
           key: 'created_at',
@@ -77,7 +77,7 @@ export const FieldTableData = {
             minWidth: '125px',
             width: '125px',
           },
-          sortable: true
+
         },
         {
           key: 'action',

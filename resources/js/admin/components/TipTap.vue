@@ -19,25 +19,27 @@
 </template>
 
 <script>
+  import debounce from '../utils/debounce'
+
   import {
     Editor,
     EditorContent,
     BubbleMenu,
-    VueRenderer
+    VueRenderer,
+    Node
   } from '@tiptap/vue-2'
-  import tippy from 'tippy.js'
+  // import tippy from 'tippy.js'
   import StarterKit from '@tiptap/starter-kit'
   import Highlight from '@tiptap/extension-highlight'
   import Placeholder from '@tiptap/extension-placeholder'
-  import Mention from '@tiptap/extension-mention'
-  import MentionList from './mention/MentionList'
-  import {
-    Extension
-  } from '@tiptap/core'
-  import {
-    Node,
-    mergeAttributes
-  } from '@tiptap/core'
+
+  // import {
+  //   Extension
+  // } from '@tiptap/core'
+  // import {
+  //   Node,
+  //   mergeAttributes
+  // } from '@tiptap/core'
   export default {
     props: {
       value: {
@@ -58,139 +60,31 @@
 
     mounted() {
       let self = this
-      const CustomMention = Mention.extend({
-        addAttributes() {
+      const customParagraph = Node.extend({
+        name() {
+          return 'paragraph';
+        },
+        schema() {
           return {
-            id: {
-              default: null,
-              parseHTML: element => {
-                return {
-                  id: element.getAttribute('data-mention'),
-                }
-              },
-              renderHTML: attributes => {
-                console.log(attributes);
-                if (!attributes.id.id) {
-                  return {}
-                }
-
-                return {
-                  'data-mention': attributes.id.id,
-                }
-              },
+            content: 'inline*',
+            draggable: false,
+            group: 'block',
+            parseDOM: [{
+              tag: 'div',
+            }],
+            toDOM() {
+              return ['div', 0];
             },
-          }
-        },
-        renderHTML({
-          node,
-          HTMLAttributes
-        }) {
-          return [
-            'span',
-            mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-            `${this.options.suggestion.char}${node.attrs.id.name}`,
-          ]
-        },
-
-        renderText({
-          node
-        }) {
-          return `${this.options.suggestion.char}${node.attrs.id.name}`
-        },
-        addKeyboardShortcuts() {
-          return {
-            Backspace: () => this.editor.commands.command(({
-              tr,
-              state
-            }) => {
-              let isMention = false
-              const {
-                selection
-              } = state
-              const {
-                empty,
-                anchor
-              } = selection
-
-              if (!empty) {
-                return false
-              }
-
-              state.doc.nodesBetween(anchor - 1, anchor, (node, pos) => {
-                if (node.type.name === this.name) {
-                  isMention = true
-                  tr.insertText(this.options.suggestion.char || '', pos, pos + node.nodeSize)
-
-                  return false
-                }
-              })
-              // console.log(selection);
-              console.log(selection.$from.nodeBefore.attrs.id.id);
-              return isMention
-            }),
-          }
-        },
+          };
+        }
       })
       this.editor = new Editor({
+        useBuiltInExtensions: false,
         extensions: [
           StarterKit,
           Highlight,
           Placeholder,
-          CustomMention.configure({
-            HTMLAttributes: {
-              class: 'mention',
-            },
-            suggestion: {
-              items: query => {
-                return [{
-                    name: 'Lea Thompson',
-                    id: 1,
-                  },
-                  {
-                    name: 'Andrea',
-                    id: 2,
-                  },
-                ].filter(item => item.name.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
-              },
-              render: () => {
-                let component
-                let popup
-
-                return {
-                  onStart: props => {
-                    component = new VueRenderer(MentionList, {
-                      parent: this,
-                      propsData: props,
-                    })
-
-                    popup = tippy('body', {
-                      getReferenceClientRect: props.clientRect,
-                      appendTo: () => document.body,
-                      content: component.element,
-                      showOnCreate: true,
-                      interactive: true,
-                      trigger: 'manual',
-                      placement: 'bottom-start',
-                    })
-                  },
-                  onUpdate(props) {
-                    component.updateProps(props)
-
-                    popup[0].setProps({
-                      getReferenceClientRect: props.clientRect,
-                    })
-                  },
-                  onKeyDown(props) {
-                    // return component.ref ? onKeyDown(props) : false;
-                  },
-                  onExit() {
-                    popup[0].destroy()
-                    component.destroy()
-                  },
-                }
-              },
-            },
-          }),
+          customParagraph
         ],
         content: this.value,
         onFocus({
@@ -205,14 +99,27 @@
           self.$emit('blur', event)
 
         },
-        onUpdate: () => {
+        // tell ProseMirror to ignore drop event
+        editorProps: {
+          handleDOMEvents: {
+            drop: (view, e) => {
+              e.preventDefault();
+            },
+          }
+        },
+        // hide the drop position indicator
+        dropCursor: {
+          width: 0,
+          color: 'transparent'
+        },
+        onUpdate: debounce(function() {
           // HTML
 
-          this.$emit('input', this.editor.getHTML())
+          self.$emit('input', self.editor.getHTML())
 
           // JSON
           // this.$emit('input', this.editor.getJSON())
-        },
+        }, 500)
       })
     },
 
