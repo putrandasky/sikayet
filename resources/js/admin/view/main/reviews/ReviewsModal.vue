@@ -7,10 +7,10 @@
       <b-form-input disabled v-model="data.company"></b-form-input>
     </b-form-group>
     <b-form-group label="Title">
-      <b-form-input disabled v-model="data.title"></b-form-input>
+      <b-form-input v-model="data.title"></b-form-input>
     </b-form-group>
     <b-form-group label="Review">
-      <b-form-textarea disabled v-model="data.description"></b-form-textarea>
+      <b-form-textarea v-model="data.description"></b-form-textarea>
     </b-form-group>
     <b-form-group label="Review Rating">
       <b-form-rating class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="data.rating"></b-form-rating>

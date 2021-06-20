@@ -25,19 +25,29 @@ export const MyReviewTable = {
             minWidth: '175px',
             width: '175px'
           },
-
+        },
+        {
+          key: 'insight',
+          label: 'Insight',
+          class: 'text-center',
+          thStyle: {
+            minWidth: '125px',
+            width: '125px'
+          },
         },
         {
           key: 'rating',
           label: 'Rating',
+          class: 'text-center',
           thStyle: {
-            minWidth: '150px',
-            width: '150px'
+            minWidth: '125px',
+            width: '125px'
           },
         },
         {
           key: 'type',
           label: 'Type',
+          class: 'text-center',
           thStyle: {
             minWidth: '100px',
             width: '100px'
@@ -46,6 +56,7 @@ export const MyReviewTable = {
         {
           key: 'status',
           label: 'Status',
+          class: 'text-center',
           thStyle: {
             minWidth: '100px',
             width: '100px'
@@ -96,7 +107,7 @@ export const MyReviewTable = {
       }
       if (this.selectedInputSearch == 'title') {
         return this.itemsData.filter(result =>
-          result.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+          result.review_title.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         )
       }
 

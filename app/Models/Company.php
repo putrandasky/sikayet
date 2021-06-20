@@ -48,6 +48,10 @@ class Company extends Authenticatable
     {
         return $query->where('id', $value);
     }
+    public function scopeSlug($query, $value)
+    {
+        return $query->where('slug', $value);
+    }
     public function scopeHasMembershipActive($query, $value)
     {
         if ($value) {

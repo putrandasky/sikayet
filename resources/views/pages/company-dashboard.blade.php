@@ -43,6 +43,10 @@
                 @for ($a = 1 ; $a <= (5 - $rating); $a++ ) <x-rating-grey>
                   </x-rating-grey>
                   @endfor
+                         <div class="text-light">
+
+                           Rating : {{$data['company']['rating']}} of 5.0
+                         </div>
             </div>
             <div class="d-flex">
               <div class="text-success">Solutions : {{$data['company']->review_solution}}</div>
@@ -56,7 +60,7 @@
 
       </div>
       <div class="col-lg-4 ">
-        <div>
+        <div class="mb-3">
           @php
           $total_star_count = $data['company']->star_1 + $data['company']->star_2 + $data['company']->star_3 + $data['company']->star_4 + $data['company']->star_5;
           @endphp
@@ -91,6 +95,9 @@
             1 stars
           </x-progress>
         </div>
+                <div class="w-100 text-center text-light">
+                  Visitor : {{$data['company']->visited ?? 0}}
+                </div>
       </div>
     </div>
   </x-header-wrapper>

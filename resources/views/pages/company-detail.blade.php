@@ -3,7 +3,7 @@
 @section('meta')
 <title>{{$company->name}}</title>
 <meta name="description" content="{{$company->profile}}">
-<meta name="keywords" content="{{$company->business_category->name}}">
+<meta name="keywords" content="{{$keywords}}">
 <meta property="og:title" content="{{$company->name}}" />
 <meta property="og:site_name" content="{{$company->name}}" />
 <meta property="og:type" content="website" />
@@ -58,6 +58,10 @@
                 @for ($a = 1 ; $a <= (5 - $rating); $a++ ) <x-rating-grey>
                   </x-rating-grey>
                   @endfor
+                  <div class="text-light">
+
+                    Rating : {{$company->rating}} of 5.0
+                  </div>
             </div>
             <div class="d-flex">
               <div class="text-success">Solutions : {{$company->review_solution ?? 0}}</div>
@@ -71,7 +75,7 @@
 
       </div>
       <div class="col-lg-4 ">
-        <div>
+        <div class="mb-3">
           @php
           $total_star_count = $company->star_1 + $company->star_2 + $company->star_3 + $company->star_4 + $company->star_5;
           @endphp
@@ -106,21 +110,29 @@
             1 stars
           </x-progress>
         </div>
+        <div class="w-100 text-center text-light">
+          Visitor : {{$company->visited}}
+        </div>
       </div>
     </div>
-    <div class="w-100 text-right mt-3">
-      @if (auth('web')->check())
-      <a class="btn btn-success" href="/brand/{{$company->slug}}/write-review">Review this Company</a>
-      @endif
-      @if (!auth('web')->check() && !auth('company')->check())
-      <a class="btn btn-success" href="/user-login">Login to review this company</a>
-      @endif
-    </div>
+
   </x-header-wrapper>
   <section class="py-3">
     <div class="container">
       <div class="row">
         <div class="col-lg-8">
+          @php
+          $urlquery = (request()->url()) .'?';
+          @endphp
+
+          @if (request()->input('keyword') && count($reviews) == 0)
+          <div class="alert alert-info">
+            <p class="h4 alert-heading">Review Not Found</p>
+            <p>The review base on your keyword was not found, please try with different keyword</p>
+          </div>
+          @endif
+          @if (!request()->input('keyword') && count($reviews) > 0)
+
           <div class="border-bottom border-dark w-100 pb-1 d-flex  align-items-center">
             @php
             $url_order_by = (request()->has('rating')) ? (request()->url()).'?rating=' . (request()->input('rating')) .'&' : (request()->url()) . '?';
@@ -142,36 +154,41 @@
                 All
               </h5>
             </a>
-            @php
-            $url_rating = (request()->url()) .'?';
-            @endphp
-            <a class="text-dark mr-3 {{(request()->input('rating') == 5) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$url_rating}}rating=5">
+
+            <a class="text-dark mr-3 {{(request()->input('rating') == 5) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$urlquery}}rating=5">
               <h5 class="mb-0">
 
                 5 Stars ({{$company->star_5 ?? 0}})
               </h5>
             </a>
-            <a class="text-dark mr-3 {{(request()->input('rating') == 4) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$url_rating}}rating=4">
+            <a class="text-dark mr-3 {{(request()->input('rating') == 4) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$urlquery}}rating=4">
               <h5 class="mb-0">
                 4 Stars ({{$company->star_4 ?? 0}})
               </h5>
             </a>
-            <a class="text-dark mr-3 {{(request()->input('rating') == 3) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$url_rating}}rating=3">
+            <a class="text-dark mr-3 {{(request()->input('rating') == 3) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$urlquery}}rating=3">
               <h5 class="mb-0">
                 3 Stars ({{$company->star_3 ?? 0}})
               </h5>
             </a>
-            <a class="text-dark mr-3 {{(request()->input('rating') == 2) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$url_rating}}rating=2">
+            <a class="text-dark mr-3 {{(request()->input('rating') == 2) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$urlquery}}rating=2">
               <h5 class="mb-0">
                 2 Stars ({{$company->star_2 ?? 0}})
               </h5>
             </a>
-            <a class="text-dark mr-3 {{(request()->input('rating') == 1) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$url_rating}}rating=1">
+            <a class="text-dark mr-3 {{(request()->input('rating') == 1) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$urlquery}}rating=1">
               <h5 class="mb-0">
                 1 Stars ({{$company->star_1 ?? 0}})
               </h5>
             </a>
           </div>
+          @endif
+          @if (!request()->input('keyword') && count($reviews) == 0)
+          <div class="alert alert-info">
+            <p class="h4 alert-heading">Review Not Found</p>
+            <p>Be the the first to review this company</p>
+          </div>
+          @endif
           @foreach ( $reviews as $review )
 
           <x-company-detail.card-review>
@@ -186,7 +203,15 @@
               @endif
               @endslot
               @slot('user_name')
-              {{$review->user->name}}
+              <a href="/user/{{$review->user->slug}}" class="text-dark">
+                {{$review->user->name}}
+              </a>
+              <div>
+                <small class="text-secondary">{{$review->user->review}} <i class="fa fa-pencil"></i> </small>
+                <small class="text-secondary">{{$review->user->like}} <i class="fa fa-thumbs-up"></i> </small>
+                <small class="text-secondary">{{$review->user->dislike}} <i class="fa fa-thumbs-down"></i></small>
+
+              </div>
               @endslot
               @slot('rating')
               @php
@@ -208,7 +233,8 @@
                   Published {{Carbon\Carbon::parse($review->created_at)->format('d M Y')}}
                   @endslot
                   @slot('review_title')
-                  {{$review->title}}
+                  <a class="text-dark" href="/review/{{$review->slug}}">{{$review->title}}</a>
+
                   @endslot
                   @slot('review_content')
                   {{$review->description}}
@@ -217,11 +243,12 @@
                   </div>
                   @endslot
                   @slot('user_action')
-                  <review-action />
+
+                  <review-action :review_owner_id="@json($review->user->id)" :user="{{ auth()->user() ?? '{}'}}" :review_id="@json($review->id)" :proplike="@json($review->like)" :propdislike="@json($review->dislike)"></review-action>
                   @endslot
                   @if ($review->photo)
                   <div>
-                    <img  class="img-fluid" src="{{ asset("/storage/reviewasset/{$review->photo}") }}" alt="" srcset="">
+                    <img class="img-fluid" src="{{ asset("/storage/reviewasset/{$review->photo}") }}" alt="" srcset="">
                   </div>
                   @endif
             </x-company-detail.user-review>
@@ -255,6 +282,11 @@
             @endif
 
           </x-company-detail.card-review>
+          @if ($loop->index == 2)
+          @if (!$company->membership_active)
+          <x-ads></x-ads>
+          @endif
+          @endif
           @endforeach
           @if ($reviews->lastPage() >1)
 
@@ -269,7 +301,8 @@
               @php
               $paginate_order_by = (request()->has('order_by')) ? '&order_by=' . (request()->input('order_by')) : '';
               $paginate_rating = (request()->has('rating')) ? '&rating=' . (request()->input('rating')) : '';
-              $paginate_url =$paginate_rating . $paginate_order_by;
+              $paginate_keyword = (request()->has('keyword')) ? '&keyword=' . (request()->input('keyword')) : '';
+              $paginate_url = $paginate_keyword . $paginate_rating . $paginate_order_by;
               @endphp
               @for ($i = 1; $i <=$reviews->lastPage() ; $i++ )
                 <li class="page-item {{$reviews->currentPage() == $i ? 'active' : ''}} "><a class="page-link" href="{{(request()->url())}}?page={{$i . $paginate_url}}">{{$i}}</a></li>
@@ -288,7 +321,15 @@
           @endif
         </div>
         <div class="col-lg-4">
-          <div class="card">
+          <div class="w-100 mb-3">
+            @if (auth('web')->check())
+            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
+            @endif
+            @if (!auth('web')->check() && !auth('company')->check())
+            <a class="btn btn-success  btn-block" href="/user-login">Write a Review</a>
+            @endif
+          </div>
+          <div class="card mb-3">
             <div class="card-body">
               <div class="mb-3">
                 <strong>Profile</strong>
@@ -320,9 +361,38 @@
                   @endif
                 </div>
               </div>
+
             </div>
 
           </div>
+          @if (count($reviews) > 0)
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="card-title">
+                <p class="h4">Keyword Filter</p>
+              </div>
+              <div class="mb-3">
+                <form action="{{request()->url()}}" method="get">
+                  <div class="form-group position-relative">
+                    <input class="form-control pl-5" type="text" name="keyword">
+                    <i class="fa fa-search position-absolute text-secondary" style="top:12px;left:15px"></i>
+
+                  </div>
+                </form>
+              </div>
+              <div class="d-flex flex-wrap">
+                <a class="btn {{(request()->input('keyword') ) ? 'btn-outline-secondary ' : 'btn-secondary disabled'    }}  mr-1 mb-1" href="{{request()->url()}}">Show All</a>
+                @foreach ( $common_words as $word )
+                <a class="btn {{(request()->input('keyword') == $word) ? 'btn-secondary disabled' : 'btn-outline-secondary '  }} mr-1 mb-1" href="{{$urlquery}}keyword={{$word}}">{{$word}}</a>
+                @endforeach
+                {{-- <common-words :slug="'{{$company->slug}}'"></common-words> --}}
+              </div>
+            </div>
+          </div>
+          @endif
+           @if (!$company->membership_active)
+           <x-ads></x-ads>
+           @endif
         </div>
       </div>
 

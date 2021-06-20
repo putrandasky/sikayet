@@ -1,3 +1,51 @@
+# 20-Jun-21
+## 0.5.0
+### ADDED
+WEBSITE
+- Page for visit User
+- Page for visit Single Review
+- Counting visitor for Company page
+- Counting visitor for review page
+- Showing Like Dislike in review
+- "Load More" feature for top company in homepage (with condition The company with Rating > 4 AND Review > 10)
+- Place Ads area in company detail
+- Common Words (refering a title & description review) as a Keywords in company detail
+- Search input Keywords
+- Peek a password input for user & company login
+- Autosearch input for company name in write a review any company page
+- Sidebar in mobile mode
+- Link to company detail in top company area in title ada company avatar
+- Rating in top company area
+
+USER SIDE
+- View Image Review (if image uploaded) in user dashboard 
+- Social Login (Google & Facebook) with image profile
+- Like Dislike system (User able to give like dislike for review)
+- Insight data (visited, like, dislike) in table review dashboard
+
+COMPANY SIDE
+- Showing data for company detail visitor
+- Showing data for total rating in company dashboard
+
+ADMIN SIDE
+- Button to visit user page in User list
+- Search by date (using calendar) in review page
+- Admin able to edit review title and description 
+- Insight data (visited, like, dislike) in table review dashboard
+
+### FIXED
+WEBSITE
+- Footer floating for short content page
+- Alphabetic keywords appear in mobile mode
+
+### CHANGED
+WEBSITE
+- Change "Write this company" button to "Write a Review"
+
+
+### BACKLOG:
+- Admin Dashboard
+
 # 14-Jun-21
 ## 0.4.0
 ### ADDED
@@ -15,6 +63,7 @@
 ### Backlog
 - Social Login for user
 - Admin dashboard
+- see photo review in admin dashboard
 
 # 7-Jun-21
 ## 0.3.0

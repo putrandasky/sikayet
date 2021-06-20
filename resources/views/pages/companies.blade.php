@@ -24,15 +24,16 @@
       @foreach ($companies as $company)
       <x-home.companies>
         @slot('name')
-        {{$company['name']}}
+        <a class="text-dark" href="/brand/{{$company['slug']}}">{{$company['name']}}</a>
         @endslot
               @slot('avatar')
+            <a class="text-dark" href="/brand/{{$company['slug']}}">
               @if ($company['avatar'])
-
               <img class="img-fluid " src="{{ asset("/storage/company/{$company['avatar']}") }}" alt="">
               @else
               <span class="b-avatar badge-secondary rounded-sm" style="width:120px;height:120px"><i class="fa fa-briefcase fa-3x"></i></span>
               @endif
+            </a>
               @endslot
         @slot('profile')
         {{$company['profile']}}
@@ -53,6 +54,9 @@
             </x-rating-grey>
             @endfor
             @endslot
+                     @slot('total_rating')
+                     Rating: {{$company['rating']}} of 5.0
+                     @endslot
             @slot('slug')
             {{$company['slug']}}
             @endslot

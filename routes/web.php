@@ -30,7 +30,8 @@ Route::get('/company-brands', function () {
 // });
 
 Route::get('/', [Controllers\Website\HomePageController::class, 'show']);
-// Route::get('/test', [Controllers\TestController::class, 'test']);
+Route::get('/top-company/{step}', [Controllers\Website\HomePageController::class, 'getTopCompany']);
+Route::get('/test', [Controllers\TestController::class, 'test']);
 Route::get('/search', [Controllers\Website\HomePageController::class, 'search']);
 Route::get('/about', [Controllers\Website\HomePageController::class, 'showAbout']);
 Route::get('/contact', [Controllers\Website\HomePageController::class, 'showContact']);
@@ -44,6 +45,9 @@ Route::get('/agreement', [Controllers\Website\HomePageController::class, 'showAg
 
 Route::get('/brands/{firstletter}', [Controllers\Website\CategoryController::class, 'indexByFirstletter']);
 Route::get('/brand/{company_name}', [Controllers\Website\CompanyController::class, 'show']);
+Route::get('/common-words/{slug}', [Controllers\Website\CompanyController::class, 'getCommonWords']);
+Route::get('/user/{slug}', [Controllers\Website\UserController::class, 'show']);
+Route::get('/review/{slug}', [Controllers\Website\UserController::class, 'showReview']);
 Route::get('user-login', [Controllers\Auth\LoginController::class, 'showLoginForm'])->name('user-login');
 Route::post('user-login', [Controllers\Auth\LoginController::class, 'login'])->name('user-login');
 Route::get('user-register', [Controllers\Auth\RegisterController::class, 'showRegisterForm'])->name('user-register');
@@ -53,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/write-review', [Controllers\Website\CompanyController::class, 'showReviewAnyCompanyForm']);
     Route::post('/write-review', [Controllers\Website\CompanyController::class, 'reviewAnyCompany']);
+    Route::post('/give-review-response', [Controllers\Website\CompanyController::class, 'giveReviewAction']);
     Route::get('/brand/{company_name}/write-review', [Controllers\Website\CompanyController::class, 'showReviewForm']);
     Route::post('/brand/{company_id}/write-review', [Controllers\Website\CompanyController::class, 'review']);
     Route::get('/user-dashboard', [Controllers\User\ProfileController::class, 'show'])->name('home');
@@ -90,34 +95,16 @@ Route::group(['middleware' => 'auth:company'], function () {
 Route::get('/checkout/payment-success', [Controllers\Company\PaymentController::class, 'paymentSuccess']);
 Route::get('company-dashboard/current-membership', [Controllers\Company\MembershipController::class, 'showCurrentMembership']);
 Route::get('company-dashboard/index-billing', [Controllers\Company\MembershipController::class, 'indexBillingHistory']);
+Route::get('company-dashboard/membership-info', [Controllers\Company\MembershipController::class, 'membershipInfo']);
 Route::post('company-dashboard/buy-membership/{period}', [Controllers\Company\MembershipController::class, 'buyMembership']);
 Route::get('/user-register', function () {
     return view('pages.user-register');
 });
-// Route::get('/company-register', function () {
-//     return view('pages.company-register');
-// });
-// Route::get('/company-login', function () {
-//     return view('pages.company-login');
-// });
-// Route::get('/user-dashboard', function () {
-//     return view('pages.user-dashboard');
-// });
-// Route::get('/company-dashboard', function () {
-//     return view('pages.company-dashboard');
-// });
+
 Route::get('/user-forgot-password', function () {
     return view('pages.user-forgot-password');
 });
-// Route::get('/write-review', function () {
-//     return view('pages.user-write-review');
-// });
-// Route::get('/write-review-anycompany', function () {
-//     return view('pages.user-write-review-anycompany');
-// });
-// Route::get('/about', function () {
-//     return view('pages.about');
-// });
+
 Route::get('/404', function () {
     return view('pages.404');
 });
@@ -127,6 +114,11 @@ Route::group(['prefix' => 'admin'], function () {
         return View::make('layouts.admin');
     })->where('vue_capture', '[\/\w\.-]*');
 });
+
+Route::get('google', [Controllers\Auth\GoogleController::class, 'redirect']);
+Route::get('user-login/google-callback', [Controllers\Auth\GoogleController::class, 'callback']);
+Route::get('facebook', [Controllers\Auth\FacebookController::class, 'redirect']);
+Route::get('user-login/facebook-callback', [Controllers\Auth\FacebookController::class, 'callback']);
 
 // Auth::routes();
 

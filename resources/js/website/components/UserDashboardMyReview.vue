@@ -32,6 +32,11 @@
           <template v-slot:cell(review_title)="data">
             {{data.item.review_title}}
           </template>
+          <template v-slot:cell(insight)="data">
+            <span>{{data.item.visited}} <i class="fa fa-eye"></i></span>
+            <span>{{data.item.like}} <i class="fa fa-thumbs-up"></i></span>
+            <span>{{data.item.dislike}} <i class="fa fa-thumbs-down"></i></span>
+          </template>
           <template v-slot:cell(type)="data">
             <b-badge :variant="getBadgeReviewType(data.item.type)" class="p-1">
               {{ data.item.type }}
@@ -88,6 +93,10 @@
       <b-form-group id="rating" label="Rating" label-for="rating-input">
         <b-form-rating id="rating-input" class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="input.rating" :disabled="input.status !== 'SUSPENDED'"></b-form-rating>
       </b-form-group>
+      <div v-if="input.photo">
+
+        <b-img fluid :src="`/storage/reviewasset/${input.photo}`"></b-img>
+      </div>
       <b-form-group id="type" label="Type" label-for="type-input">
         <b-badge :variant="getBadgeReviewType(input.type)" class="p-1">
           {{ input.type }}
@@ -130,7 +139,8 @@
           title: '',
           description: '',
           rating: null,
-          status: ''
+          status: '',
+          photo: ''
         },
         items: [],
         // items: [{
@@ -178,6 +188,7 @@
         this.input.id = this.itemsData[i].id
         this.input.description = this.itemsData[i].review_description
         this.input.rating = this.itemsData[i].rating
+        this.input.photo = this.itemsData[i].photo
         this.input.type = this.itemsData[i].type
         this.input.status = this.itemsData[i].status
         this.input.company = this.itemsData[i].company_name
@@ -221,6 +232,10 @@
             review_title: item.title,
             review_description: item.description,
             rating: item.rating,
+            visited: item.visited,
+            photo: item.photo,
+            like: item.like,
+            dislike: item.dislike,
             type: item.review_type.name,
             status: item.review_status.name,
             created_at: item.created_at,

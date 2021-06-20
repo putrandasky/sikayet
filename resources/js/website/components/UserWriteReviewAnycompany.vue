@@ -1,7 +1,25 @@
 <template>
   <b-card>
     <b-form-group label="Company Name">
-      <b-form-input v-model="input.company_name" placeholder="Please write the company name"></b-form-input>
+      <!-- <b-form-input v-model="input.company_name" placeholder="Please write the company name"></b-form-input> -->
+
+      <vue-bootstrap-typeahead class="autocomplete" @keyup.native="onKeyUpSearchCompany" v-model="input.company_name" :data="companies" :serializer="company => company.name" @hit="openCompany($event)" :minMatchingChars="3" placeholder="Please write the company name">
+        <template slot="suggestion" slot-scope="{ data, htmlText }">
+          <div class="d-flex justify-content-between">
+
+            <div v-html="htmlText"></div>
+            <div>
+
+              {{data.rating}} / 5.0
+              <span v-for="v in data.rating_rounded " :key="v">
+                <i class="fa fa-star text-primary"></i>
+              </span>
+            </div>
+          </div>
+
+        </template>
+      </vue-bootstrap-typeahead>
+
     </b-form-group>
     <b-form-group label="Company Rating">
       <b-form-rating class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="input.rating"></b-form-rating>
@@ -23,7 +41,7 @@
     <b-form-checkbox id="checkbox-1" v-model="input.accept_tnc" name="checkbox-1" value="accepted" unchecked-value="not_accepted">
       I agree the <b-link href="#" @click="tncModal=true">terms and condition</b-link> for my review
     </b-form-checkbox>
-    <b-btn variant="primary" class="float-right" size="sm" @click="submit" :disabled="!input.rating || !input.title || !input.description || !input.review_type_id || input.accept_tnc == 'not_accepted'">
+    <b-btn variant="primary" class="float-right" size="sm" @click="submit" :disabled="!input.rating || !input.title || !input.description || !input.review_type_id || input.accept_tnc == 'not_accepted' || companies.length > 0 || input.company_name == ''">
       Submit Review
     </b-btn>
     <b-modal size="lg" v-model="tncModal" hide-footer title="Terms and Condition">
@@ -43,12 +61,14 @@
 <script>
   import animationData from "../assets/submit.js";
   import Lottie from 'vue-lottie'
-
+  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+  import debounce from '../utils/debounce'
   export default {
     name: 'UserWriteReview',
     props: ['reviewtype', 'term'],
     components: {
-      Lottie
+      Lottie,
+      'vue-bootstrap-typeahead': VueBootstrapTypeahead
     },
     data: function() {
       return {
@@ -62,6 +82,10 @@
         maxFileSize: 1000,
         tncModal: false,
         file: null,
+        searchingFeedback: false,
+        searchingFeedbackNoCompany: false,
+        companies: [],
+        selectedCompany: null,
         input: {
           review_type_id: null,
           company_name: '',
@@ -122,6 +146,59 @@
             value: item.id,
             text: item.range || item.name || item.description,
             state: false
+          };
+        });
+        return mutateData;
+      },
+      onKeyUpSearchCompany: debounce(function(event) {
+        if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >=
+            97 && event.keyCode <= 122) || event.keyCode == 8 || event.keyCode == 229) {
+          this.selectedCompany = null
+          if (this.input.company_name.length >= 3) {
+            this.searchingFeedbackNoCompany = false
+            this.searchingFeedback = true
+            this.getCompany(this.input.company_name)
+          } else {
+            this.searchingFeedbackNoCompany = false
+            this.searchingFeedback = false
+          }
+        }
+      }, 500),
+      getInteger(a) {
+        return a.toFixed(0)
+      },
+      getCompany(query) {
+        let self = this
+        axios.get('search?name=' + query)
+          .then((response) => {
+            console.log(response.data)
+            if (response.data.length == 0) {
+              this.searchingFeedback = false
+              this.searchingFeedbackNoCompany = true
+              self.companies = []
+            }
+            if (response.data.length !== 0) {
+              self.companies = this.mutateCompanyNameKey(response.data)
+              console.log(self.companies);
+              this.searchingFeedback = false
+            }
+            // console.log(this.selectedCompany)
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+        // this.addresses = suggestions.suggestions
+      },
+      openCompany(data) {
+        window.open(`/brand/${data.slug}`, '_self')
+      },
+      mutateCompanyNameKey(data) {
+        let mutateData = data.map(function(item) {
+          return {
+            name: item.name,
+            slug: item.slug,
+            rating: item.rating,
+            rating_rounded: parseInt(item.rating.toFixed(0))
           };
         });
         return mutateData;

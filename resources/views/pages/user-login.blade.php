@@ -12,17 +12,18 @@
         <h3 class="mb-0">APP Logo</h3>
       </div>
       <div class=" py-2">
-        <button class="btn btn-block text-white" style="background-color: #3B5998;">
+        <a href="{{ url('facebook') }}" class="btn btn-block text-white" style="background-color: #3B5998;">
           <i class="fa fa-facebook"> </i>
-          Login with Facebook</button>
-        <button class="btn btn-block text-white" style="background-color: #DC4E41;">
+          Login with Facebook</a>
+        <a href="{{ url('google') }}" class="btn btn-block text-white" style="background-color: #DC4E41;">
           <i class="fa fa-google"> </i>
-          Login with Google</button>
+          Login with Google</a>
       </div>
       <div>
         OR
       </div>
-      <form method="POST" action="{{ route('user-login') }}"class="mt-2">
+      <user-login></user-login>
+      {{-- <form method="POST" action="{{ route('user-login') }}"class="mt-2">
          @csrf
         <div class="form-group  position-relative">
           <input id="email" type="email" class="form-control pl-5 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
@@ -61,7 +62,7 @@
         <div class="mt-3 text-center">
           Don't have Account? <a href="/user-register">Sign Up</a>
         </div>
-      </form>
+      </form> --}}
 
     </div>
   </div>

@@ -1,5 +1,5 @@
 <div class="row pt-5">
-  <div class="col-md-2 d-md-block d-none">
+  <div class="col-md-2 d-md-block d-none  text-md-center">
     <div>
       {{$company_avatar}}
     </div>

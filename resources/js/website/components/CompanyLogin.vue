@@ -13,8 +13,11 @@
           <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
         </b-form-group>
         <b-form-group class="position-relative" :invalid-feedback="errors.password" :state="statePassword">
-          <b-form-input type="password" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword"></b-form-input>
+          <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword"></b-form-input>
           <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
+          <i v-show="!isPasswordOpen" class="fa fa-eye position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = true"></i>
+          <i v-show="isPasswordOpen" class="fa fa-eye-slash position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = false"></i>
+
         </b-form-group>
         <div class="d-flex    justify-content-between">
           <div class="">
@@ -55,6 +58,7 @@
           email: '',
           password: '',
         },
+        isPasswordOpen: false,
         isLoading: false,
 
       }
@@ -89,11 +93,11 @@
           })
           .catch((error) => {
             self.isLoading = false
-            let input = {
-              email: '',
-              password: '',
-            }
-            self.input = input
+            // let input = {
+            //   email: '',
+            //   password: '',
+            // }
+            // self.input = input
             let errors = error.response.data.errors
             this.errors.email = errors.email ? errors.email[0] : 'no-error';
             this.errors.password = errors.password ? errors.password[0] : 'no-error';

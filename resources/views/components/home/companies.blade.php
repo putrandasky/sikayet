@@ -20,14 +20,18 @@
               </div>
             </div>
           </div>
-          <div class="col-md-3 ">
+          <div class="col-md-3  text-secondary  ">
             <div class="text-center">
               <small>
                 Based on {{$review}} reviews
               </small>
             </div>
-            <div class="d-flex justify-content-center mb-3">
+            <div class="d-flex justify-content-center mb-1">
               {{$rating}}
+            </div>
+
+            <div class="text-center text-secondary mb-2">
+              {{$total_rating}}
             </div>
             <div class="text-center">
               <a class="btn btn-primary btn-sm" href="/brand/{{$slug}}">Read More</a>

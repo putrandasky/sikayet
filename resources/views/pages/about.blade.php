@@ -6,7 +6,7 @@
 
 @section('content')
 <x-base>
-  <div class="jumbotron parallax jumbotron-fluid mt-5 mb-0 " style="background-image:linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url({{ asset('images/websites/about.jpg') }})">
+  <div class="jumbotron parallax jumbotron-fluid mb-0 " style="background-image:linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url({{ asset('images/websites/about.jpg') }})">
     <div class="container py-5">
       <h1 class="display-4 text-white">{{$text->where('key','about_header_title')->first()->value}}</h1>
       <h2 class="lead text-white">{{$text->where('key','about_header_subtitle')->first()->value}}</h2>

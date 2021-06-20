@@ -11,8 +11,9 @@
               <b-input-group-prepend>
                 <b-form-select plain v-model="selectedInputSearch" :options="optionsInputSearch" />
               </b-input-group-prepend>
-              <b-form-input autofocus v-model="search" @input="onInput" type="text" placeholder="Instant Search">
+              <b-form-input v-if="selectedInputSearch != 'date'" autofocus v-model="search" @input="onInput" type="text" placeholder="Instant Search">
               </b-form-input>
+              <b-form-datepicker v-if="selectedInputSearch == 'date'" v-model="search" @input="onInput"></b-form-datepicker>
               <b-input-group-append>
                 <b-btn :disabled="!search" @click="search = ''">Clear</b-btn>
               </b-input-group-append>
@@ -36,11 +37,11 @@
           <template v-slot:cell(rating)="data">
             <i class="fa fa-star"></i> {{data.item.rating}}
           </template>
-          <template v-slot:cell(activated_at)="data">
+          <template v-slot:cell(created_at)="data">
             {{data.item.created_at | dateFormated}}
           </template>
           <template v-slot:cell(action)="data">
-            <b-btn size="sm" variant="success" @click="edit(data.item,data.index)">Edit</b-btn>
+            <b-btn size="sm" variant="success" @click="edit(data.item,data.index)"><i class="fa fa-edit"></i></b-btn>
           </template>
         </b-table>
         <reviews-modal ref="reviewsModal" :propsData="selected" :propsOptions="options.review_statuses" @submitted="submit($event)" />
@@ -164,10 +165,14 @@
         let indexItemsData = this.itemsData.findIndex(a => a.id == e.id)
         axios.patch(`/api/review/${e.id}`, {
             review_status_id: e.review_status_id,
+            title: e.title,
+            description: e.description,
           })
           .then((response) => {
             this.itemsData[indexItemsData].review_status = new_review_status
             this.itemsData[indexItemsData].review_status_id = newData.value
+            this.itemsData[indexItemsData].title = e.title
+            this.itemsData[indexItemsData].description = e.description
             this.$refs.reviewsModal.modalShow(false)
             this.toastSuccess(response.data.message)
             // console.log(this.itemsData[this.selectedIndex])

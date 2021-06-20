@@ -87,5 +87,10 @@ class MembershipController extends Controller
         return response()->json(['status' => 'status', 'message' => 'message', 'data' => $company->respond_quota], 200);
 
     }
+    public function membershipInfo()
+    {
+        $info = Models\EditorMembershipInfo::get();
+        return $info;
+    }
 
 }

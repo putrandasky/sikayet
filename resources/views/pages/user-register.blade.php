@@ -12,17 +12,18 @@
         <h3 class="mb-0">APP Logo</h3>
       </div>
       <div class=" py-2">
-        <button class="btn btn-block text-white" style="background-color: #3B5998;">
+        <a href="{{ url('facebook') }}" class="btn btn-block text-white" style="background-color: #3B5998;">
           <i class="fa fa-facebook"> </i>
-          Register with Facebook</button>
-        <button class="btn btn-block text-white" style="background-color: #DC4E41;">
+          Register with Facebook</a>
+        <a href="{{ url('google') }}" class="btn btn-block text-white" style="background-color: #DC4E41;">
           <i class="fa fa-google"> </i>
-          Register with Google</button>
+          Register with Google</a>
       </div>
       <div>
         OR
       </div>
-      <form method="POST" action="{{ route('user-register') }}" class="mt-2">
+      <user-register></user-register>
+      {{-- <form method="POST" action="{{ route('user-register') }}" class="mt-2">
         @csrf
         <div class="form-group  position-relative">
           <input id="name" type="text" class="form-control pl-5 @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full Name">
@@ -63,7 +64,7 @@
         <div class="mt-3 text-center">
           Already have Account? <a href="/user-login">Sign In</a>
         </div>
-      </form>
+      </form> --}}
 
     </div>
   </div>

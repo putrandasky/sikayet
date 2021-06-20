@@ -39,6 +39,8 @@ class ReviewController extends Controller
     {
         $review = Models\Review::id($review_id)->first();
         $review->review_status_id = $request->review_status_id;
+        $review->title = $request->title;
+        $review->description = $request->description;
         $review->save();
         if (!isset($review->published_at) && $request->review_status_id == 2) {
             $this->incrementReviewData($review_id);
@@ -82,6 +84,8 @@ class ReviewController extends Controller
             $review->user_id = $review_orphan->user_id;
             $review->published_at = Carbon\Carbon::now();
 
+            $review->save();
+            $review->slug = md5($review->id . $review->user_id . $review->company_id);
             $review->save();
             $review_orphan->review_status_id = 2;
             $review_orphan->save();

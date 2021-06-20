@@ -28,11 +28,14 @@
           <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
         </b-form-group>
         <b-form-group class="position-relative" :invalid-feedback="errors.password" :state="statePassword">
-          <b-form-input type="password" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword"></b-form-input>
+          <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword"></b-form-input>
           <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
+          <i v-show="!isPasswordOpen" class="fa fa-eye position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = true"></i>
+          <i v-show="isPasswordOpen" class="fa fa-eye-slash position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = false"></i>
+
         </b-form-group>
         <b-form-group class="position-relative">
-          <b-form-input type="password" class="form-control pl-5" placeholder="Confirm Password" v-model="input.password_confirmation"></b-form-input>
+          <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Confirm Password" v-model="input.password_confirmation"></b-form-input>
           <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
         </b-form-group>
 
@@ -91,6 +94,7 @@
         category_options: [],
         isLoading: false,
         submitedModal: false,
+        isPasswordOpen: false,
       }
     },
     mounted() {

@@ -2,9 +2,7 @@
   <div>
     <b-sidebar body-class="px-3" bg-variant="dark" title="Navigation" backdrop id="sidebar-1" :z-index="1001" :shadow="true">
       <b-list-group flush class="mt-3 bg-dark">
-        <!-- <b-list-group-item v-for="(v,i) in menu" :key="i">
-          {{v}}
-        </b-list-group-item> -->
+
         <b-list-group-item href="#" class="bg-dark text-white border-bottom border-light" @click="submit">
           FAQ
         </b-list-group-item>

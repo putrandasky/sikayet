@@ -35,7 +35,10 @@
             </b-badge>
           </template>
           <template v-slot:cell(action)="data">
-            <b-btn size="sm" variant="success" @click="showUserModal(data.item,data.index)">Edit</b-btn>
+            <div class="d-flex">
+              <b-btn size="sm" variant="success" @click="showUserModal(data.item,data.index)"><i class="fa fa-edit"></i></b-btn>
+              <b-btn class="ml-1" size="sm" variant="secondary" @click="openUserPage(data.item.slug)"><i class="fa fa-external-link"></i></b-btn>
+            </div>
           </template>
           <template v-slot:cell(created_at)="data">
             {{data.item.created_at | dateFormated}}
@@ -155,6 +158,9 @@
           .catch((error) => {
             console.log(error);
           })
+      },
+      openUserPage(slug) {
+        window.open(`/user/${slug}`)
       },
       getData() {
         axios.get(`/api/users`)

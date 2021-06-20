@@ -19,6 +19,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'slug',
+        'google_id',
+        'facebook_id',
+        'avatar',
         'account_status_id',
     ];
 
@@ -48,6 +52,10 @@ class User extends Authenticatable
     public function scopeId($query, $value)
     {
         return $query->where('id', $value);
+    }
+    public function scopeSlug($query, $value)
+    {
+        return $query->where('slug', $value);
     }
     public function reviews()
     {

@@ -28,6 +28,15 @@ export const MyReviewTable = {
           },
         },
         {
+          key: 'insight',
+          label: 'Insight',
+          class: 'text-center',
+          thStyle: {
+            minWidth: '125px',
+            width: '125px'
+          },
+        },
+        {
           key: 'rating',
           label: 'Rating',
           class: 'text-center',
@@ -78,8 +87,8 @@ export const MyReviewTable = {
           label: '',
           class: 'text-center',
           thStyle: {
-            minWidth: '125px',
-            width: '125px'
+            minWidth: '50px',
+            width: '50px'
           },
         },
 

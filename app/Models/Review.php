@@ -43,6 +43,10 @@ class Review extends Model
     {
         return $query->where('id', $value);
     }
+    public function scopeSlug($query, $value)
+    {
+        return $query->where('slug', $value);
+    }
     public function scopeUserId($query, $value)
     {
         return $query->where('user_id', $value);

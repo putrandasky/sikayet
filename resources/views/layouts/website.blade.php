@@ -19,7 +19,8 @@
 </head>
 
 <body style="background: #eef3f7;">
-<div id="app">
+
+<div id="app" class="d-flex align-items-end flex-column">
 
   @yield('content')
 </div>

@@ -11,8 +11,9 @@
               <b-input-group-prepend>
                 <b-form-select plain v-model="selectedInputSearch" :options="optionsInputSearch" />
               </b-input-group-prepend>
-              <b-form-input autofocus v-model="search" @input="onInput" type="text" placeholder="Instant Search">
+              <b-form-input v-if="selectedInputSearch != 'date'" autofocus v-model="search" @input="onInput" type="text" placeholder="Instant Search">
               </b-form-input>
+              <b-form-datepicker v-if="selectedInputSearch == 'date'" v-model="search" @input="onInput"></b-form-datepicker>
               <b-input-group-append>
                 <b-btn :disabled="!search" @click="search = ''">Clear</b-btn>
               </b-input-group-append>

@@ -71,17 +71,8 @@ export const FieldTableData = {
           }
         },
         {
-          key: 'reported',
-          label: '# Reported',
-          class: 'text-center',
-          thStyle: {
-            minWidth: '100px',
-            width: '100px',
-          }
-        },
-        {
-          key: 'suspended_at',
-          label: 'Suspended Since',
+          key: 'created_at',
+          label: 'Submitted',
           class: 'text-center',
           thStyle: {
             minWidth: '100px',
@@ -106,11 +97,15 @@ export const FieldTableData = {
         },
         {
           value: 'company',
-          text: 'company'
+          text: 'Company'
         },
         {
           value: 'title',
           text: 'Title'
+        },
+        {
+          value: 'date',
+          text: 'Date'
         },
 
       ],
@@ -131,6 +126,11 @@ export const FieldTableData = {
       if (this.selectedInputSearch == 'title') {
         return this.itemsData.filter(result =>
           result.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
+      if (this.selectedInputSearch == 'date') {
+        return this.itemsData.filter(result =>
+          result.created_at.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         )
       }
 

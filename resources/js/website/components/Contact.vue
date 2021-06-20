@@ -1,6 +1,6 @@
 <template>
-  <b-container class="w-100 d-flex align-items-center">
-    <b-row class="w-100 justify-content-center">
+  <b-container class="w-100 d-flex align-items-center justify-content-center">
+    <b-row class="w-100  justify-content-center">
       <b-col md="8">
         <b-tabs id="tab-contact-form" content-class="mt-3" justified>
           <b-tab>

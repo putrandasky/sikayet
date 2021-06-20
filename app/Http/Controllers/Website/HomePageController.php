@@ -13,9 +13,21 @@ class HomePageController extends Controller
 
         $data['header']['title'] = Models\Editor::key('header-title')->value;
         $data['header']['subtitle'] = Models\Editor::key('header-subtitle')->value;
-        $data['top-company'] = Models\Company::where('rating', '>', 4)->orderBy('rating')->orderBy('review')->get(['id', 'name', 'profile', 'rating', 'review', 'slug'])->take(5);
+
         // return $data;
         return view('pages.home', compact("data"));
+
+    }
+    public function getTopCompany($step)
+    {
+        $limit = 10;
+        $offset = $limit * $step;
+        $take = $limit * ($step + 1);
+        $data = Models\Company::where('rating', '>', 4)->where('review', '>', 10)
+            ->orderBy('rating', 'DESC')
+            ->orderBy('review', 'DESC')
+            ->get(['id', 'avatar', 'name', 'profile', 'rating', 'review', 'slug'])->skip($offset)->take($take);
+        return $data;
 
     }
     public function showTermOfUse()

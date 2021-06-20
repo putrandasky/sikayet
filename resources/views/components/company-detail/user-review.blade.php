@@ -1,4 +1,5 @@
-<div class="row pt-md-5 pt-3">
+<div class="row ">
+      {{$review_visitor ?? ''}}
   <div class="col-md-2 mb-3 mb-md-0 text-md-center">
     <div class="float-md-none float-left mr-3 mr-md-0">
       {{$user_avatar}}

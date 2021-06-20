@@ -50,6 +50,11 @@
               {{ data.item.review_status.name }}
             </b-badge>
           </template>
+          <template v-slot:cell(insight)="data">
+            <span>{{data.item.visited}} <i class="fa fa-eye"></i></span>
+            <span>{{data.item.like}} <i class="fa fa-thumbs-up"></i></span>
+            <span>{{data.item.dislike}} <i class="fa fa-thumbs-down"></i></span>
+          </template>
           <template v-slot:cell(answered)="data">
             <b-badge v-if="data.item.company_respond" variant="success">
               <i class="fa fa-check"></i>
@@ -63,7 +68,7 @@
           </template>
           <template v-slot:cell(action)="data">
             <b-btn variant="success" size="sm" @click="editMode(data.item.id)">
-              See Review
+              <i class="fa fa-search"></i>
             </b-btn>
           </template>
         </b-table>
@@ -108,6 +113,9 @@
                   <p>
                     {{detail.description}}
                   </p>
+                </b-col>
+                <b-col cols="12" class="py-3" v-if="detail.photo">
+                  <b-img fluid :src="`/storage/reviewasset/${detail.photo}`"></b-img>
                 </b-col>
               </b-row>
               <div>
@@ -264,6 +272,7 @@
         this.detail.user = this.itemsData[i].user
         this.detail.created_at = this.itemsData[i].created_at
         this.detail.rating = this.itemsData[i].rating
+        this.detail.photo = this.itemsData[i].photo
         this.detail.description = this.itemsData[i].description
         this.detail.reported = this.itemsData[i].reported
         this.detail.company_respond = this.itemsData[i].company_respond

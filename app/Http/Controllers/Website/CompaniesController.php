@@ -11,7 +11,10 @@ class CompaniesController extends Controller
     public function index(Request $request)
     {
 
-        $data = Models\Company::where('name', 'like', "%{$request->input('name')}%")->orderBy('review', 'DESC')->orderBy('rating', 'DESC')->select(['id', 'name', 'profile', 'review', 'slug', 'rating']);
+        $data = Models\Company::where('name', 'like', "%{$request->input('name')}%")
+            ->orderBy('review', 'DESC')
+            ->orderBy('rating', 'DESC')
+            ->select(['id', 'name', 'profile', 'review', 'slug', 'rating', 'avatar']);
         $count = $data->count();
         $companies = $data->paginate(10);
         return view('pages.companies', compact("companies", "count"));

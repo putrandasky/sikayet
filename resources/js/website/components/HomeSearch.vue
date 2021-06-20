@@ -22,7 +22,7 @@
         <!-- <strong v-show="searchingFeedback" slot="description" style="position: absolute;top: 55px;left: 29px;">
           Searching User ....
         </strong>
-        <strong v-show="searchingFeedbackNoUser" slot="description" style="position: absolute;top: 55px;left: 29px;color:red">
+        <strong v-show="searchingFeedbackNoCompany" slot="description" style="position: absolute;top: 55px;left: 29px;color:red">
           There's No User With That Name!
         </strong> -->
         <!-- <template #append>
@@ -52,10 +52,10 @@
         data: this.dataProps,
         editPrModal: false,
         searchingFeedback: false,
-        searchingFeedbackNoUser: false,
+        searchingFeedbackNoCompany: false,
         companies: [],
         companySearch: '',
-        selectedUser: null,
+        selectedCompany: null,
       }
     },
     created() {},
@@ -66,13 +66,13 @@
       onKeyUpSearchCompany: debounce(function(event) {
         if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >=
             97 && event.keyCode <= 122) || event.keyCode == 8 || event.keyCode == 229) {
-          this.selectedUser = null
+          this.selectedCompany = null
           if (this.companySearch.length >= 3) {
-            this.searchingFeedbackNoUser = false
+            this.searchingFeedbackNoCompany = false
             this.searchingFeedback = true
-            this.getUser(this.companySearch)
+            this.getCompany(this.companySearch)
           } else {
-            this.searchingFeedbackNoUser = false
+            this.searchingFeedbackNoCompany = false
             this.searchingFeedback = false
           }
         }
@@ -80,21 +80,21 @@
       getInteger(a) {
         return a.toFixed(0)
       },
-      getUser(query) {
+      getCompany(query) {
         let self = this
         axios.get('search?name=' + query)
           .then((response) => {
             console.log(response.data)
             if (response.data.length == 0) {
               this.searchingFeedback = false
-              this.searchingFeedbackNoUser = true
+              this.searchingFeedbackNoCompany = true
             }
             if (response.data.length !== 0) {
               self.companies = this.mutateKey(response.data)
               console.log(self.companies);
               this.searchingFeedback = false
             }
-            // console.log(this.selectedUser)
+            // console.log(this.selectedCompany)
           })
           .catch((error) => {
             console.log(error);

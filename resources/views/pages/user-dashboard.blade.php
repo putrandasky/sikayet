@@ -23,7 +23,6 @@
           {{-- <img class="img-fluid rounded-circle" style="height: auto;width:120px" src="{{ asset('images/websites/avatar1.jpg') }}" alt=""> --}}
           @endslot
           @slot('data_area')
-          <div>
             <div class="text-white text-center text-sm-left">
               <h3>{{$user->name}}
 
@@ -31,7 +30,6 @@
               </h3>
             </div>
             {{-- <div class="text-light text-center text-sm-left">Turkey</div> --}}
-          </div>
           @endslot
 
         </x-header-info>
