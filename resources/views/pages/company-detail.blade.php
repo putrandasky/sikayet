@@ -204,9 +204,9 @@
               @endslot
               @slot('user_name')
               <a href="/user/{{$review->user->slug}}" class="text-dark">
-                {{$review->user->name}}
+                {{ explode(' ',trim($review->user->name))[0] }}
               </a>
-              <div>
+              <div style="white-space: nowrap">
                 <small class="text-secondary">{{$review->user->review}} <i class="fa fa-pencil"></i> </small>
                 <small class="text-secondary">{{$review->user->like}} <i class="fa fa-thumbs-up"></i> </small>
                 <small class="text-secondary">{{$review->user->dislike}} <i class="fa fa-thumbs-down"></i></small>

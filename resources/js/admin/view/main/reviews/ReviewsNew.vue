@@ -38,7 +38,7 @@
             <i class="fa fa-star"></i> {{data.item.rating}}
           </template>
           <template v-slot:cell(created_at)="data">
-            {{data.item.created_at | dateFormated}}
+            {{data.item.updated_at | dateFormated}}
           </template>
           <template v-slot:cell(action)="data">
             <b-btn size="sm" variant="success" @click="edit(data.item,data.index)"><i class="fa fa-edit"></i></b-btn>
@@ -159,11 +159,13 @@
         axios.patch(`/api/review/${e.id}`, {
             review_status_id: e.review_status_id,
             title: e.title,
+            rating: e.rating,
             description: e.description,
           })
           .then((response) => {
             this.itemsData[indexItemsData].review_status = new_review_status
             this.itemsData[indexItemsData].title = e.title
+            this.itemsData[indexItemsData].rating = e.rating
             this.itemsData[indexItemsData].description = e.description
             this.$refs.reviewsModal.modalShow(false)
             this.toastSuccess(response.data.message)

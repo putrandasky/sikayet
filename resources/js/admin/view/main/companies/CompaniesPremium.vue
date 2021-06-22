@@ -45,7 +45,10 @@
             {{data.item.created_at | dateFormated}}
           </template>
           <template v-slot:cell(action)="data">
-            <b-btn size="sm" variant="success" @click="edit(data.item,data.index)">Edit</b-btn>
+            <div class="d-flex">
+              <b-btn size="sm" variant="success" @click="edit(data.item,data.index)"><i class="fa fa-edit"></i></b-btn>
+              <b-btn class="ml-1" size="sm" variant="secondary" @click="openComppanyPage(data.item.slug)"><i class="fa fa-external-link"></i></b-btn>
+            </div>
           </template>
         </b-table>
         <companies-modal ref="companiesModal" :propsData="selected" :propsOptions="options.account_statuses" :modalShow="isCompanyModalShow" @submitted="submit($event)" />
@@ -148,7 +151,10 @@
             console.log(error);
           })
 
-      }
+      },
+      openComppanyPage(slug) {
+        window.open(`/brand/${slug}`)
+      },
 
 
     },

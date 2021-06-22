@@ -18,13 +18,13 @@ class ReviewController extends Controller
         $data['review_statuses'] = Models\ReviewStatus::get();
 
         if ($condition == 'new') {
-            $reviews = Models\Review::hasStatus(1)->withBelongings()->latest()->get();
+            $reviews = Models\Review::hasStatus(1)->withBelongings()->latestUpdate()->get();
         }
         if ($condition == 'reported') {
-            $reviews = Models\Review::hasStatus(2)->withBelongings()->latest()->where('reported', '>', 0)->get();
+            $reviews = Models\Review::hasStatus(2)->withBelongings()->latestUpdate()->where('reported', '>', 0)->get();
         }
         if ($condition == 'suspended') {
-            $reviews = Models\Review::hasStatus(3)->withBelongings()->latest()->get();
+            $reviews = Models\Review::hasStatus(3)->withBelongings()->latestUpdate()->get();
         }
         if ($condition == 'orphans') {
 
@@ -38,27 +38,34 @@ class ReviewController extends Controller
     public function update(Request $request, $review_id)
     {
         $review = Models\Review::id($review_id)->first();
-        $review->review_status_id = $request->review_status_id;
-        $review->title = $request->title;
-        $review->description = $request->description;
-        $review->save();
+
+        //scenario for review to be "PUBLISHED" and not have published data
         if (!isset($review->published_at) && $request->review_status_id == 2) {
-            $this->incrementReviewData($review_id);
+            $this->incrementReviewData($review_id, $request->rating);
             $review->published_at = Carbon\Carbon::now();
             $review->suspended_at = null;
             $review->save();
         }
+        //scenario for review to be "SUSPENDED" and not have published data (which means from "IN REVIEW" status)
+
         if (!isset($review->published_at) && $request->review_status_id == 3) {
             $review->published_at = null;
             $review->suspended_at = Carbon\Carbon::now();
             $review->save();
         }
+//scenario for review to be "SUSPENDED" and have published data (which means from published status)
         if (isset($review->published_at) && $request->review_status_id == 3) {
             $this->decrementReviewData($review_id);
             $review->published_at = null;
             $review->suspended_at = Carbon\Carbon::now();
             $review->save();
         }
+        $review->review_status_id = $request->review_status_id;
+        $review->title = $request->title;
+        $review->rating = $request->rating;
+        $review->description = $request->description;
+        $review->save();
+
         return response()->json(['status' => 'success', 'message' => 'Review data updated'], 200);
     }
 
@@ -127,14 +134,14 @@ class ReviewController extends Controller
 
         ]);
     }
-    public function incrementReviewData($review_id)
+    public function incrementReviewData($review_id, $user_rating)
     {
         $review = Models\Review::id($review_id)->first();
         $company = Models\Company::id($review->company_id)->first();
         $user = Models\User::id($review->user_id)->first();
         $user->review += 1;
         $company->review += 1;
-        $company["star_{$review->rating}"] += 1;
+        $company["star_{$user_rating}"] += 1;
         if ($review->review_type_id == 1) {
             $company->review_general += 1;
         }

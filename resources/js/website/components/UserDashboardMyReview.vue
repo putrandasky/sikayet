@@ -80,18 +80,18 @@
         Review from you will be shown here
       </div>
     </b-alert>
-    <b-modal v-if="isLoaded && itemsData.length > 0" v-model="modalEditReview" :hide-footer="input.status !== 'SUSPENDED'" @ok="updateData">
+    <b-modal v-if="isLoaded && itemsData.length > 0" v-model="modalEditReview" :hide-footer="input.status == 'PUBLISHED'" @ok="updateData">
       <template #modal-title>
         <strong>Your review for {{input.company}}</strong>
       </template>
       <b-form-group id="review-title" label="Title" label-for="review-title-input">
-        <b-form-input id="review-title-input" v-model="input.title" trim :disabled="input.status !== 'SUSPENDED'"></b-form-input>
+        <b-form-input id="review-title-input" v-model="input.title" trim :disabled="input.status == 'PUBLISHED'"></b-form-input>
       </b-form-group>
       <b-form-group id="review-content" label="Review" label-for="review-content-input">
-        <b-form-textarea id="review-content-input" v-model="input.description" rows="3" :disabled="input.status !== 'SUSPENDED'"></b-form-textarea>
+        <b-form-textarea id="review-content-input" v-model="input.description" rows="3" :disabled="input.status == 'PUBLISHED'"></b-form-textarea>
       </b-form-group>
       <b-form-group id="rating" label="Rating" label-for="rating-input">
-        <b-form-rating id="rating-input" class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="input.rating" :disabled="input.status !== 'SUSPENDED'"></b-form-rating>
+        <b-form-rating id="rating-input" class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="input.rating" :disabled="input.status == 'PUBLISHED'"></b-form-rating>
       </b-form-group>
       <div v-if="input.photo">
 

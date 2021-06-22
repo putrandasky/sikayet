@@ -1,3 +1,17 @@
+# 22-Jun-21
+## 0.5.1
+### ADDED
+ADMIN
+- Company dashboard page has button to open company panel
+### CHANGED
+WEBSITE
+- User name only showing first name.
+USER
+- User can modify his/her own review in dashboard for status 'IN REVIEW' and 'SUSPENDED'
+### FIXED
+WEBSITE
+- Responsiveness of user insight data user review card
+
 # 20-Jun-21
 ## 0.5.0
 ### ADDED

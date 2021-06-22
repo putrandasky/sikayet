@@ -164,11 +164,13 @@
         axios.patch(`/api/review/${e.id}`, {
             review_status_id: e.review_status_id,
             title: e.title,
+            rating: e.rating,
             description: e.description,
           })
           .then((response) => {
             this.itemsData[indexItemsData].review_status = new_review_status
             this.itemsData[indexItemsData].review_status_id = newData.value
+            this.itemsData[indexItemsData].rating = e.rating
             this.itemsData[indexItemsData].title = e.title
             this.itemsData[indexItemsData].description = e.description
             this.$refs.reviewsModal.modalShow(false)

@@ -55,6 +55,10 @@ class Review extends Model
     {
         return $query->where('company_id', $value);
     }
+    public function scopeLatestUpdate($query)
+    {
+        return $query->orderBy('updated_at', 'DESC');
+    }
     public function scopeHasStatus($query, $value)
     {
         return $query->where('review_status_id', $value);

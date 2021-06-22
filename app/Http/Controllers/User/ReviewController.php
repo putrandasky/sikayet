@@ -29,6 +29,10 @@ class ReviewController extends Controller
     public function update(Request $request, $review_id)
     {
         $review = Models\Review::id($review_id)->first();
+        if ($review->review_status_id == 2) {
+            return response()->json(['status' => 'error', 'message' => 'Your review already in PUBLISHED'], 403);
+        }
+
         $review->title = $request->title;
         $review->description = $request->description;
         $review->rating = $request->rating;

@@ -29,7 +29,8 @@
           </div> @endslot
           @slot('data_area')
           <div class="text-white text-center text-sm-left">
-            <h3>{{$user->name}}
+            <h3>
+              {{$user->name}}
 
 
             </h3>
@@ -91,7 +92,7 @@
               @endif
               @endslot
               @slot('user_name')
-              {{$user->name}}
+                {{ explode(' ',trim($user->name))[0] }}
               @endslot
               @slot('rating')
               @php
