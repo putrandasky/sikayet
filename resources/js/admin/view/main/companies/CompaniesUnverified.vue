@@ -146,6 +146,7 @@
           })
       },
       submit(e) {
+        this.$refs.companiesModal.isLoading = true
         let newData = this.options.account_statuses.find(
           data => data.value == e.account_status_id
         )
@@ -159,6 +160,7 @@
             is_verified: e.is_verified,
           })
           .then((response) => {
+            this.$refs.companiesModal.isLoading = false
             this.itemsData[indexItemsData].account_status = new_accout_status
             this.itemsData[indexItemsData].account_status_id = newData.value
             this.itemsData[indexItemsData].is_verified = e.is_verified
@@ -167,6 +169,8 @@
             // console.log(this.itemsData[this.selectedIndex])
           })
           .catch((error) => {
+            this.$refs.companiesModal.isLoading = false
+            this.toastError(error.response.data.message)
             console.log(error);
           })
 

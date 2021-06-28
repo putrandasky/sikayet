@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Auth;
+use Hash;
 use Illuminate\Http\Request;
 use ImageResize;
 use Storage;
@@ -24,6 +25,12 @@ class ProfileController extends Controller
     }
     public function updateProfile(Request $request)
     {
+        $rules = [
+            'profile' => 'required|string',
+            'name' => 'required|string',
+        ];
+        $this->validate($request, $rules);
+
         $user = Auth::guard('web')->user();
         $user->profile = $request->profile;
         $user->name = $request->name;
@@ -34,6 +41,12 @@ class ProfileController extends Controller
     }
     public function updateProfileImage(Request $request)
     {
+
+        $rules = [
+            'file' => 'required|mimes:jpg,jpeg,png',
+        ];
+        $this->validate($request, $rules);
+
         $user = Auth::guard('web')->user();
 
         $path = 'public/user';
@@ -60,6 +73,29 @@ class ProfileController extends Controller
         $user->save();
         return response()->json(['status' => 'success', 'message' => 'Profile Image Deleted'], 200);
 
-# code...
+    }
+
+    public function updatePassword(Request $request)
+    {
+
+        $rules = [
+            'current_password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed',
+        ];
+        $this->validate($request, $rules);
+
+        $user = Auth::guard('web')->user();
+        if (Hash::check($request->current_password, $user->password)) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return response()->json(['status' => 'success', 'message' => 'Your Password Changed'], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'The given data was invalid.',
+                'errors' => ['current_password' => ['Your Input Current Password is Not Match From Database']]], 403);
+
+        }
+
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models;
 use Auth;
 use ImageResize;
+use Redirect;
 use Socialite;
 use Storage;
 use Str;
@@ -20,7 +21,6 @@ class GoogleController extends Controller
     public function callback()
     {
 
-        // jika user masih login lempar ke home
         if (Auth::check()) {
             return redirect('/user-dashboard');
         }
@@ -31,6 +31,13 @@ class GoogleController extends Controller
             Auth::loginUsingId($user->id);
             return redirect('/user-dashboard');
         } else {
+//check if any user has same email
+            $user_email_exist = Models\User::where('email', $oauthUser->email)->exists();
+
+            if ($user_email_exist) {
+                return redirect('user-login')->with('status', 'You can not using Google login with Email which already registered');
+            }
+
             $content = file_get_contents($oauthUser->avatar_original);
             $filename = Str::random(20) . '.jpg';
             $stored_avatar = Storage::put('public/user/' . $filename, $content);
@@ -46,7 +53,7 @@ class GoogleController extends Controller
                 'avatar' => $filename,
                 'account_status_id' => 1,
                 'slug' => md5($oauthUser->email),
-                // password tidak akan digunakan ;)
+                //password will never be used
                 'password' => md5($oauthUser->token),
             ]);
             Auth::login($newUser);

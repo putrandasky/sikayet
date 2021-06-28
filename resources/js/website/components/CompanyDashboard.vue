@@ -48,7 +48,7 @@
           <b-btn variant="danger" size="sm" @click="logout">Log Out</b-btn>
         </b-nav-item>
       </b-nav>
-      <component :companydata="company" @updateReviewSummary="updateReviewSummary" @updateQuota="updateQuota" v-bind:is="component"></component>
+      <component :companydata="company" :business_category="business_category" @updateReviewSummary="updateReviewSummary" @updateQuota="updateQuota" v-bind:is="component"></component>
     </b-card>
     <plans v-if="!company.respond_unlimited" @updateQuota="updateQuota" @setpaymentprocess="setpaymentprocess($event)" />
     <membership-info></membership-info>
@@ -68,7 +68,7 @@
   import Plans from './CompanyDashboardPlans'
   export default {
     name: 'CompanyDashboard',
-    props: ['company'],
+    props: ['company', 'business_category'],
     components: {
       MyAccount,
       Plans,

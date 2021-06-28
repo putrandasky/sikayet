@@ -11,6 +11,11 @@
       <div class=" pb-3 border-bottom">
         <h3 class="mb-0">APP Logo</h3>
       </div>
+            @if (session('status'))
+            <div class="alert alert-warning" role="alert">
+              {{ session('status') }}
+            </div>
+            @endif
       <div class=" py-2">
         <a href="{{ url('facebook') }}" class="btn btn-block text-white" style="background-color: #3B5998;">
           <i class="fa fa-facebook"> </i>

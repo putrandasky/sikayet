@@ -29,7 +29,7 @@ Route::get('/company-brands', function () {
 //     return view('pages.user-login');
 // });
 
-Route::get('/', [Controllers\Website\HomePageController::class, 'show']);
+Route::get('/', [Controllers\Website\HomePageController::class, 'show'])->name('home-page');
 Route::get('/top-company/{step}', [Controllers\Website\HomePageController::class, 'getTopCompany']);
 Route::get('/test', [Controllers\TestController::class, 'test']);
 Route::get('/search', [Controllers\Website\HomePageController::class, 'search']);
@@ -50,7 +50,7 @@ Route::get('/user/{slug}', [Controllers\Website\UserController::class, 'show']);
 Route::get('/review/{slug}', [Controllers\Website\UserController::class, 'showReview']);
 Route::get('user-login', [Controllers\Auth\LoginController::class, 'showLoginForm'])->name('user-login');
 Route::post('user-login', [Controllers\Auth\LoginController::class, 'login'])->name('user-login');
-Route::get('user-register', [Controllers\Auth\RegisterController::class, 'showRegisterForm'])->name('user-register');
+Route::get('user-register', [Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('user-register');
 Route::post('user-register', [Controllers\Auth\RegisterController::class, 'register'])->name('user-register');
 
 Route::group(['middleware' => 'auth'], function () {
@@ -63,8 +63,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/user-dashboard', [Controllers\User\ProfileController::class, 'show'])->name('home');
     Route::get('/user-dashboard/review', [Controllers\User\ReviewController::class, 'show']);
     Route::patch('/user-dashboard/review/{review_id}', [Controllers\User\ReviewController::class, 'update']);
+    Route::delete('/user-dashboard/review/{review_id}', [Controllers\User\ReviewController::class, 'delete']);
     Route::get('/user-dashboard/profile', [Controllers\User\ProfileController::class, 'showProfile']);
     Route::post('/user-dashboard/profile', [Controllers\User\ProfileController::class, 'updateProfile']);
+    Route::post('/user-dashboard/password', [Controllers\User\ProfileController::class, 'updatePassword']);
     Route::post('/user-dashboard/profile-image', [Controllers\User\ProfileController::class, 'updateProfileImage']);
     Route::delete('/user-dashboard/profile-image', [Controllers\User\ProfileController::class, 'deleteProfileImage']);
     Route::get('/user-logout', [Controllers\Auth\LoginController::class, 'logout'])->name('logout');
@@ -80,11 +82,15 @@ Route::post('company-register', [Controllers\AuthCompany\RegisterController::cla
 Route::group(['middleware' => 'auth:company'], function () {
     Route::get('company-dashboard', [Controllers\Company\ProfileController::class, 'show']);
     Route::post('company-dashboard/profile', [Controllers\Company\ProfileController::class, 'updateProfile']);
+    Route::post('company-dashboard/password', [Controllers\Company\ProfileController::class, 'updatePassword']);
+
     Route::post('company-dashboard/profile-image', [Controllers\Company\ProfileController::class, 'updateProfileImage']);
     Route::delete('company-dashboard/profile-image', [Controllers\Company\ProfileController::class, 'deleteProfileImage']);
     Route::get('company-logout', [Controllers\AuthCompany\LoginController::class, 'logout']);
     Route::get('company-dashboard/review', [Controllers\Company\ReviewController::class, 'show']);
     Route::post('company-dashboard/respond-review', [Controllers\Company\ReviewController::class, 'respond']);
+    Route::patch('company-dashboard/respond-review', [Controllers\Company\ReviewController::class, 'updateRespond']);
+    Route::delete('company-dashboard/respond-review/{respond_id}', [Controllers\Company\ReviewController::class, 'deleteRespond']);
     Route::post('company-dashboard/report-review/{review_id}', [Controllers\Company\ReviewController::class, 'report']);
     Route::post('/payment', [Controllers\Company\PaymentController::class, 'pay']);
     Route::post('/checkout', [Controllers\Company\PaymentController::class, 'checkout']);
@@ -97,13 +103,13 @@ Route::get('company-dashboard/current-membership', [Controllers\Company\Membersh
 Route::get('company-dashboard/index-billing', [Controllers\Company\MembershipController::class, 'indexBillingHistory']);
 Route::get('company-dashboard/membership-info', [Controllers\Company\MembershipController::class, 'membershipInfo']);
 Route::post('company-dashboard/buy-membership/{period}', [Controllers\Company\MembershipController::class, 'buyMembership']);
-Route::get('/user-register', function () {
-    return view('pages.user-register');
-});
 
 Route::get('/user-forgot-password', function () {
     return view('pages.user-forgot-password');
-});
+})->middleware('guest');
+Route::get('/company-forgot-password', function () {
+    return view('pages.company-forgot-password');
+})->middleware('guest:company');
 
 Route::get('/404', function () {
     return view('pages.404');
@@ -114,6 +120,17 @@ Route::group(['prefix' => 'admin'], function () {
         return View::make('layouts.admin');
     })->where('vue_capture', '[\/\w\.-]*');
 });
+
+// Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', [Controllers\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [Controllers\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [Controllers\Auth\ResetPasswordController::class, 'reset'])->name('password.update');
+// Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('company-password/email', [Controllers\AuthCompany\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('company-password.email');
+Route::get('company-password/reset/{token}', [Controllers\AuthCompany\ResetPasswordController::class, 'showResetForm'])->name('company-password.reset');
+Route::post('company-password/reset', [Controllers\AuthCompany\ResetPasswordController::class, 'reset'])->name('company-password.update');
+
+Route::get('email/verify/{id}/{hash}', [Controllers\AuthCompany\VerificationController::class, 'verify'])->name('verification.verify');
 
 Route::get('google', [Controllers\Auth\GoogleController::class, 'redirect']);
 Route::get('user-login/google-callback', [Controllers\Auth\GoogleController::class, 'callback']);

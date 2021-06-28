@@ -76,6 +76,11 @@
             url: '/contact'
           },
           {
+            name: 'Category',
+            icon: ' fa fa-list',
+            url: '/business-category'
+          },
+          {
             name: 'Adsense',
             icon: ' fa fa-money',
             url: '/adsense'

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+Route::get('/dashboard', [Controllers\Admin\DashboardController::class, 'show']);
 Route::get('/users', [Controllers\Admin\UserController::class, 'index']);
 Route::patch('/user/{user_id}', [Controllers\Admin\UserController::class, 'update']);
 Route::get('/companies/{condition}', [Controllers\Admin\CompanyController::class, 'index']);
@@ -51,6 +52,10 @@ Route::post('/compose-membership-info', [Controllers\Admin\MembershipInfoControl
 Route::patch('/compose-membership-info/{memebership_info_id}', [Controllers\Admin\MembershipInfoController::class, 'updateMembershipInfo']);
 Route::delete('/compose-membership-info/{memebership_info_id}', [Controllers\Admin\MembershipInfoController::class, 'deleteMembershipInfo']);
 Route::get('/contact', [Controllers\Admin\ContactController::class, 'showContact']);
+Route::get('/business-category', [Controllers\Admin\BusinessCategoryController::class, 'index']);
+Route::post('/business-category', [Controllers\Admin\BusinessCategoryController::class, 'store']);
+Route::patch('/business-category', [Controllers\Admin\BusinessCategoryController::class, 'update']);
+Route::delete('/business-category/{category_id}', [Controllers\Admin\BusinessCategoryController::class, 'delete']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

@@ -11,7 +11,7 @@ export const MyReviewTable = {
           }
         },
         {
-          key: 'company_name',
+          key: 'company.name',
           label: 'Company Name',
           tdClass: 'truncate-cell',
           thStyle: {
@@ -62,7 +62,16 @@ export const MyReviewTable = {
             width: '100px'
           },
         },
+        {
+          key: 'answered',
+          label: 'Answered',
+          class: 'text-center',
 
+          thStyle: {
+            minWidth: '75px',
+            width: '75px'
+          },
+        },
 
         {
           key: 'created_at',
@@ -102,7 +111,7 @@ export const MyReviewTable = {
     filteredItemsData() {
       if (this.selectedInputSearch == 'company') {
         return this.itemsData.filter(result =>
-          result.company_name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+          result.company.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         )
       }
       if (this.selectedInputSearch == 'title') {

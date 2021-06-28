@@ -11,17 +11,17 @@ class ReviewController extends Controller
 {
     public function show()
     {
-        $user = Auth::guard('company')->user();
+        $user = $this->company();
         $data['review']['total'] = Models\Review::companyId($user->id)->count();
         $data['review']['answered'] = Models\CompanyRespond::companyId($user->id)->count();
 
         $data['review']['unanswered'] = $data['review']['total'] - $data['review']['answered'];
         $data['reviews'] = Models\Review::companyId($user->id)->with([
             'user' => function ($query) {
-                $query->select(['id', 'name']);
+                $query->select(['id', 'name', 'avatar']);
             },
             'company_respond.company' => function ($query) {
-                $query->select(['id', 'name']);
+                $query->select(['id', 'name', 'avatar']);
             },
             'review_type',
             'review_status'])->latest()->get();
@@ -33,7 +33,12 @@ class ReviewController extends Controller
 
     public function respond(Request $request)
     {
-        $user = Auth::guard('company')->user();
+        $user = $this->company();
+        $rules = [
+            'respond' => 'required|string|min:5',
+            'review_id' => 'required|numeric',
+        ];
+        $this->validate($request, $rules);
 
         $membership_active = Models\MembershipActive::companyId($user->id)->first();
 
@@ -59,9 +64,31 @@ class ReviewController extends Controller
 
         return response()->json(['status' => 'success', 'message' => 'A review has been responded', 'data' => $company_respond], 200);
     }
+    public function updateRespond(Request $request)
+    {
+        $company = $this->company();
+        $rules = [
+            'respond' => 'required|string|min:5',
+            'respond_id' => 'required|numeric',
+        ];
+        $this->validate($request, $rules);
+
+        $respond = Models\CompanyRespond::id($request->respond_id)->first();
+        $respond->description = $request->respond;
+        $respond->save();
+
+        return response()->json(['status' => 'success', 'message' => 'Your respond has been updated'], 200);
+    }
+    public function deleteRespond($respond_id)
+    {
+        $respond = Models\CompanyRespond::id($respond_id)->first();
+        $respond->delete();
+
+        return response()->json(['status' => 'success', 'message' => 'Your respond has been deleted'], 200);
+    }
     public function report($review_id)
     {
-        $company = Auth::guard('company')->user();
+        $company = $this->company();
         $review = Models\Review::where([
             'id' => $review_id,
             'company_id' => $company->id,
@@ -69,6 +96,12 @@ class ReviewController extends Controller
         $review->reported = 1;
         $review->save();
         return response()->json(['status' => 'success', 'message' => 'A review has been reported'], 200);
+
+    }
+
+    public function company()
+    {
+        return Auth::guard('company')->user();
 
     }
 }

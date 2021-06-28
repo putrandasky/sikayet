@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Notifications\CompanyResetPasswordNotification;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Company extends Authenticatable
+class Company extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -22,6 +26,7 @@ class Company extends Authenticatable
         'is_verified',
         'membership_id',
     ];
+    protected $guard = 'company';
     /**
      * Get the user that owns the Company
      *
@@ -68,5 +73,8 @@ class Company extends Authenticatable
     {
         return $query->where('account_status_id', $value)->with('account_status');
     }
-
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CompanyResetPasswordNotification($token));
+    }
 }

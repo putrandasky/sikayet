@@ -2,13 +2,13 @@
   <b-container class="py-3">
     <b-row>
       <b-col md="4">
-        <panel title="Total User" variant="light" icon="users" data="200"></panel>
+        <panel title="Total User" variant="light" icon="users" :data="summary.user"></panel>
       </b-col>
       <b-col md="4">
-        <panel title="Total Company" variant="light" icon="briefcase" data="50"></panel>
+        <panel title="Total Company" variant="light" icon="briefcase" :data="summary.company"></panel>
       </b-col>
       <b-col md="4">
-        <panel title="Total Reviews" variant="light" icon="comments" data="1000"></panel>
+        <panel title="Total Reviews" variant="light" icon="comments" :data="summary.review"></panel>
       </b-col>
     </b-row>
     <b-row class="mt-3">
@@ -20,8 +20,9 @@
             <b-list-group-item class="px-0" v-for="v,i in recent_review" :key="i">
               <div class="d-flex">
                 <div class="bg-white mt-2 mr-3" style="height: auto;width:64px">
-
-                  <img class="img-fluid  rounded-circle" src="/images/websites/avatar.jpg">
+                  <b-img class="rounded rounded-circle" v-if="v.avatar" fluid :src="`/storage/user/${v.avatar}`" style="width: 64px;heigh:auto">
+                  </b-img>
+                  <b-avatar v-if="!v.avatar" size="64px"><i class="fa fa-user fa-2x"></i> </b-avatar>
                 </div>
                 <div>
                   <div class="d-flex">
@@ -31,8 +32,9 @@
                     <div class=" mr-2" style="width:40px;">To</div> : {{v.company}}
                   </div>
                   <div>
-
-                    <strong class="mb-0">{{v.title}}</strong>
+                    <a class="text-dark" :href="`/review/${v.slug}`" target="blank">
+                      <strong class="mb-0">{{v.title}}</strong>
+                    </a>
                   </div>
                   <div class="text-muted">
                     {{v.description}}
@@ -40,7 +42,7 @@
                   <div class="d-flex justify-content-between">
                     <small class="d-flex">
                       Submited On :
-                      {{v.created_at}}
+                      {{v.created_at | dateFormated}}
                     </small>
                     <div class="d-flex ">
                       <i class=" fa fa-star  mr-1 text-muted"></i>
@@ -63,11 +65,15 @@
             <b-list-group-item class="px-0" v-for="v,i in recent_companies" :key="i">
               <div class="d-flex">
                 <div class="bg-white mt-2 mr-3" style="height: auto;width:64px">
-
-                  <img class="img-fluid  rounded-circle" src="/images/websites/avatar.jpg">
+                  <b-img class="rounded rounded-circle" v-if="v.avatar" fluid :src="`/storage/user/${v.avatar}`" style="width: 64px;heigh:auto">
+                  </b-img>
+                  <b-avatar v-if="!v.avatar" size="64px"><i class="fa fa-briefcase fa-2x"></i> </b-avatar>
                 </div>
                 <div>
-                  <h3>{{v.name}}</h3>
+                  <a class="text-dark" :href="`/brand/${v.slug}`" target="blank">
+                    <h3>{{v.name}}</h3>
+                  </a>
+
                   <div class="text-muted">{{v.category}}</div>
                   <div class="d-flex">
                     <div class=" mr-2" style="width:60px;">Website</div> : {{v.url}}
@@ -78,7 +84,7 @@
                   <div>
                     <small>
                       Registered On :
-                      {{v.created_at}}
+                      {{v.created_at | dateFormated}}
                     </small>
                   </div>
                 </div>
@@ -99,11 +105,12 @@
             <b-list-group-item class="px-0" v-for="v,i in top_companies" :key="i">
               <div class="d-flex">
                 <div class="bg-white mt-2 mr-2" style="height: auto;width:30px">
-
-                  <img class="img-fluid  rounded-circle" src="/images/websites/avatar.jpg">
+                  <b-img class="rounded rounded-circle" v-if="v.avatar" fluid :src="`/storage/user/${v.avatar}`" style="width: 30px;heigh:auto">
+                  </b-img>
+                  <b-avatar v-if="!v.avatar" size="30px"><i class="fa fa-briefcase"></i> </b-avatar>
                 </div>
                 <div>
-                  <b>{{v.name}}</b>
+                  <a class="text-dark" :href="`/brand/${v.slug}`" target="blank"><b>{{v.name}}</b></a>
                   <p class="mb-0 text-muted">{{v.category}}</p>
                 </div>
                 <div class="ml-auto d-flex align-items-center">
@@ -133,10 +140,12 @@
               <div class="d-flex">
                 <div class="bg-white mt-2 mr-2" style="height: auto;width:30px">
 
-                  <img class="img-fluid  rounded-circle" src="/images/websites/avatar.jpg">
+                  <b-img class="rounded rounded-circle" v-if="v.avatar" fluid :src="`/storage/user/${v.avatar}`" style="width: 30px;heigh:auto">
+                  </b-img>
+                  <b-avatar v-if="!v.avatar" size="30px"><i class="fa fa-briefcase"></i> </b-avatar>
                 </div>
                 <div>
-                  <b>{{v.name}}</b>
+                  <a class="text-dark" :href="`/brand/${v.slug}`" target="blank"><b>{{v.name}}</b></a>
                   <p class="mb-0 text-muted">{{v.category}}</p>
                 </div>
                 <div class="ml-auto d-flex align-items-center">
@@ -167,11 +176,13 @@
               <div class="d-flex">
                 <div class="bg-white mt-2 mr-2" style="height: auto;width:30px">
 
-                  <img class="img-fluid  rounded-circle" src="/images/websites/avatar.jpg">
+                  <b-img class="rounded rounded-circle" v-if="v.avatar" fluid :src="`/storage/user/${v.avatar}`" style="width: 30px;heigh:auto">
+                  </b-img>
+                  <b-avatar v-if="!v.avatar" size="30px"><i class="fa fa-user"></i> </b-avatar>
                 </div>
                 <div>
-                  <b>{{v.name}}</b>
-                  <p class="mb-0 text-muted">Registered on : {{v.created_at}}</p>
+                  <a class="text-dark" :href="`/user/${v.slug}`" target="blank"><b>{{v.name}}</b></a>
+                  <p class="mb-0 text-muted">Registered on : {{v.created_at | dateFormated}}</p>
                 </div>
                 <div class="ml-auto d-flex align-items-center">
                   <div>
@@ -204,118 +215,90 @@
     },
     data: function() {
       return {
-        recent_review: [{
-          name: 'John Doe',
-          company: 'Good Company',
-          title: 'Great Experience',
-          description: 'Nebularis mushroom was photographed growing among fallen beech leaves in Famberhorst nature reserve, the Netherlands.',
-          created_at: '21-Jul-21',
-          rating: 5
-        }],
-        recent_companies: [{
-          name: 'Good Company',
-          category: 'Manufacturing',
-          url: 'https://mygoodcompany.xyz',
-          email: 'good_company@mail.com',
-          created_at: '21-Jul-21'
-        }],
-        top_companies: [{
-            name: 'Good Company',
-            category: 'Food and Beverages',
-            rating: 5,
-            reviewed: 100
-          },
-          {
-            name: 'Great Company',
-            category: 'Electronic',
-            rating: 4.5,
-            reviewed: 300
-          },
-          {
-            name: 'Amazing Company',
-            category: 'Electronic',
-            rating: 4.5,
-            reviewed: 300
-          },
-          {
-            name: 'Briliant Company',
-            category: 'Electronic',
-            rating: 4.5,
-            reviewed: 200
-          },
-          {
-            name: 'Nice Company',
-            category: 'Electronic',
-            rating: 4.5,
-            reviewed: 100
-          },
-        ],
-        most_reviewed_companies: [{
-            name: 'Viral Company',
-            category: 'Food and Beverages',
-            rating: 4.5,
-            reviewed: 1000
-          },
-          {
-            name: 'Top Company',
-            category: 'Electronic',
-            rating: 4.0,
-            reviewed: 900
-          },
-          {
-            name: 'Busy Company',
-            category: 'Food and Beverages',
-            rating: 4.5,
-            reviewed: 800
-          },
-          {
-            name: 'Nice Company',
-            category: 'Electronic',
-            rating: 4.0,
-            reviewed: 700
-          },
-          {
-            name: 'My Company',
-            category: 'Electronic',
-            rating: 4.0,
-            reviewed: 600
-          }
-        ],
-        most_active_user: [{
-            name: 'John Doe',
-            created_at: '21-Jul-21',
-            review: 200,
-            useful: 1000
-          },
-          {
-            name: 'Jane Doe',
-            created_at: '21-Jul-21',
-            review: 150,
-            useful: 100
-          },
-          {
-            name: 'Brandon Lee',
-            created_at: '21-Jul-21',
-            review: 100,
-            useful: 100
-          },
-          {
-            name: 'Brad Lee',
-            created_at: '21-Jul-21',
-            review: 100,
-            useful: 100
-          },
-          {
-            name: 'John Lee',
-            created_at: '21-Jul-21',
-            review: 100,
-            useful: 100
-          },
-        ]
+        summary: {
+          user: 0,
+          company: 0,
+          review: 0
+        },
+        recent_review: [],
+        recent_companies: [],
+        top_companies: [],
+        most_reviewed_companies: [],
+        most_active_user: []
       }
     },
-    created() {},
-    methods: {},
+    mounted() {
+      this.getData()
+    },
+    methods: {
+      getData() {
+        axios.get(`/api/dashboard`)
+          .then((response) => {
+            this.summary = response.data.summary
+            let dataRecentReview = response.data.recent.review
+            let recent_review = {
+              name: dataRecentReview.user.name,
+              company: dataRecentReview.company.name,
+              title: dataRecentReview.title,
+              slug: dataRecentReview.slug,
+              description: dataRecentReview.description,
+              created_at: dataRecentReview.created_at,
+              avatar: dataRecentReview.avatar,
+              rating: dataRecentReview.rating
+            }
+            this.recent_review[0] = recent_review
+            let dataRecentCompany = response.data.recent.company_registered
+            let recent_companies = {
+              name: dataRecentCompany.name,
+              category: dataRecentCompany.business_category.name,
+              url: dataRecentCompany.website,
+              slug: dataRecentCompany.slug,
+              email: dataRecentCompany.email,
+              avatar: dataRecentReview.avatar,
+              created_at: dataRecentCompany.created_at
+            }
+            this.recent_companies[0] = recent_companies
+            let dataTopCompanies = response.data.top.company_rating
+            this.top_companies = dataTopCompanies.map(obj => {
+              return {
+                name: obj.name,
+                category: obj.business_category.name,
+                rating: obj.rating,
+                slug: obj.slug,
+                avatar: obj.avatar,
+                reviewed: obj.review
+              }
+            });
+            let dataTopReviewCompanies = response.data.top.company_review
+            this.most_reviewed_companies = dataTopReviewCompanies.map(obj => {
+              return {
+                name: obj.name,
+                category: obj.business_category.name,
+                rating: obj.rating,
+                slug: obj.slug,
+                avatar: obj.avatar,
+                reviewed: obj.review
+              }
+            });
+            let dataTopUserReviewed = response.data.top.user_review
+            this.most_active_user = dataTopUserReviewed.map(obj => {
+              return {
+                name: obj.name,
+                slug: obj.slug,
+                useful: obj.like,
+                created_at: obj.created_at,
+                review: obj.review,
+                avatar: obj.avatar
+              }
+            });
+            console.log(this.top_companies)
+
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      }
+    },
   }
 </script>
 <style>

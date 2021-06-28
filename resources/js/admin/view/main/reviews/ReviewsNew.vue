@@ -92,29 +92,6 @@
           rating: null,
           review_status_id: null
         },
-        // data: [{
-        //     id: 1,
-        //     name: 'John Doe',
-        //     company: 'Good Company',
-        //     title: 'Great Company',
-        //     description: 'This is great company i ever reviewed, great job!',
-        //     review_type: 'SOLUTION',
-        //     status: 'UNAPPROVED',
-        //     rating: 5,
-        //     created_at: '21-Jun-21',
-        //   },
-        //   {
-        //     id: 1,
-        //     name: 'Jane Doe',
-        //     company: 'Nice Company',
-        //     title: 'Dissaponted Company',
-        //     description: 'This is a worse company i ever reviewed,shameless',
-        //     review_type: 'COMPLAIN',
-        //     status: 'UNAPPROVED',
-        //     rating: 3,
-        //     created_at: '21-Jun-21',
-        //   },
-        // ]
       }
     },
     created() {},

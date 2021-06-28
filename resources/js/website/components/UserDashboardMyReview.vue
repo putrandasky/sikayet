@@ -26,9 +26,7 @@
             {{ data.index + 1 + (currentPage - 1) * perPage }}
             <!-- {{data.index+1+((currentPage-1)*perPage)}} -->
           </template>
-          <template v-slot:cell(company_name)="data">
-            {{data.item.company_name}}
-          </template>
+
           <template v-slot:cell(review_title)="data">
             {{data.item.review_title}}
           </template>
@@ -38,13 +36,21 @@
             <span>{{data.item.dislike}} <i class="fa fa-thumbs-down"></i></span>
           </template>
           <template v-slot:cell(type)="data">
-            <b-badge :variant="getBadgeReviewType(data.item.type)" class="p-1">
-              {{ data.item.type }}
+            <b-badge :variant="getBadgeReviewType(data.item.review_type.name)" class="p-1">
+              {{ data.item.review_type.name }}
             </b-badge>
           </template>
           <template v-slot:cell(status)="data">
             <b-badge :variant="getBadgeStatus(data.item.status)" class="p-1">
               {{ data.item.status }}
+            </b-badge>
+          </template>
+          <template v-slot:cell(answered)="data">
+            <b-badge v-if="data.item.company_respond" variant="success">
+              <i class="fa fa-check"></i>
+            </b-badge>
+            <b-badge v-if="!data.item.company_respond" variant="danger">
+              <i class="fa fa-close"></i>
             </b-badge>
           </template>
           <template v-slot:cell(rating)="data">
@@ -65,7 +71,7 @@
               <b-btn variant="success" size="sm" @click.prevent.stop="showModalEditReview(data.item.id)">
                 <i class="fa fa-pencil"></i>
               </b-btn>
-              <b-btn variant="danger" size="sm">
+              <b-btn variant="danger" size="sm" @click.prevent.stop="showDeleteConfirmationModal(data.item.id)">
                 <i class="fa fa-trash"></i>
               </b-btn>
             </div>
@@ -82,7 +88,7 @@
     </b-alert>
     <b-modal v-if="isLoaded && itemsData.length > 0" v-model="modalEditReview" :hide-footer="input.status == 'PUBLISHED'" @ok="updateData">
       <template #modal-title>
-        <strong>Your review for {{input.company}}</strong>
+        <strong>Your review for {{input.company.name}}</strong>
       </template>
       <b-form-group id="review-title" label="Title" label-for="review-title-input">
         <b-form-input id="review-title-input" v-model="input.title" trim :disabled="input.status == 'PUBLISHED'"></b-form-input>
@@ -90,28 +96,83 @@
       <b-form-group id="review-content" label="Review" label-for="review-content-input">
         <b-form-textarea id="review-content-input" v-model="input.description" rows="3" :disabled="input.status == 'PUBLISHED'"></b-form-textarea>
       </b-form-group>
-      <b-form-group id="rating" label="Rating" label-for="rating-input">
-        <b-form-rating id="rating-input" class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="input.rating" :disabled="input.status == 'PUBLISHED'"></b-form-rating>
-      </b-form-group>
-      <div v-if="input.photo">
+
+      <div v-if="input.photo" class="mb-3">
 
         <b-img fluid :src="`/storage/reviewasset/${input.photo}`"></b-img>
       </div>
-      <b-form-group id="type" label="Type" label-for="type-input">
-        <b-badge :variant="getBadgeReviewType(input.type)" class="p-1">
-          {{ input.type }}
-        </b-badge>
-      </b-form-group>
-      <b-form-group id="status" label="Status" label-for="status-input">
-        <b-badge :variant="getBadgeStatus(input.status)" class="p-1">
-          {{ input.status }}
-        </b-badge>
-      </b-form-group>
+      <b-row>
+        <b-col col>
+          <b-form-group id="rating" label="Rating" label-for="rating-input">
+            <b-form-rating id="rating-input" class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="input.rating" :disabled="input.status == 'PUBLISHED'"></b-form-rating>
+          </b-form-group>
+        </b-col>
+        <b-col col>
+          <b-form-group label="Type">
+
+            <b-form-select plain v-model="input.review_type.id" :options="review_types" :disabled="input.status == 'PUBLISHED'">
+              <template slot="first">
+                <option disabled :value="null">-- Please Select Review Type --</option>
+              </template>
+            </b-form-select>
+          </b-form-group>
+          <!-- <b-form-group id="type" label="Type" label-for="type-input">
+            <b-badge :variant="getBadgeReviewType(input.type)" class="p-1">
+              {{ input.type }}
+            </b-badge>
+          </b-form-group> -->
+        </b-col>
+        <b-col col>
+          <b-form-group id="status" label="Status" label-for="status-input">
+            <b-badge :variant="getBadgeStatus(input.status)" class="p-1">
+              {{ input.status }}
+            </b-badge>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <div v-if="input.company_respond">
+        <hr>
+        <div class="d-flex mb-3 justify-content-between w-100">
+          <strong class="d-flex">
+            Replied from Brand Owner
+          </strong>
+          <div class="text-muted">
+            <em>{{input.company_respond.created_at | dateFormated}}</em>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="float-left mr-3 ">
+            <b-img class="rounded rounded-circle" v-if="input.company.avatar" fluid :src="`/storage/company/${input.company.avatar}`" style="width: 50px;heigh:auto">
+            </b-img>
+            <b-avatar v-if="!input.company.avatar" size="50px"><i class="fa fa-briefcase fa-2x"></i> </b-avatar>
+            <!-- <b-img class="rounded rounded-circle img-fluid" src="images/websites/avatar1.jpg" alt="" style="width: 50px;heigh:auto"></b-img> -->
+          </div>
+          <div class="mt-2 ">
+            {{input.company.name}}
+          </div>
+        </div>
+        <div class="pt-3">
+          <p>
+            {{input.company_respond.description}}
+          </p>
+        </div>
+      </div>
+
+
 
     </b-modal>
+    <confirmation-modal ref="deleteReviewConfirmation" title="Delete Review" @ok="deleteData">
+      <template v-slot:body>
+        <div>
+          You are about to delete your review. You will lose your review, like, and dislike status.
+        </div>
+
+      </template>
+    </confirmation-modal>
   </div>
 </template>
 <script>
+  import ConfirmationModal from './SlotConfirmationModal.vue'
   import {
     Badge
   } from "../mixins/MixinBadge";
@@ -127,11 +188,14 @@
   export default {
     name: 'UserDashboardMyReview',
     mixins: [Badge, MyReviewTable, instantSearch, OperationPage],
-
+    components: {
+      ConfirmationModal
+    },
     data: function() {
       return {
         isLoaded: false,
         modalEditReview: false,
+        review_types: [],
         input: {
           id: null,
           index: null,
@@ -140,42 +204,12 @@
           description: '',
           rating: null,
           status: '',
-          photo: ''
+          photo: '',
+          review_type: {
+            id: null
+          }
         },
         items: [],
-        // items: [{
-        //     id: 1,
-        //     company_name: "GreenHolt LLC",
-        //     review_title: 'test',
-        //     review_description: 'lorem ipsum dolor sit amet',
-        //     rating: 4,
-        //     created_at: "20-Jul-21",
-        //   },
-        //   {
-        //     id: 1,
-        //     company_name: "GreenHolt LLC",
-        //     review_title: 'test',
-        //     review_description: 'lorem ipsum dolor sit amet',
-        //     rating: 4,
-        //     created_at: "20-Jul-21",
-        //   },
-        //   {
-        //     id: 1,
-        //     company_name: "GreenHolt LLC",
-        //     review_title: 'test',
-        //     review_description: 'lorem ipsum dolor sit amet',
-        //     rating: 4,
-        //     created_at: "20-Jul-21",
-        //   },
-        //   {
-        //     id: 1,
-        //     company_name: "GreenHolt LLC",
-        //     review_title: 'test',
-        //     review_description: 'lorem ipsum dolor sit amet',
-        //     rating: 4,
-        //     created_at: "20-Jul-21",
-        //   },
-        // ]
       }
     },
     mounted() {
@@ -189,20 +223,30 @@
         this.input.description = this.itemsData[i].review_description
         this.input.rating = this.itemsData[i].rating
         this.input.photo = this.itemsData[i].photo
-        this.input.type = this.itemsData[i].type
+        this.input.review_type = this.itemsData[i].review_type
         this.input.status = this.itemsData[i].status
-        this.input.company = this.itemsData[i].company_name
+        this.input.company = this.itemsData[i].company
+        this.input.company_respond = this.itemsData[i].company_respond
         this.input.index = i
 
         this.modalEditReview = true
       },
       updateData(e) {
         e.preventDefault()
+        let newData = this.review_types.find(
+          data => data.value == this.input.review_type.id
+        )
+        let new_review_type = {
+          id: newData.value,
+          name: newData.text,
+        }
+        console.log(this.input.review_type.id);
         axios.patch(`/user-dashboard/review/${this.input.id}`, this.input)
           .then((response) => {
             this.itemsData[this.input.index].review_title = this.input.title
             this.itemsData[this.input.index].review_description = this.input.description
             this.itemsData[this.input.index].rating = this.input.rating
+            this.itemsData[this.input.index].review_type = new_review_type
             this.itemsData[this.input.index].status = 'IN REVIEW'
             console.log(response.data)
             this.toastSuccess(response.data.message)
@@ -213,11 +257,33 @@
             console.log(error);
           })
       },
+      showDeleteConfirmationModal(id) {
+        let i = this.itemsData.findIndex(a => a.id == id)
+        this.input.id = this.itemsData[i].id
+        this.input.index = i
+
+        this.$refs.deleteReviewConfirmation.openModal = true
+      },
+      deleteData() {
+        axios.delete(`/user-dashboard/review/${this.input.id}`)
+          .then((response) => {
+            this.itemsData.splice(this.input.index, 1)
+            console.log(response.data)
+            this.toastSuccess(response.data.message)
+            this.modalEditReview = false
+            this.$refs.deleteReviewConfirmation.openModal = false
+
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      },
       getData() {
         axios.get(`user-dashboard/review`)
           .then((response) => {
-            this.itemsData = this.mutateKey(response.data)
-            console.log(this.input)
+            this.itemsData = this.mutateKeyItemsData(response.data.reviews)
+            this.review_types = this.mutateKey(response.data.review_types)
+            console.log(this.itemsData)
             this.isLoaded = true
           })
           .catch((error) => {
@@ -227,16 +293,27 @@
       mutateKey(data) {
         let mutateData = data.map(function(item) {
           return {
+            value: item.id,
+            text: item.range || item.name || item.description,
+            state: false
+          };
+        });
+        return mutateData;
+      },
+      mutateKeyItemsData(data) {
+        let mutateData = data.map(function(item) {
+          return {
             id: item.id,
-            company_name: item.company.name,
+            company: item.company,
             review_title: item.title,
             review_description: item.description,
             rating: item.rating,
+            company_respond: item.company_respond,
             visited: item.visited,
             photo: item.photo,
             like: item.like,
             dislike: item.dislike,
-            type: item.review_type.name,
+            review_type: item.review_type,
             status: item.review_status.name,
             created_at: item.created_at,
           };

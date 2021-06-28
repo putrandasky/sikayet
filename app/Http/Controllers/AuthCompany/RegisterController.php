@@ -15,6 +15,10 @@ use Str;
 
 class RegisterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest:companies');
+    }
     public function showRegistrationForm()
     {
         $category = BusinessCategory::all();

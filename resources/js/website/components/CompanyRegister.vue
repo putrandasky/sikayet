@@ -53,10 +53,10 @@
     <b-modal v-model="submitedModal" hide-footer title="Thank you for registering your business account." no-close-on-backdrop>
       <lottie :options="defaultOptions" v-on:animCreated="handleAnimation" :height="200" />
       <div>
-        We will activate your account as soon as possible and we will inform you by e-mail.
+        We will activate your account as soon as possible after your email address verification, please check your email.
       </div>
       <div>
-        have a nice day
+        Have a nice day
       </div>
     </b-modal>
     <b-overlay variant="dark" :show="isLoading" blur="" fixed no-wrap></b-overlay>

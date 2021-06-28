@@ -67,7 +67,7 @@
             {{data.item.created_at | dateFormated}}
           </template>
           <template v-slot:cell(action)="data">
-            <b-btn variant="success" size="sm" @click="editMode(data.item.id)">
+            <b-btn variant="success" size="sm" @click="handleDetailMode(data.item.id)">
               <i class="fa fa-search"></i>
             </b-btn>
           </template>
@@ -80,11 +80,18 @@
             <b-col md="8" lg="6">
               <div class="d-flex justify-content-between">
 
-                <b-btn variant="secondary" class="mb-3" size="sm" @click="detailMode = false"><i class="fa fa-arrow-left"></i> Back</b-btn>
+                <b-btn variant="secondary" class="mb-3" size="sm" @click="handleBack"><i class="fa fa-arrow-left"></i> Back</b-btn>
                 <div>
                   <b-btn v-if="!reportStatus" variant="danger" class="mb-3" size="sm" @click="report"><i class="fa fa-exclamation"></i> Report</b-btn>
                   <b-btn v-if="reportStatus" disabled variant="outline-secondary" class="mb-3" size="sm" @click="report"><i class="fa fa-check"></i> Reported</b-btn>
                 </div>
+              </div>
+              <div v-if="detail.review_status_id == 1">
+                <b-alert show>
+                  <div>
+                    Under review by us, you can respond after it published.
+                  </div>
+                </b-alert>
               </div>
               <div class=" d-block ">
                 <h4>
@@ -100,41 +107,57 @@
                   <em>{{detail.created_at | dateFormated}}</em>
                 </div>
               </div>
-              <b-row class="">
-                <b-col cols="12" class="mb-md-0 mb-3">
+              <div class="">
+                <div cols="12" class="mb-md-0 mb-3">
                   <div class="float-left mr-3 ">
-                    <b-img class="rounded rounded-circle img-fluid" src="images/websites/avatar1.jpg" alt="" style="width: 50px;heigh:auto"></b-img>
+                    <b-img class="rounded rounded-circle" v-if="detail.user.avatar" fluid :src="`/storage/user/${detail.user.avatar}`" style="width: 50px;heigh:auto">
+                    </b-img>
+                    <b-avatar v-if="!detail.user.avatar" size="50px"><i class="fa fa-user fa-2x"></i> </b-avatar>
                   </div>
                   <div class="mt-2 ">
                     {{detail.user.name}}
                   </div>
-                </b-col>
-                <b-col cols="12" class="pt-3">
+                </div>
+                <div cols="12" class="pt-3">
                   <p>
                     {{detail.description}}
                   </p>
-                </b-col>
-                <b-col cols="12" class="py-3" v-if="detail.photo">
+                </div>
+                <div cols="12" class="py-3" v-if="detail.photo">
                   <b-img fluid :src="`/storage/reviewasset/${detail.photo}`"></b-img>
-                </b-col>
-              </b-row>
+                </div>
+              </div>
               <div>
-                <div v-if="!respondData && company.membership_active && (company.respond_quota > 0|| company.respond_unlimited == 1)">
-                  <b-form-textarea placeholder="Reply Your User Review" v-model="respond" rows="4"></b-form-textarea>
+                <div v-if="detail.review_status_id !=1 && !respondData && company.membership_active && (company.respond_quota > 0|| company.respond_unlimited == 1)">
+                  <b-form-group :invalid-feedback="error_respond" :state="stateRespond">
+                    <b-form-textarea placeholder="Reply Your User Review" v-model="respond" rows="4" :state="stateRespond"></b-form-textarea>
+                  </b-form-group>
                   <b-btn variant="primary" size="sm" class="float-right mt-3" @click="sendData">Reply</b-btn>
                 </div>
-                <div class="border-left ml-3 pl-3" v-if="respondData">
+                <div v-if="editMode ">
+                  <b-form-group :invalid-feedback="error_respond" :state="stateRespond">
+                    <b-form-textarea placeholder="Reply Your User Review" v-model="respond" rows="4" :state="stateRespond"></b-form-textarea>
+                  </b-form-group>
+                  <div class="float-right">
+                    <b-btn variant="secondary" size="sm" class="mr-1" @click="cancelUpdateData">Cancel</b-btn>
+                    <b-btn variant="primary" size="sm" @click="updateData">Update</b-btn>
+                  </div>
+
+                </div>
+                <div class="border-left ml-3 pl-3" v-if="respondData && !editMode">
                   <div class="d-flex mb-3 justify-content-between w-100">
-                    <div class="d-flex">
+                    <strong class="d-flex">
                       Replied from you
-                    </div>
+                    </strong>
                     <div class="text-muted">
                       <em>{{detail.company_respond.created_at | dateFormated}}</em>
                     </div>
                   </div>
                   <div class="mb-3">
                     <div class="float-left mr-3 ">
-                      <b-avatar></b-avatar>
+                      <b-img class="rounded rounded-circle" v-if="detail.company_respond.company.avatar" fluid :src="`/storage/company/${detail.company_respond.company.avatar}`" style="width: 50px;heigh:auto">
+                      </b-img>
+                      <b-avatar v-if="!detail.company_respond.company.avatar" size="50px"><i class="fa fa-briefcase fa-2x"></i> </b-avatar>
                       <!-- <b-img class="rounded rounded-circle img-fluid" src="images/websites/avatar1.jpg" alt="" style="width: 50px;heigh:auto"></b-img> -->
                     </div>
                     <div class="mt-2 ">
@@ -145,6 +168,12 @@
                     <p>
                       {{detail.company_respond.description}}
                     </p>
+                  </div>
+                  <div class="text-right">
+                    <div>
+                      <b-btn size="sm" variant="success" @click="handleEditButton()">Edit</b-btn>
+                      <b-btn size="sm" variant="danger" @click="handleDeleteButton()">Delete</b-btn>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -181,13 +210,18 @@
         Your review from users will be shown here
       </div>
     </b-alert>
+    <confirmation-modal ref="deleteRespondConfirmation" title="Delete Respond" @ok="deleteRespond">
+      <template v-slot:body>
+        <div>
+          You are about to delete your respond for this review and will not getting back the respond quota you spend before
+        </div>
 
+      </template>
+    </confirmation-modal>
   </div>
 </template>
 <script>
-  // import {
-  //   EventBus
-  // } from "../event.js";
+  import ConfirmationModal from './SlotConfirmationModal.vue'
   import {
     Badge
   } from "../mixins/MixinBadge";
@@ -203,13 +237,17 @@
   export default {
     name: 'CompanyDashboardMyReview',
     mixins: [Badge, MyReviewTable, instantSearch, OperationPage],
-
+    components: {
+      ConfirmationModal
+    },
     data: function() {
       return {
         isLoaded: false,
         detailMode: false,
+        editMode: false,
         company: {},
         respond: '',
+        error_respond: '',
         review: {
           unanswered: 0,
           answered: 0,
@@ -220,6 +258,7 @@
           title: '',
           rating: null,
           description: '',
+          review_status_id: null,
           user: {
             name: ''
           },
@@ -240,12 +279,20 @@
       },
       reportStatus() {
         return this.detail.reported
-      }
+      },
+      stateRespond() {
+        return this.error_respond == 'no-error' ? true : this.error_respond ? false : null
+      },
     },
     methods: {
       getFirstChar(name) {
 
         return this.$options.filters.ucfirst(name);
+      },
+      handleBack() {
+        this.editMode = false
+        this.detailMode = false
+        this.respond = ''
       },
       getData() {
         let self = this
@@ -263,7 +310,35 @@
             console.log(error);
           })
       },
-      editMode(id) {
+      handleEditButton() {
+        this.editMode = true
+        this.respond = this.detail.company_respond.description
+      },
+      handleDeleteButton() {
+        this.$refs.deleteRespondConfirmation.openModal = true
+      },
+      deleteRespond() {
+        let self = this
+
+        axios.delete(`/company-dashboard/respond-review/${this.detail.company_respond.id}`)
+          .then((response) => {
+            this.editMode = false
+            this.respond = ''
+            this.itemsData[this.detail.index].company_respond = null
+            this.detail.company_respond = null
+            this.review.answered--
+            this.review.unanswered++
+            this.$emit('updateReviewSummary', self.review)
+            this.$refs.deleteRespondConfirmation.openModal = false
+            this.toastSuccess(response.data.message)
+          })
+          .catch((error) => {
+            console.log(error);
+            this.toastError(error.response.data.message)
+          })
+
+      },
+      handleDetailMode(id) {
         let i = this.itemsData.findIndex(a => a.id == id)
 
         this.detail.index = i
@@ -272,6 +347,7 @@
         this.detail.user = this.itemsData[i].user
         this.detail.created_at = this.itemsData[i].created_at
         this.detail.rating = this.itemsData[i].rating
+        this.detail.review_status_id = this.itemsData[i].review_status_id
         this.detail.photo = this.itemsData[i].photo
         this.detail.description = this.itemsData[i].description
         this.detail.reported = this.itemsData[i].reported
@@ -289,6 +365,32 @@
           .catch((error) => {
             console.log(error);
           })
+      },
+      updateData() {
+        let self = this
+
+        axios.patch(`/company-dashboard/respond-review`, {
+            respond: this.respond,
+            respond_id: this.detail.company_respond.id
+          })
+          .then((response) => {
+            console.log(response.data)
+            this.detail.company_respond.description = this.respond
+            this.respond = ''
+            this.editMode = false
+            this.error_respond = ''
+            this.toastSuccess(response.data.message)
+          })
+          .catch((error) => {
+            console.log(error);
+            this.error_respond = ''
+            this.toastError(error.response.data.message)
+            let errors = error.response.data.errors
+            this.error_respond = errors.respond ? errors.respond[0] : 'no-error';
+          })
+      },
+      cancelUpdateData() {
+        this.editMode = false
       },
       sendData() {
         let self = this
@@ -309,6 +411,7 @@
             self.review.answered++
             self.review.unanswered--
             self.$emit('updateReviewSummary', self.review)
+            this.error_respond = ''
 
             console.log(self.detail.company_respond);
             this.toastSuccess(response.data.message)
@@ -316,6 +419,10 @@
           })
           .catch((error) => {
             console.log(error);
+            this.error_respond = ''
+            this.toastError(error.response.data.message)
+            let errors = error.response.data.errors
+            this.error_respond = errors.respond ? errors.respond[0] : 'no-error';
           })
       }
     },

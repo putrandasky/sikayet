@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="isModalShow" title="User Data" @hidden="modalShow(false)" @show="show" @ok.prevent="submit">
+  <b-modal class="position-relative" no-close-on-backdrop no-close-on-esc hide-header-close v-model="isModalShow" :busy="isLoading" title="Company Data" @hidden="modalShow(false)" @show="show" @ok.prevent="submit">
     <b-form-group label="Name">
       <b-form-input disabled v-model="data.name"></b-form-input>
     </b-form-group>
@@ -22,6 +22,9 @@
         </template>
       </b-form-select>
     </b-form-group>
+
+    <b-overlay rounded="sm" variant="light" :show="isLoading" blur="" no-wrap></b-overlay>
+
   </b-modal>
 </template>
 <script>
@@ -30,6 +33,7 @@
     props: ['propsData', 'propsOptions'],
     data: function() {
       return {
+        isLoading: false,
         data: {
           id: null,
           index: null,
@@ -93,16 +97,16 @@
       },
       submit() {
         this.$emit('submitted', this.data)
-        let data = {
-          id: null,
-          index: null,
-          name: '',
-          email: '',
-          account_status_id: null,
-          is_verified: null,
-        }
+        // let data = {
+        //   id: null,
+        //   index: null,
+        //   name: '',
+        //   email: '',
+        //   account_status_id: null,
+        //   is_verified: null,
+        // }
 
-        this.data = data
+        // this.data = data
       }
     },
   }

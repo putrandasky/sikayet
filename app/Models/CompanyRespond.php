@@ -22,4 +22,8 @@ class CompanyRespond extends Model
     {
         return $query->where('company_id', $value);
     }
+    public function scopeId($query, $value)
+    {
+        return $query->where('id', $value);
+    }
 }

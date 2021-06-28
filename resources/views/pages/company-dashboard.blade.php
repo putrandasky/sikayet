@@ -102,7 +102,7 @@
     </div>
   </x-header-wrapper>
   <section class="py-3">
-    <company-dashboard :company="{{$data['company']}}"></company-dashboard>
+    <company-dashboard :company="{{$data['company']}}" :business_category="{{$data['business_category']}}"></company-dashboard>
   </section>
 </x-base>
 @endsection

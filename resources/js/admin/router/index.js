@@ -35,6 +35,7 @@ import EditorAgreement from '../view/main/editor/EditorAgreement.vue'
 import EditorSocial from '../view/main/editor/EditorSocial.vue'
 import Membership from '../view/main/membership/Membership.vue'
 import Adsense from '../view/main/adsense/Adsense.vue'
+import BusinessCategory from '../view/main/categories/BusinessCategory.vue'
 import ThirdParties from '../view/main/thirdparties/ThirdParties.vue'
 import ThirdPartiesPayment from '../view/main/thirdparties/ThirdPartiesPayment.vue'
 import ThirdPartiesSocial from '../view/main/thirdparties/ThirdPartiesSocial.vue'
@@ -96,6 +97,12 @@ const routes = [{
         name: 'adsense',
 
         component: Adsense,
+      },
+      {
+        path: '/business-category',
+        name: 'businessCategory',
+
+        component: BusinessCategory,
       },
       {
         path: '/contact',

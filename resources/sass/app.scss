@@ -153,6 +153,11 @@ body,
   background-color: #38c172 !important;
 }
 
+.b-rating.disabled {
+  background-color: unset;
+  color: unset;
+}
+
 @include media-breakpoint-down(sm) {
 
   #login-form,

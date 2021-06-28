@@ -22,7 +22,11 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+            if (Auth::guard('company')->check()) {
+                return redirect(RouteServiceProvider::HOMECOMPANY);
+            }
+
+            if (Auth::guard('web')->check()) {
                 return redirect(RouteServiceProvider::HOME);
             }
         }

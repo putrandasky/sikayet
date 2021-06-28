@@ -32,6 +32,13 @@ class FacebookController extends Controller
             Auth::loginUsingId($user->Id);
             return redirect('/user-dashboard');
         } else {
+            //check if any user has same email
+            $user_email_exist = Models\User::where('email', $oauthUser->email)->exists();
+
+            if ($user_email_exist) {
+                return redirect('user-login')->with('status', 'You can not using Facebook login with Email which already registered');
+            }
+
             $content = file_get_contents($oauthUser->avatar_original . "&access_token={$oauthUser->token}");
             $filename = Str::random(20) . '.jpg';
             $stored_avatar = Storage::put('public/user/' . $filename, $content);

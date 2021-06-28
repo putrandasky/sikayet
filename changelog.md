@@ -1,3 +1,32 @@
+# 27-Jun-21
+## 0.6.0
+### ADDED
+WEBSITE
+- User Profile in User Detail
+USER
+- Forgot Password Feature
+- Prohibited Login for UNACTIVE/SUSPENDED Account
+- Able to see company respond in user dashboard
+- Able to delete review
+- Able to change review type 
+- Change Password feature
+- Input validation in company dashboard (My profile form)
+- Prohibited normal login, forgot password, and change password if registered with FB or Google Login
+COMPANY
+- Forgot Password Feature
+- Prohibited Login for UNACTIVE/SUSPENDED Account
+- Email verfication feature after register
+- Change Business Category in Company Dashboard
+- Change Password feature
+- Prohibited respond if review status is not in PUBLISHED
+- Company able to edit and delete company respond for any review
+- Able to change business category in company dashboard
+- Input validation in company dashboard (Company respond form, My profile form)
+ADMIN
+- Admin Dashboard
+- Business Category page (for view, create, update, delete)
+- Automaticaly send email notification if company set the account status to active 
+
 # 22-Jun-21
 ## 0.5.1
 ### ADDED
@@ -161,7 +190,19 @@ View for page below
 17. [v] 404 not found page
 
 ### Backlog
-[] payment membership process page
-[] sidebar not working
-[] account status need to define after register (user & company)
+[x] payment membership process page
+[x] sidebar not working
+[x] account status need to define after register (user & company)
 [] refine logic update active / suspend status in database while updating in admin,check view page , do not using created_at for this field
+[x] Admin Dashboard
+[x] Edit respond company from company dashboard 
+[x] Prohibited respond company while 'IN REVIEW' Status
+[x] Delete review from user dashboard
+[] See Company respond in admin dashboard
+[x] CRUD Business Category
+[x] Edit Business Category from Company Dashboard
+[x] Edit Review type from user dashboard
+[x] Email notification to company for Account Activation
+[] Email notification to company after subscription
+[] Social Media input in Admin Dashboard
+

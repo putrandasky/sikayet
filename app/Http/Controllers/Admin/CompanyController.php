@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models;
+use App\Notifications\CompanyAccountActived;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -31,9 +32,13 @@ class CompanyController extends Controller
     public function update(Request $request, $company_id)
     {
         $company = Models\Company::id($company_id)->first();
+        if ($company->account_status_id == 1 && $request->account_status_id == 2) {
+            $company->notify(new CompanyAccountActived($company));
+        }
         $company->account_status_id = $request->account_status_id;
         $company->is_verified = $request->is_verified;
         $company->save();
+
         return response()->json(['status' => 'success', 'message' => 'Company data updated'], 200);
     }
 }
