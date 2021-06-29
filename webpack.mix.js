@@ -24,3 +24,16 @@ mix.js('resources/js/website/app.js', 'public/js')
   .sass('resources/sass/app.scss', 'public/css');
 mix.js('resources/js/admin/app.js', 'public/js/app-admin.js')
   .vue();
+
+if (mix.inProduction()) {
+  mix.version();
+  mix.options({
+    terser: {
+      terserOptions: {
+        compress: {
+          drop_console: true
+        }
+      }
+    }
+  });
+}

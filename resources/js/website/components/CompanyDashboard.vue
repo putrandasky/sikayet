@@ -22,7 +22,7 @@
         <b-card v-show="isLoaded" class="text-center">
           <h1>{{review.total}}</h1>
           <div>
-            Total Answered
+            Total Review
           </div>
         </b-card>
       </b-col>

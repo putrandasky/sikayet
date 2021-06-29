@@ -8,8 +8,8 @@
     <div class="col-md-6">
       <div class="card w-100">
         <div class="card-title text-center mt-3">
-          <div><i class="fa fa-check fa-3x text-light bg-success rounded-circle p-2"></i></div>
-          <div>Payment Success</div>
+          <div class="mb-2"><i class="fa fa-check fa-3x text-light bg-success rounded-circle p-2"></i></div>
+          <p class="h3">Payment Success</p>
         </div>
         <div class="card-body ">
           <div class="d-flex justify-content-between">
@@ -76,7 +76,7 @@
           </div>
           <div class="d-flex justify-content-between">
             <div>
-              End Data Package
+              End Date Package
             </div>
             <div>
               {{$membership_paid->ending_period}}

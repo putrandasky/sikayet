@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use App\Models;
+use App\Notifications\CompanySubscriptionPaid;
 use App\Traits\CompanyMembershipHandler;
 use Auth;
 use Carbon\Carbon;
@@ -131,7 +132,12 @@ class PaymentController extends Controller
         $membership_paid = Models\MembershipHistory::where([
             'status' => 0,
             'payment_status' => 'UNPAID',
-            'session_id' => $session_id])->first();
+            'session_id' => $session_id])
+            ->with([
+                'company' => function ($query) {
+                    $query->select(['id', 'name']);
+                },
+            ])->first();
         if (!$membership_paid) {
             return view('pages.404');
         }
@@ -153,7 +159,20 @@ class PaymentController extends Controller
         $company->respond_unlimited = $get_current_package->respond_quota == -1 ? 1 : 0;
         $company->save();
         // return view('pages.payment-success');
+        $company->notify(new CompanySubscriptionPaid($membership_paid));
+
         return view('pages.payment-success', compact('company', 'membership_paid'));
+    }
+    public function paymentCancel(Request $request)
+    {
+        $session_id = $request->input('session_id');
+        $membership_history = Models\MembershipHistory::where([
+            'status' => 0,
+            'payment_status' => 'UNPAID',
+            'session_id' => $session_id])
+            ->first();
+        $membership_history->delete();
+        return view('pages.payment-cancel');
     }
     public function generateInvoiceNumber($company)
     {

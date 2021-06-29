@@ -1,3 +1,10 @@
+# 29-Jun-21
+## 0.7.0
+### ADDED
+COMPANY
+- Email notification after payment subcription premium membership success
+- Email notification after user submit new review to company
+- Cancel payment page and delete invoice in billing history if company cancel the checkout page
 # 27-Jun-21
 ## 0.6.0
 ### ADDED
@@ -199,10 +206,11 @@ View for page below
 [x] Prohibited respond company while 'IN REVIEW' Status
 [x] Delete review from user dashboard
 [] See Company respond in admin dashboard
+[] Email notification to company after user submit review only for premium membership
 [x] CRUD Business Category
 [x] Edit Business Category from Company Dashboard
 [x] Edit Review type from user dashboard
 [x] Email notification to company for Account Activation
-[] Email notification to company after subscription
+[x] Email notification to company after subscription
 [] Social Media input in Admin Dashboard
 

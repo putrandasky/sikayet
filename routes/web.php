@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers;
+use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,9 @@ Route::get('/company-brands', function () {
 });
 // Route::get('/good-company', function () {
 //     return view('pages.company-detail');
+// });
+// Route::get('/payment-cancel', function () {
+//     return view('pages.payment-cancel');
 // });
 // Route::get('/login', function () {
 //     return view('pages.user-login');
@@ -99,6 +103,7 @@ Route::group(['middleware' => 'auth:company'], function () {
     Route::post('company-dashboard/membership/{period}', [Controllers\Company\MembershipController::class, 'buyMembership']);
 });
 Route::get('/checkout/payment-success', [Controllers\Company\PaymentController::class, 'paymentSuccess']);
+Route::get('/checkout/payment-cancel', [Controllers\Company\PaymentController::class, 'paymentCancel']);
 Route::get('company-dashboard/current-membership', [Controllers\Company\MembershipController::class, 'showCurrentMembership']);
 Route::get('company-dashboard/index-billing', [Controllers\Company\MembershipController::class, 'indexBillingHistory']);
 Route::get('company-dashboard/membership-info', [Controllers\Company\MembershipController::class, 'membershipInfo']);
@@ -136,6 +141,14 @@ Route::get('google', [Controllers\Auth\GoogleController::class, 'redirect']);
 Route::get('user-login/google-callback', [Controllers\Auth\GoogleController::class, 'callback']);
 Route::get('facebook', [Controllers\Auth\FacebookController::class, 'redirect']);
 Route::get('user-login/facebook-callback', [Controllers\Auth\FacebookController::class, 'callback']);
+
+Route::get('mail', function () {
+
+    $markdown = new Markdown(view(), config('mail.markdown'));
+
+    return $markdown->render('email.NewReviewSubmited');
+    // return $markdown->render('email.DonorPostRegistered');
+});
 
 // Auth::routes();
 
