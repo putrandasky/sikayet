@@ -3,7 +3,7 @@
     <b-card header-tag="nav">
       <template #header>
         <b-nav card-header tabs>
-          <b-nav-item active-class="active" to="/reviews/new">New Review</b-nav-item>
+          <b-nav-item active-class="active" to="/reviews/new">In Review</b-nav-item>
           <!-- <b-nav-item active-class="active" to="/reviews/active">Active Review</b-nav-item> -->
           <b-nav-item active-class="active" to="/reviews/reported">Reported</b-nav-item>
           <b-nav-item active-class="active" to="/reviews/suspended">Suspended</b-nav-item>

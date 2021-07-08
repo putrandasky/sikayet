@@ -150,6 +150,7 @@
             // console.log(this.itemsData[this.selectedIndex])
           })
           .catch((error) => {
+            this.toastError(error.response.data.message)
             console.log(error);
           })
 

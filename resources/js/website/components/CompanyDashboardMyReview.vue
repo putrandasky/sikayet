@@ -10,8 +10,15 @@
             <b-input-group-prepend>
               <b-form-select plain v-model="selectedInputSearch" :options="optionsInputSearch" />
             </b-input-group-prepend>
-            <b-form-input autofocus v-model="search" @input="onInput" type="text" placeholder="Instant Search">
+
+            <b-form-input v-if="selectedInputSearch == 'title' || selectedInputSearch == 'from' " autofocus v-model="search" @input="onInput" type="text" placeholder="Instant Search">
             </b-form-input>
+            <b-form-select v-if="selectedInputSearch !== 'title' && selectedInputSearch !== 'from' " plain v-model="search" :options="optionsSelect[selectedInputSearch]">
+              <template slot="first">
+                <option disabled :value="''">-- Please Select --</option>
+              </template>
+            </b-form-select>
+
             <b-input-group-append>
               <b-btn :disabled="!search" @click="search = ''">Clear</b-btn>
             </b-input-group-append>
@@ -248,6 +255,43 @@
         company: {},
         respond: '',
         error_respond: '',
+        optionsSelect: {
+          answered: [{
+              value: 'false',
+              text: 'Not Answered'
+            },
+            {
+              value: 'true',
+              text: 'Answered'
+            }
+          ],
+          type: [{
+              value: 'GENERAL',
+              text: 'GENERAL'
+            },
+            {
+              value: 'SOLUTION',
+              text: 'SOLUTION'
+            },
+            {
+              value: 'COMPLAIN',
+              text: 'COMPLAIN'
+            }
+          ],
+          status: [{
+              value: 'IN REVIEW',
+              text: 'IN REVIEW'
+            },
+            {
+              value: 'PUBLISHED',
+              text: 'PUBLISHED'
+            },
+            {
+              value: 'SUSPENDED',
+              text: 'SUSPENDED'
+            }
+          ]
+        },
         review: {
           unanswered: 0,
           answered: 0,

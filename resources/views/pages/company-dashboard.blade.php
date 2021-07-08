@@ -29,7 +29,10 @@
           <div>
             <div class="text-light text-center text-sm-left">{{$data['company']->business_category->name}}</div>
             <div class="text-white text-center text-sm-left">
-              <h3>{{$data['company']->name}}</h3>
+              <a class="text-white" href="/brand/{{$data['company']->slug}}" target="_blank">
+                <h3>{{$data['company']->name}}</h3>
+              </a>
+
             </div>
             <div class="d-flex mb-3 justify-content-center justify-content-sm-start">
               @php

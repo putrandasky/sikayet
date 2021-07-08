@@ -80,8 +80,8 @@
         </x-footer-items>
       </x-footer>
     </div>
-    <div class="w-100 border-top py-3">
-      © 2021 My domain, Inc. All rights reserved.
+    <div class="w-100 border-top text-center py-3">
+      © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
     </div>
   </div>
 </footer>

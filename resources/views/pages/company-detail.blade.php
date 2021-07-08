@@ -8,13 +8,13 @@
 <meta property="og:site_name" content="{{$company->name}}" />
 <meta property="og:type" content="website" />
 <meta property="og:description" content="{{$company->profile}}">
-<meta property="og:image" content="{{ asset("/storage/company/{$company->avatar}") }}">
+<meta property="og:image" content="{{ $company->avatar ? asset("/storage/company/{$company->avatar}") : asset("/images/company-no-avatar.jpg") }}">
 <meta property="og:url" content="{{url()->current()}}" />
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{{$company->name}}">
 <meta name="twitter:description" content="{{$company->profile}}">
-<meta name="twitter:image:src" content="{{ asset("/storage/company/{$company->avatar}") }}">
-<meta name="twitter:image" content="{{ asset("/storage/company/{$company->avatar}") }}">
+<meta name="twitter:image:src" content="{{ $company->avatar ? asset("/storage/company/{$company->avatar}") : asset("/images/company-no-avatar.jpg") }}">
+<meta name="twitter:image" content="{{ $company->avatar ? asset("/storage/company/{$company->avatar}") : asset("/images/company-no-avatar.jpg") }}">
 
 
 @endsection
@@ -322,7 +322,8 @@
         </div>
         <div class="col-lg-4">
           <div class="w-100 mb-3">
-            @if (auth('web')->check())
+            @if (auth('web')->check() && !$reviewed)
+
             <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
             @endif
             @if (!auth('web')->check() && !auth('company')->check())

@@ -103,6 +103,18 @@ export const MyReviewTable = {
           value: 'from',
           text: 'From'
         },
+        {
+          value: 'type',
+          text: 'Type'
+        },
+        {
+          value: 'status',
+          text: 'Status'
+        },
+        {
+          value: 'answered',
+          text: 'Answered'
+        },
 
       ],
     };
@@ -117,6 +129,30 @@ export const MyReviewTable = {
       if (this.selectedInputSearch == 'from') {
         return this.itemsData.filter(result =>
           result.user.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
+      if (this.selectedInputSearch == 'type') {
+        if (this.search == '') {
+          return this.itemsData
+        }
+        return this.itemsData.filter(result =>
+          result.review_type.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
+      if (this.selectedInputSearch == 'status') {
+        if (this.search == '') {
+          return this.itemsData
+        }
+        return this.itemsData.filter(result =>
+          result.review_status.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        )
+      }
+      if (this.selectedInputSearch == 'answered') {
+        if (this.search == '') {
+          return this.itemsData
+        }
+        return this.itemsData.filter(result =>
+          this.search == 'true' ? result.company_respond !== null && Object.keys(result.company_respond).length > 0 : !result.company_respond
         )
       }
 

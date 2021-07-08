@@ -9,7 +9,9 @@
   <div class="h-100 position-relative">
     <div id="login-form" class="text-center position-absolute bg-white h-100 px-3" style="right:0">
       <div class=" py-3 border-bottom">
-        <h3 class="mb-0">APP Logo</h3>
+        <a href="/">
+          <img class="img-fluid" style="max-height:30px" src="/images/logo-large.png" alt="application logo"></img>
+        </a>
       </div>
       <div class="mt-3">
         <h4>Business Account Login</h4>

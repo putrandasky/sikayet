@@ -6,13 +6,13 @@
       </b-btn>
     </b-navbar-nav>
     <b-navbar-brand class="mr-auto  d-none d-md-flex" href="/">
-      <!-- <b-img style="max-height:30px" src="/images/logo.png" alt="application logo"></b-img> -->
-      APP LOGO
+      <b-img style="max-height:30px" src="/images/logo.png" alt="application logo"></b-img>
+      <!-- APP LOGO -->
 
     </b-navbar-brand>
     <b-navbar-brand class="center-h   d-flex d-md-none" href="/">
-      <!-- <b-img style="max-height:30px" src="/images/logo.png" alt="application logo"></b-img> -->
-      APP LOGO
+      <b-img style="max-height:30px" src="/images/logo.png" alt="application logo"></b-img>
+      <!-- APP LOGO -->
 
     </b-navbar-brand>
 

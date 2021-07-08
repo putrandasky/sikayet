@@ -1,3 +1,15 @@
+# 08-Jul-21
+## 0.8.0
+### ADDED
+- Add notification error in review
+- Clickable company name in company dashboard
+- Filter type, status, answered in company dashboard
+### FIXED
+WEBSITE
+- Hide "write a review" button while user already sent a review
+- Logo and icon website
+
+
 # 29-Jun-21
 ## 0.7.0
 ### ADDED

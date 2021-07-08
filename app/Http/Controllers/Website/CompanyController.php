@@ -58,8 +58,16 @@ class CompanyController extends Controller
         ])->paginate(5);
         // return $reviews;
         $common_words = $this->getCommonWords($company_name);
+        $reviewed = null;
+        if (Auth::check('web')) {
+            # code...
+            $reviewed = Models\Review::where([
+                'user_id' => Auth::guard('web')->user()->id,
+                'company_id' => $company->id,
+            ])->first();
+        }
         $keywords = implode(", ", $common_words);
-        return view('pages.company-detail', compact("company", "reviews", "common_words", "keywords"));
+        return view('pages.company-detail', compact("company", "reviews", "common_words", "keywords", "reviewed"));
     }
     public function showReviewForm($company_name)
     {

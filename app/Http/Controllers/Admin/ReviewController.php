@@ -38,29 +38,44 @@ class ReviewController extends Controller
     public function update(Request $request, $review_id)
     {
         $review = Models\Review::id($review_id)->first();
+        if ($request->review_status_id !== $review->review_status_id) {
+            //scenario for review to be "PUBLISHED" and  have published data (whiich means user edit a review after PUBLISHED)
 
-        //scenario for review to be "PUBLISHED" and not have published data
-        if (!isset($review->published_at) && $request->review_status_id == 2) {
-            $this->incrementReviewData($review_id, $request->rating);
-            $review->published_at = Carbon\Carbon::now();
-            $review->suspended_at = null;
-            $review->save();
-        }
-        //scenario for review to be "SUSPENDED" and not have published data (which means from "IN REVIEW" status)
+            if ($request->review_status_id == 1) {
+                return response()->json(['status' => 'error', 'message' => 'REVIEW status can not change to IN REVIEW'], 403);
+            }
 
-        if (!isset($review->published_at) && $request->review_status_id == 3) {
-            $review->published_at = null;
-            $review->suspended_at = Carbon\Carbon::now();
-            $review->save();
+            if (isset($review->published_at) && $request->review_status_id == 2) {
+                $review->published_at = Carbon\Carbon::now();
+                $review->suspended_at = null;
+                $review->save();
+            }
+
+            //scenario for review to be "PUBLISHED" and not have published data
+            if (!isset($review->published_at) && $request->review_status_id == 2) {
+                $this->incrementReviewData($review_id, $request->rating);
+                $review->published_at = Carbon\Carbon::now();
+                $review->suspended_at = null;
+                $review->save();
+            }
+
+            //scenario for review to be "SUSPENDED" and not have published data (which means from "IN REVIEW" status)
+
+            if (!isset($review->published_at) && $request->review_status_id == 3) {
+                $review->published_at = null;
+                $review->suspended_at = Carbon\Carbon::now();
+                $review->save();
+            }
+
+//scenario for review to be "SUSPENDED" and have published data (which means from published status/a review is reported by company)
+            if (isset($review->published_at) && $request->review_status_id == 3) {
+                $this->decrementReviewData($review_id);
+                $review->published_at = null;
+                $review->suspended_at = Carbon\Carbon::now();
+                $review->save();
+            }
+            $review->review_status_id = $request->review_status_id;
         }
-//scenario for review to be "SUSPENDED" and have published data (which means from published status)
-        if (isset($review->published_at) && $request->review_status_id == 3) {
-            $this->decrementReviewData($review_id);
-            $review->published_at = null;
-            $review->suspended_at = Carbon\Carbon::now();
-            $review->save();
-        }
-        $review->review_status_id = $request->review_status_id;
         $review->title = $request->title;
         $review->rating = $request->rating;
         $review->description = $request->description;
