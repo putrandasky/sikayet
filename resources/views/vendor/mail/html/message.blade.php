@@ -2,7 +2,7 @@
 {{-- Header --}}
 @slot('header')
 @component('mail::header', ['url' => config('app.url')])
-{{ config('app.name') }}
+<img src="{{config('app.url')}}/images/logo.png" class="logo" alt="sikayet.io Logo">
 @endcomponent
 @endslot
 
