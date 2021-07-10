@@ -142,6 +142,11 @@ Route::get('user-login/google-callback', [Controllers\Auth\GoogleController::cla
 Route::get('facebook', [Controllers\Auth\FacebookController::class, 'redirect']);
 Route::get('user-login/facebook-callback', [Controllers\Auth\FacebookController::class, 'callback']);
 
+Route::get('social-facebook', [Controllers\Website\SocialController::class, 'facebook']);
+Route::get('social-instagram', [Controllers\Website\SocialController::class, 'instagram']);
+Route::get('social-twitter', [Controllers\Website\SocialController::class, 'twitter']);
+Route::get('social-linkedin', [Controllers\Website\SocialController::class, 'linkedin']);
+
 Route::get('mail', function () {
 
     $markdown = new Markdown(view(), config('mail.markdown'));

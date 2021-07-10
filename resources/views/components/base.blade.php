@@ -41,7 +41,7 @@
           <a class=" p-0 text-dark" href="/company-login">Business Login</a>
         </li>
         <li>
-          <a class=" p-0 text-dark" href="">FAQ Business</a>
+          <a class=" p-0 text-dark" href="/faq">FAQ Business</a>
         </li>
 
       </x-footer>
@@ -49,18 +49,18 @@
         @slot('title')
         Social Media
         @endslot
-        <x-footer-items>
-          Facebook
-        </x-footer-items>
-        <x-footer-items>
-          Twitter
-        </x-footer-items>
-        <x-footer-items>
-          Instagram
-        </x-footer-items>
-        <x-footer-items>
-          Linkedin
-        </x-footer-items>
+         <li>
+           <a class=" p-0 text-dark" href="/social-facebook" target="_blank">Facebook</a>
+         </li>
+         <li>
+           <a class=" p-0 text-dark" href="/social-instagram" target="_blank">Instagram</a>
+         </li>
+         <li>
+           <a class=" p-0 text-dark" href="/social-twitter" target="_blank">Twitter</a>
+         </li>
+         <li>
+           <a class=" p-0 text-dark" href="/social-linkedin" target="_blank">Linkedin</a>
+         </li>
       </x-footer>
       <x-footer>
         @slot('title')

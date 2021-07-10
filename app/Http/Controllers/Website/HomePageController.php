@@ -11,8 +11,8 @@ class HomePageController extends Controller
     public function show()
     {
 
-        $data['header']['title'] = Models\Editor::key('header-title')->value;
-        $data['header']['subtitle'] = Models\Editor::key('header-subtitle')->value;
+        $data['header']['title'] = Models\Editor::key('header_title')->value;
+        $data['header']['subtitle'] = Models\Editor::key('header_subtitle')->value;
 
         // return $data;
         return view('pages.home', compact("data"));

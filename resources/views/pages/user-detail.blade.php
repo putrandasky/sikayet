@@ -2,6 +2,18 @@
 
 @section('meta')
 <title>{{$user->name}}</title>
+<meta name="description" content="{{$user->profile}}">
+<meta property="og:title" content="{{$user->name}}" />
+<meta property="og:site_name" content="{{$user->name}}" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="{{$user->profile}}">
+<meta property="og:image" content="{{ $user->avatar ? asset("/storage/user/{$user->avatar}") : asset("/images/user-no-avatar.png") }}">
+<meta property="og:url" content="{{url()->current()}}" />
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{$user->name}}">
+<meta name="twitter:description" content="{{$user->profile}}">
+<meta name="twitter:image:src" content="{{ $user->avatar ? asset("/storage/user/{$user->avatar}") : asset("/images/user-no-avatar.png") }}">
+<meta name="twitter:image" content="{{ $user->avatar ? asset("/storage/user/{$user->avatar}") : asset("/images/user-no-avatar.png") }}">
 
 
 

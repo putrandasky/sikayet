@@ -3,6 +3,18 @@
 @section('meta')
 <title>{{$review->company->name}} reviewed by {{$review->user->name}} </title>
 
+<meta name="description" content="{{$review->description}}">
+<meta property="og:title" content="{{$review->company->name}} reviewed by {{$review->user->name}}" />
+<meta property="og:site_name" content="{{$review->company->name}} reviewed by {{$review->user->name}}" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="{{$review->description}}">
+<meta property="og:image" content="{{ $review->user->avatar ? asset("/storage/user/{$review->user->avatar}") : asset("/images/user-no-avatar.png") }}">
+<meta property="og:url" content="{{url()->current()}}" />
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{$review->company->name}} reviewed by {{$review->user->name}}">
+<meta name="twitter:description" content="{{$review->description}}">
+<meta name="twitter:image:src" content="{{ $review->user->avatar ? asset("/storage/user/{$review->user->avatar}") : asset("/images/user-no-avatar.png") }}">
+<meta name="twitter:image" content="{{ $review->user->avatar ? asset("/storage/user/{$review->user->avatar}") : asset("/images/user-no-avatar.png") }}">
 
 
 @endsection

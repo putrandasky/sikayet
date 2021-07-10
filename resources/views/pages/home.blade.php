@@ -7,13 +7,13 @@
 <meta property="og:site_name" content="{{config('app.name')}}" />
 <meta property="og:type" content="website" />
 <meta property="og:description" content="{{$data['header']['title'] .' '.$data['header']['subtitle']}}">
-<meta property="og:image" content="{{ asset('images/favicon.png') }}">
+<meta property="og:image" content="{{ asset('images/icon.png') }}">
 <meta property="og:url" content="{{config('app.url')}}" />
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{{config('app.name')}}">
 <meta name="twitter:description" content="{{$data['header']['title'] .' '.$data['header']['subtitle']}}">
-<meta name="twitter:image:src" content="{{ asset('images/favicon.png') }}">
-<meta name="twitter:image" content="{{ asset('images/favicon.png') }}">
+<meta name="twitter:image:src" content="{{ asset('images/icon.png') }}">
+<meta name="twitter:image" content="{{ asset('images/icon.png') }}">
 
 
 @endsection

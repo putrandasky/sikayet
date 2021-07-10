@@ -8,13 +8,13 @@
 <meta property="og:site_name" content="{{$company->name}}" />
 <meta property="og:type" content="website" />
 <meta property="og:description" content="{{$company->profile}}">
-<meta property="og:image" content="{{ $company->avatar ? asset("/storage/company/{$company->avatar}") : asset("/images/company-no-avatar.jpg") }}">
+<meta property="og:image" content="{{ $company->avatar ? asset("/storage/company/{$company->avatar}") : asset("/images/company-no-avatar.png") }}">
 <meta property="og:url" content="{{url()->current()}}" />
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{{$company->name}}">
 <meta name="twitter:description" content="{{$company->profile}}">
-<meta name="twitter:image:src" content="{{ $company->avatar ? asset("/storage/company/{$company->avatar}") : asset("/images/company-no-avatar.jpg") }}">
-<meta name="twitter:image" content="{{ $company->avatar ? asset("/storage/company/{$company->avatar}") : asset("/images/company-no-avatar.jpg") }}">
+<meta name="twitter:image:src" content="{{ $company->avatar ? asset("/storage/company/{$company->avatar}") : asset("/images/company-no-avatar.png") }}">
+<meta name="twitter:image" content="{{ $company->avatar ? asset("/storage/company/{$company->avatar}") : asset("/images/company-no-avatar.png") }}">
 
 
 @endsection

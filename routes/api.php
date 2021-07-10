@@ -54,6 +54,10 @@ Route::delete('/compose-membership-info/{memebership_info_id}', [Controllers\Adm
 Route::get('/contact', [Controllers\Admin\ContactController::class, 'showContact']);
 Route::get('/business-category', [Controllers\Admin\BusinessCategoryController::class, 'index']);
 Route::post('/business-category', [Controllers\Admin\BusinessCategoryController::class, 'store']);
+Route::get('/compose-social', [Controllers\Admin\EditorController::class, 'getSocial']);
+Route::post('/compose-social', [Controllers\Admin\EditorController::class, 'composeSocial']);
+Route::get('/compose-header', [Controllers\Admin\EditorController::class, 'getHeader']);
+Route::post('/compose-header', [Controllers\Admin\EditorController::class, 'composeHeader']);
 Route::patch('/business-category', [Controllers\Admin\BusinessCategoryController::class, 'update']);
 Route::delete('/business-category/{category_id}', [Controllers\Admin\BusinessCategoryController::class, 'delete']);
 

@@ -1,3 +1,8 @@
+# 11-Jul-21
+## 0.8.2
+### ADDED
+- Meta data for user detail and review detail
+- Editor function for header and social
 # 10-Jul-21
 ## 0.8.1
 ### ADDED

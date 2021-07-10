@@ -55,10 +55,45 @@ class EditorController extends Controller
         return response()->json(['status' => 'success', 'message' => 'About Updated'], 200);
 
     }
+
     public function getAbout(Request $request)
     {
         $data = Models\Editor::where('key', 'like', "about_%")->get();
         return $data;
+
+    }
+    public function getSocial(Request $request)
+    {
+        $data = Models\Editor::where('key', 'like', "social_%")->get();
+        return $data;
+
+    }
+    public function composeSocial(Request $request)
+    {
+        $items = $request->data;
+        foreach ($items as $item => $value) {
+            $data = Models\Editor::key($item);
+            $data->value = $value;
+            $data->save();
+        }
+        return response()->json(['status' => 'success', 'message' => 'Social Updated'], 200);
+
+    }
+    public function getHeader(Request $request)
+    {
+        $data = Models\Editor::where('key', 'like', "header_%")->get();
+        return $data;
+
+    }
+    public function composeHeader(Request $request)
+    {
+        $items = $request->data;
+        foreach ($items as $item => $value) {
+            $data = Models\Editor::key($item);
+            $data->value = $value;
+            $data->save();
+        }
+        return response()->json(['status' => 'success', 'message' => 'Header Updated'], 200);
 
     }
 }
