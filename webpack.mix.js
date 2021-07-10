@@ -27,13 +27,13 @@ mix.js('resources/js/admin/app.js', 'public/js/app-admin.js')
 
 if (mix.inProduction()) {
   mix.version();
-  mix.options({
-    terser: {
-      terserOptions: {
-        compress: {
-          drop_console: true
-        }
-      }
-    }
-  });
+  // mix.options({
+  //   terser: {
+  //     terserOptions: {
+  //       compress: {
+  //         drop_console: true
+  //       }
+  //     }
+  //   }
+  // });
 }
