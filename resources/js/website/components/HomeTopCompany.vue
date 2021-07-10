@@ -97,8 +97,11 @@
       },
       mutateKey(data) {
         data.forEach(function(obj) {
-          obj.rating_green = parseInt(obj.rating.toFixed(0))
-          obj.rating_grey = 5 - parseInt(obj.rating.toFixed(0))
+          let parsedRating = parseFloat(obj.rating)
+          let ratingGreen = parseInt(parsedRating.toFixed(0))
+          obj.rating_green = ratingGreen
+          obj.rating_grey = 5 - ratingGreen
+
         });
 
       },

@@ -1,3 +1,10 @@
+# 10-Jul-21
+## 0.8.1
+### ADDED
+- Title in homepage
+### FIXED
+- parsefloat in rating
+
 # 08-Jul-21
 ## 0.8.0
 ### ADDED

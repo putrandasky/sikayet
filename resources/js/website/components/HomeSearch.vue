@@ -110,11 +110,12 @@
       },
       mutateKey(data) {
         let mutateData = data.map(function(item) {
+          let parsedRating = parseFloat(item.rating)
           return {
             name: item.name,
             slug: item.slug,
             rating: item.rating,
-            rating_rounded: parseInt(item.rating.toFixed(0))
+            rating_rounded: parseInt(parsedRating.toFixed(0))
           };
         });
         return mutateData;
