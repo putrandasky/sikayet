@@ -104,7 +104,7 @@
               @endif
               @endslot
               @slot('user_name')
-                {{ explode(' ',trim($user->name))[0] }}
+              {{ explode(' ',trim($user->name))[0] }}
               @endslot
               @slot('rating')
               @php
@@ -125,10 +125,10 @@
                   @slot('posted_date')
                   Published {{Carbon\Carbon::parse($review->created_at)->format('d M Y')}}
                   @endslot
-                 @slot('review_title')
-                 <a class="text-dark" href="/review/{{$review->slug}}">{{$review->title}}</a>
+                  @slot('review_title')
+                  <a class="text-dark" href="/review/{{$review->slug}}">{{$review->title}}</a>
 
-                 @endslot
+                  @endslot
                   @slot('review_content')
                   {{$review->description}}
                   <div class="badge badge-{{$review->review_type->name == 'SOLUTION' ? 'success' : ($review->review_type->name == 'COMPLAIN' ? 'danger' : 'secondary') }}">
@@ -176,23 +176,77 @@
 
           </x-company-detail.card-review>
           @endforeach
-          @if ($reviews->lastPage() >1)
 
           <nav aria-label="">
-            <ul class="pagination text-center justify-content-center">
-          {{ $reviews->links() }}
 
-            </ul>
+              @if ($reviews->hasPages())
+              <ul class="pagination text-center justify-content-center" role="navigation">
+                {{-- Previous Page Link --}}
+                @if ($reviews->onFirstPage())
+                <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
+                  <span class="page-link" aria-hidden="true">&lsaquo;</span>
+                </li>
+                @else
+                <li class="page-item">
+                  <a class="page-link" href="{{ $reviews->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+                </li>
+                @endif
+
+                <?php
+        $start = $reviews->currentPage() - 1; // show 3 pagination links before current
+        $end = $reviews->currentPage() + 1; // show 3 pagination links after current
+        if($start < 1) {
+            $start = 1; // reset start to 1
+            $end += 1;
+        }
+        if($end >= $reviews->lastPage() ) $end = $reviews->lastPage(); // reset end to last page
+    ?>
+
+                @if($start > 1)
+                <li class="page-item">
+                  <a class="page-link" href="{{ $reviews->url(1) }}">{{1}}</a>
+                </li>
+                @if($reviews->currentPage() != 4)
+                {{-- "Three Dots" Separator --}}
+                <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+                @endif
+                @endif
+                @for ($i = $start; $i <= $end; $i++) <li class="page-item {{ ($reviews->currentPage() == $i) ? ' active' : '' }}">
+                  <a class="page-link" href="{{ $reviews->url($i) }}">{{$i}}</a>
+                  </li>
+                  @endfor
+                  @if($end < $reviews->lastPage())
+                    @if($reviews->currentPage() + 3 != $reviews->lastPage())
+                    {{-- "Three Dots" Separator --}}
+                    <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+                    @endif
+                    <li class="page-item">
+                      <a class="page-link" href="{{ $reviews->url($reviews->lastPage()) }}">{{$reviews->lastPage()}}</a>
+                    </li>
+                    @endif
+
+                    {{-- Next Page Link --}}
+                    @if ($reviews->hasMorePages())
+                    <li class="page-item">
+                      <a class="page-link" href="{{ $reviews->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+                    </li>
+                    @else
+                    <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
+                      <span class="page-link" aria-hidden="true">&rsaquo;</span>
+                    </li>
+                    @endif
+              </ul>
+              @endif
+
           </nav>
-          @endif
         </div>
         <div class="col-lg-4 pt-4">
           <div class="card">
             <div class="card-body">
-               <strong>Profile</strong>
-               <div>
-                 {{$user->profile}}
-               </div>
+              <strong>Profile</strong>
+              <div>
+                {{$user->profile}}
+              </div>
             </div>
           </div>
         </div>

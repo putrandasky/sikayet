@@ -1,4 +1,4 @@
-<div class="row w-100">
+<div class="row w-100 m-0">
   <div class="col-sm-{{$image_col}}  d-flex align-items-center justify-content-center  justify-content-md-start">
     {{$image_area}}
   </div>

@@ -42,8 +42,9 @@ class ReviewController extends Controller
             //scenario for review to be "PUBLISHED" and  have published data (whiich means user edit a review after PUBLISHED)
 
             if ($request->review_status_id == 1) {
-                return response()->json(['status' => 'error', 'message' => 'REVIEW status can not change to IN REVIEW'], 403);
+                return response()->json(['status' => 'error', 'message' => 'REVIEW status can not be changed to IN REVIEW'], 403);
             }
+//scenario for review to be "PUBLISHED" and have published data (which means from 'PUBLISHED' status)
 
             if (isset($review->published_at) && $request->review_status_id == 2) {
                 $review->published_at = Carbon\Carbon::now();

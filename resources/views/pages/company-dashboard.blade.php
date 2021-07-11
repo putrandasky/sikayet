@@ -51,7 +51,8 @@
                            Rating : {{$data['company']['rating']}} of 5.0
                          </div>
             </div>
-            <div class="d-flex">
+            <div class="d-flex" style="overflow: auto;
+    white-space: nowrap;">
               <div class="text-success">Solutions : {{$data['company']->review_solution}}</div>
               <div class="text-danger ml-3">Complaints : {{$data['company']->review_complaint}}</div>
               <div class="text-secondary ml-3">Generals : {{$data['company']->review_general}}</div>

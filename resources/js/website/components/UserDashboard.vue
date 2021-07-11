@@ -1,6 +1,8 @@
 <template>
   <div>
-    <b-nav tabs class="mb-3">
+    <b-nav tabs class="mb-3" style="overflow-x: auto;overflow-y: hidden;
+    white-space: nowrap;
+    flex-wrap: unset;">
       <b-nav-item :active="component == 'MyReview'" @click="component = 'MyReview'">My Review</b-nav-item>
       <b-nav-item :active="component == 'MyProfile'" @click="component = 'MyProfile'">My Profile</b-nav-item>
       <b-nav-item>

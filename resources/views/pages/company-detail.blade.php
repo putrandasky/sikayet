@@ -63,7 +63,7 @@
                     Rating : {{$company->rating}} of 5.0
                   </div>
             </div>
-            <div class="d-flex">
+            <div class="d-flex" style="overflow: auto;white-space:nowrap">
               <div class="text-success">Solutions : {{$company->review_solution ?? 0}}</div>
               <div class="text-danger ml-3">Complaints : {{$company->review_complaint ?? 0}}</div>
               <div class="text-secondary ml-3">Generals : {{$company->review_general ?? 0}}</div>
@@ -131,55 +131,69 @@
             <p>The review base on your keyword was not found, please try with different keyword</p>
           </div>
           @endif
+          <div class="w-100 mb-3  d-block d-lg-none">
+            @if (auth('web')->check() && !$reviewed)
+
+            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
+            @endif
+            @if (!auth('web')->check() && !auth('company')->check())
+            <a class="btn btn-success  btn-block" href="/user-login">Write a Review</a>
+            @endif
+          </div>
           @if (!request()->input('keyword') && count($reviews) > 0)
 
-          <div class="border-bottom border-dark w-100 pb-1 d-flex  align-items-center">
+          <div class=" w-100  d-flex  align-items-center">
             @php
             $url_order_by = (request()->has('rating')) ? (request()->url()).'?rating=' . (request()->input('rating')) .'&' : (request()->url()) . '?';
             @endphp
-            <a class="text-dark mr-3  {{(request()->input('order_by') != 'oldest') ? 'border rounded border-secondary py-1 px-2 btn disabled' : ''}} " href="{{ $url_order_by }}order_by=latest  ">
-              <h3 class="mb-0">
+            <a class=" mr-2  {{(request()->input('order_by') != 'oldest') ? 'btn-success  btn btn-sm disabled' : 'btn btn-sm btn-outline-success'}} " href="{{ $url_order_by }}order_by=latest  ">
+              <p class="mb-0">
                 Latest
-              </h3>
+              </p>
             </a>
-            <a class="text-dark btn {{(request()->input('order_by') == 'oldest') ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}} " href="{{$url_order_by}}order_by=oldest">
-              <h3 class="mb-0">
+            <a class=" btn {{(request()->input('order_by') == 'oldest') ? 'btn-success  btn btn-sm disabled' : 'btn btn-sm btn-outline-success'}} " href="{{$url_order_by}}order_by=oldest">
+              <p class="mb-0">
                 Oldest
-              </h3>
+              </p>
             </a>
           </div>
-          <div class="d-flex pt-3 mb-3 align-items-center">
-            <a class="text-dark  mr-3 {{!(request()->input('rating')) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="/brand/{{$company->slug}}">
-              <h5 class="mb-0">
+          <div class=" pt-3 mb-3 " style="overflow: auto;white-space:nowrap">
+            <a class="mr-2 {{!(request()->input('rating')) ? 'btn-success  btn btn-sm disabled' : 'btn btn-sm btn-outline-success'}}  " href="/brand/{{$company->slug}}">
+              <p class="mb-0">
                 All
-              </h5>
+              </p>
             </a>
 
-            <a class="text-dark mr-3 {{(request()->input('rating') == 5) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$urlquery}}rating=5">
-              <h5 class="mb-0">
+            <a class="mr-2 {{(request()->input('rating') == 5) ? 'btn-success  btn btn-sm disabled' : 'btn btn-sm btn-outline-success'}}  " href="{{$urlquery}}rating=5">
+              <p class="mb-0">
+                <x-star :number="5"></x-star>
+                ({{$company->star_5 ?? 0}})
+              </p>
+            </a>
+            <a class="mr-2 {{(request()->input('rating') == 4) ? 'btn-success  btn btn-sm disabled' : 'btn btn-sm btn-outline-success'}}  " href="{{$urlquery}}rating=4">
+              <p class="mb-0">
+                <x-star :number="4"></x-star>
+                  ({{$company->star_4 ?? 0}})
+              </p>
+            </a>
+            <a class="mr-2 {{(request()->input('rating') == 3) ? 'btn-success  btn btn-sm disabled' : 'btn btn-sm btn-outline-success'}}  " href="{{$urlquery}}rating=3">
+              <p class="mb-0">
+                <x-star :number="3"></x-star>
+                  ({{$company->star_3 ?? 0}})
+              </p>
+            </a>
+            <a class="mr-2 {{(request()->input('rating') == 2) ? 'btn-success  btn btn-sm disabled' : 'btn btn-sm btn-outline-success'}}  " href="{{$urlquery}}rating=2">
+              <p class="mb-0">
+                <x-star :number="2"></x-star>
+                   ({{$company->star_2 ?? 0}})
+              </p>
+            </a>
+            <a class="mr-2 {{(request()->input('rating') == 1) ? 'btn-success  btn btn-sm disabled' : 'btn btn-sm btn-outline-success'}}  " href="{{$urlquery}}rating=1">
+              <p class="mb-0">
+                <x-star :number="1"></x-star>
 
-                5 Stars ({{$company->star_5 ?? 0}})
-              </h5>
-            </a>
-            <a class="text-dark mr-3 {{(request()->input('rating') == 4) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$urlquery}}rating=4">
-              <h5 class="mb-0">
-                4 Stars ({{$company->star_4 ?? 0}})
-              </h5>
-            </a>
-            <a class="text-dark mr-3 {{(request()->input('rating') == 3) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$urlquery}}rating=3">
-              <h5 class="mb-0">
-                3 Stars ({{$company->star_3 ?? 0}})
-              </h5>
-            </a>
-            <a class="text-dark mr-3 {{(request()->input('rating') == 2) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$urlquery}}rating=2">
-              <h5 class="mb-0">
-                2 Stars ({{$company->star_2 ?? 0}})
-              </h5>
-            </a>
-            <a class="text-dark mr-3 {{(request()->input('rating') == 1) ? 'border rounded border-secondary py-1 px-2  btn disabled' : ''}}  " href="{{$urlquery}}rating=1">
-              <h5 class="mb-0">
-                1 Stars ({{$company->star_1 ?? 0}})
-              </h5>
+                ({{$company->star_1 ?? 0}})
+              </p>
             </a>
           </div>
           @endif
@@ -288,16 +302,11 @@
           @endif
           @endif
           @endforeach
-          @if ($reviews->lastPage() >1)
+          {{-- @if ($reviews->lastPage() >1)
 
           <nav aria-label="">
             <ul class="pagination text-center justify-content-center">
-              {{-- {{ $reviews->links() }} --}}
-              {{-- <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li> --}}
+
               @php
               $paginate_order_by = (request()->has('order_by')) ? '&order_by=' . (request()->input('order_by')) : '';
               $paginate_rating = (request()->has('rating')) ? '&rating=' . (request()->input('rating')) : '';
@@ -308,20 +317,84 @@
                 <li class="page-item {{$reviews->currentPage() == $i ? 'active' : ''}} "><a class="page-link" href="{{(request()->url())}}?page={{$i . $paginate_url}}">{{$i}}</a></li>
 
                 @endfor
-                {{-- <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li> --}}
-                {{-- <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>  --}}
+
+
             </ul>
           </nav>
-          @endif
+          @endif --}}
+
+
+          <nav aria-label="">
+
+            @if ($reviews->hasPages())
+            @php
+            $paginate_order_by = (request()->has('order_by')) ? '&order_by=' . (request()->input('order_by')) : '';
+            $paginate_rating = (request()->has('rating')) ? '&rating=' . (request()->input('rating')) : '';
+            $paginate_keyword = (request()->has('keyword')) ? '&keyword=' . (request()->input('keyword')) : '';
+            $paginate_url = $paginate_keyword . $paginate_rating . $paginate_order_by;
+            @endphp
+            <ul class="pagination text-center justify-content-center" role="navigation">
+              {{-- Previous Page Link --}}
+              @if ($reviews->onFirstPage())
+              <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
+                <span class="page-link" aria-hidden="true">&lsaquo;</span>
+              </li>
+              @else
+              <li class="page-item">
+                <a class="page-link" href="{{ $reviews->previousPageUrl() }}{{$paginate_url}}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+              </li>
+              @endif
+
+              <?php
+        $start = $reviews->currentPage() - 1; // show 3 pagination links before current
+        $end = $reviews->currentPage() + 1; // show 3 pagination links after current
+        if($start < 1) {
+            $start = 1; // reset start to 1
+            $end += 1;
+        }
+        if($end >= $reviews->lastPage() ) $end = $reviews->lastPage(); // reset end to last page
+    ?>
+
+              @if($start > 1)
+              <li class="page-item">
+                <a class="page-link" href="{{ $reviews->url(1) }}{{$paginate_url}}">{{1}}</a>
+              </li>
+              @if($reviews->currentPage() != 4)
+              {{-- "Three Dots" Separator --}}
+              <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+              @endif
+              @endif
+              @for ($i = $start; $i <= $end; $i++) <li class="page-item {{ ($reviews->currentPage() == $i) ? ' active' : '' }}">
+                <a class="page-link" href="{{ $reviews->url($i) }}{{$paginate_url}}">{{$i}}</a>
+                </li>
+                @endfor
+                @if($end < $reviews->lastPage())
+                  @if($reviews->currentPage() + 3 != $reviews->lastPage())
+                  {{-- "Three Dots" Separator --}}
+                  <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+                  @endif
+                  <li class="page-item">
+                    <a class="page-link" href="{{ $reviews->url($reviews->lastPage()) }}{{$paginate_url}}">{{$reviews->lastPage()}}</a>
+                  </li>
+                  @endif
+
+                  {{-- Next Page Link --}}
+                  @if ($reviews->hasMorePages())
+                  <li class="page-item">
+                    <a class="page-link" href="{{ $reviews->nextPageUrl() }}{{$paginate_url}}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+                  </li>
+                  @else
+                  <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
+                    <span class="page-link" aria-hidden="true">&rsaquo;</span>
+                  </li>
+                  @endif
+            </ul>
+            @endif
+
+          </nav>
         </div>
         <div class="col-lg-4">
-          <div class="w-100 mb-3">
+          <div class="w-100 mb-3  d-none d-lg-block">
             @if (auth('web')->check() && !$reviewed)
 
             <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
@@ -391,9 +464,9 @@
             </div>
           </div>
           @endif
-           @if (!$company->membership_active)
-           <x-ads></x-ads>
-           @endif
+          @if (!$company->membership_active)
+          <x-ads></x-ads>
+          @endif
         </div>
       </div>
 

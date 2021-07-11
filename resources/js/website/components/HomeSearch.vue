@@ -12,7 +12,7 @@
 
                 {{data.rating}} / 5.0
                 <span v-for="v in data.rating_rounded " :key="v">
-                  <i class="fa fa-star text-primary"></i>
+                  <i class="fa fa-star text-success"></i>
                 </span>
               </div>
             </div>

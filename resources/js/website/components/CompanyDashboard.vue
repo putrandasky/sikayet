@@ -38,7 +38,9 @@
     </b-row>
     <b-card class="mb-3" v-show="!isPaymentProcess">
 
-      <b-nav tabs class="mb-3">
+      <b-nav tabs class="mb-3" style="overflow-x: auto;overflow-y: hidden;
+    white-space: nowrap;
+    flex-wrap: unset;">
         <b-nav-item :active="component == 'MyReview'" @click="component = 'MyReview'">My Review</b-nav-item>
         <b-nav-item :active="component == 'MyAccount'" @click="component = 'MyAccount'">My Account</b-nav-item>
         <b-nav-item :active="component == 'MyPackage'" @click="component = 'MyPackage'">My Package & Billing</b-nav-item>

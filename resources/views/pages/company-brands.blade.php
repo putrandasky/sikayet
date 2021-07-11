@@ -13,10 +13,11 @@
       </strong>
     </h1>
   </div>
-  <div  class="alphabet w-100 d-flex align-items-center justify-content-between">
+  <div class="alphabet w-100 d-flex align-items-center justify-content-between" style="overflow: auto;
+    white-space: nowrap">
 
       @foreach ( range('A', 'Z') as $char )
-      <a class="" href="/brands/{{$char}}">{{$char}}</a>
+      <a class="mr-1" href="/brands/{{$char}}">{{$char}}</a>
       @endforeach
       {{-- <a class="" href="/brands">Show All</a> --}}
   </div>

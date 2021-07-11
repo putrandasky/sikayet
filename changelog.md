@@ -1,4 +1,14 @@
 # 11-Jul-21
+## 0.8.3
+### FIXED
+- Navbar height on IOS
+- Pagination overflow change with limiting pagination with ellipsis
+- overflow button for filter rating in company detail 
+- white-space no wrap for summary data review tipe in header company detail
+### CHANGED
+- Redesign Filter rating and ordering button in company detail
+- Move button "write a review" to the top while in mobile view
+- hover color to success for autosearch
 ## 0.8.2
 ### ADDED
 - Meta data for user detail and review detail

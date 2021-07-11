@@ -1,17 +1,17 @@
 <template>
-  <b-navbar id="main-navbar" sticky type="light" variant="light" class="navbar-expand-sm navbar--ontop fixed-top  px-md-5 shadow-sm " style="z-index:800">
+  <b-navbar id="main-navbar" sticky type="light" variant="light" class="navbar-expand-sm navbar--ontop fixed-top  px-md-5 shadow-sm " style="z-index:800;min-height:45px;height:45px">
     <b-navbar-nav class="d-flex d-md-none mr-auto">
       <b-btn variant="outline-secondary" v-b-toggle="'sidebar-1'">
         <i class="fa fa-list"></i>
       </b-btn>
     </b-navbar-nav>
     <b-navbar-brand class="mr-auto  d-none d-md-flex" href="/">
-      <b-img style="max-height:30px" src="/images/logo.png" alt="application logo"></b-img>
+      <b-img style="min-height:30px;height:30px" src="/images/logo.png" alt="application logo"></b-img>
       <!-- APP LOGO -->
 
     </b-navbar-brand>
     <b-navbar-brand class="center-h   d-flex d-md-none" href="/">
-      <b-img style="max-height:30px" src="/images/logo.png" alt="application logo"></b-img>
+      <b-img style="min-height:30px;height:30px" src="/images/logo.png" alt="application logo"></b-img>
       <!-- APP LOGO -->
 
     </b-navbar-brand>
