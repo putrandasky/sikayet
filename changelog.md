@@ -1,3 +1,10 @@
+# 12-Jul-21
+## 0.8.4
+### FIXED
+- whitespace no wrape header info in write review page
+### IMPROVE
+- Chunk files main js
+
 # 11-Jul-21
 ## 0.8.3
 ### FIXED

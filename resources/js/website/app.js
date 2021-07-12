@@ -51,23 +51,27 @@ import './filter/filter';
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('review-action', require('./components/CompanyDetailReviewAction.vue').default);
-Vue.component('common-words', require('./components/CommonWords.vue').default);
-Vue.component('home-search', require('./components/HomeSearch.vue').default);
-Vue.component('home-top-company', require('./components/HomeTopCompany.vue').default);
-Vue.component('user-dashboard', require('./components/UserDashboard.vue').default);
-Vue.component('company-dashboard', require('./components/CompanyDashboard.vue').default);
-Vue.component('company-login', require('./components/CompanyLogin.vue').default);
-Vue.component('user-login', require('./components/UserLogin.vue').default);
-Vue.component('company-register', require('./components/CompanyRegister.vue').default);
-Vue.component('user-register', require('./components/UserRegister.vue').default);
-Vue.component('company-profile-image', require('./components/CompanyProfileImage.vue').default);
-Vue.component('user-profile-image', require('./components/UserProfileImage.vue').default);
-Vue.component('user-write-review', require('./components/UserWriteReview.vue').default);
-Vue.component('contact', require('./components/Contact.vue').default);
-Vue.component('navbar', require('./components/Navbar.vue').default);
-Vue.component('faq', require('./components/Faq.vue').default);
-Vue.component('user-write-review-anycompany', require('./components/UserWriteReviewAnycompany.vue').default);
+
+// Vue.component('review-action', require('./components/CompanyDetailReviewAction.vue').default);
+// Vue.component('common-words', require('./components/CommonWords.vue').default);
+// Vue.component('home-search', require('./components/HomeSearch.vue').default);
+// Vue.component('home-top-company', require('./components/HomeTopCompany.vue').default);
+// Vue.component('user-dashboard', require('./components/UserDashboard.vue').default);
+// Vue.component('company-dashboard', require('./components/CompanyDashboard.vue').default);
+// Vue.component('company-login', require('./components/CompanyLogin.vue').default);
+// Vue.component('user-login', require('./components/UserLogin.vue').default);
+// Vue.component('company-register', require('./components/CompanyRegister.vue').default);
+// Vue.component('user-register', require('./components/UserRegister.vue').default);
+// Vue.component('company-profile-image', require('./components/CompanyProfileImage.vue').default);
+// Vue.component('user-profile-image', require('./components/UserProfileImage.vue').default);
+// Vue.component('user-write-review', require('./components/UserWriteReview.vue').default);
+// Vue.component('contact', require('./components/Contact.vue').default);
+// Vue.component('navbar', require('./components/Navbar.vue').default);
+// Vue.component('faq', require('./components/Faq.vue').default);
+// Vue.component('user-write-review-anycompany', require('./components/UserWriteReviewAnycompany.vue').default);
+
+
+
 // Vue.component('sidebar-menu', require('./components/SidebarMenu.vue').default);
 // Vue.component('sidebar-button', require('./components/SidebarButton.vue').default);
 
@@ -79,6 +83,61 @@ Vue.component('user-write-review-anycompany', require('./components/UserWriteRev
 
 const app = new Vue({
   el: '#app',
+  components: {
+
+    'review-action': () => import(
+      './components/CompanyDetailReviewAction.vue'
+    ),
+    'common-words': () => import(
+      './components/CommonWords.vue'
+    ),
+    'home-search': () => import(
+      './components/HomeSearch.vue'
+    ),
+    'home-top-company': () => import(
+      './components/HomeTopCompany.vue'
+    ),
+    'user-dashboard': () => import(
+      './components/UserDashboard.vue'
+    ),
+    'company-dashboard': () => import(
+      './components/CompanyDashboard.vue'
+    ),
+    'company-login': () => import(
+      './components/CompanyLogin.vue'
+    ),
+    'user-login': () => import(
+      './components/UserLogin.vue'
+    ),
+    'company-register': () => import(
+      './components/CompanyRegister.vue'
+    ),
+    'user-register': () => import(
+      './components/UserRegister.vue'
+    ),
+    'company-profile-image': () => import(
+      './components/CompanyProfileImage.vue'
+    ),
+    'user-profile-image': () => import(
+      './components/UserProfileImage.vue'
+    ),
+    'user-write-review': () => import(
+      './components/UserWriteReview.vue'
+    ),
+    'contact': () => import(
+      './components/Contact.vue'
+    ),
+    'navbar': () => import(
+      './components/Navbar.vue'
+    ),
+    'faq': () => import(
+      './components/Faq.vue'
+    ),
+    'user-write-review-anycompany': () => import(
+      './components/UserWriteReviewAnycompany.vue'
+    )
+
+  }
 });
 // const app2 = new Vue({
 //   el: '#sidebar',
