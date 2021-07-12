@@ -9,7 +9,7 @@
 
 <body style="background: #eef3f7;">
 
-<div id="app" class="d-flex align-items-end flex-column">
+<div id="app">
 
   @yield('content')
 </div>

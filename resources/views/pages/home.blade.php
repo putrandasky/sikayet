@@ -1,4 +1,4 @@
-@extends('layouts.website')
+@extends('layouts.home')
 @section('meta')
 <title>{{config('app.name')}}</title>
 <meta name="description" content="{{$data['header']['title'] .' '.$data['header']['subtitle']}}">
@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-<x-base>
+<x-base-home>
   <x-hero addClass="  parallax">
     <x-slot name="title">
       {{$data['header']['title']}}
@@ -34,7 +34,7 @@
     {{-- <x-home.search/> --}}
   </x-hero>
 
-  <section class=" shadow-sm bg-white">
+  <div class=" shadow-sm bg-white">
     <div class="container py-3 ">
       <div class="w-100 text-center">
 
@@ -55,9 +55,9 @@
       </div>
 
     </div>
-  </section>
+  </div>
 
-  <section>
+  <div style="min-height: 300px">
 
     <div class="container p-5 ">
       <div class="w-100 text-center  mb-3">
@@ -116,6 +116,6 @@
     </div> --}}
     <home-top-company></home-top-company>
     </div>
-  </section>
-</x-base>
+  </div>
+</x-base-home>
 @endsection

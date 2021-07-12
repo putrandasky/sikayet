@@ -1,4 +1,7 @@
 # 12-Jul-21
+## 0.8.5
+### IMPROVE
+- CLS with homepage
 ## 0.8.4
 ### FIXED
 - whitespace no wrape header info in write review page
