@@ -5,21 +5,24 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models;
 use Auth;
+use Illuminate\Http\Request;
 use ImageResize;
 use Redirect;
 use Socialite;
 use Storage;
 use Str;
+use URL;
 
 class GoogleController extends Controller
 {
     public function redirect()
     {
-        return Socialite::driver('google')->stateless()->redirect();
+        return Socialite::driver('google')->with(['state' => URL::previous()])->redirect();
     }
 
-    public function callback()
+    public function callback(Request $request)
     {
+        $url = $request->input('state');
 
         if (Auth::check()) {
             return redirect('/user-dashboard');
@@ -29,13 +32,13 @@ class GoogleController extends Controller
         $user = Models\User::where('google_id', $oauthUser->id)->first();
         if ($user) {
             Auth::loginUsingId($user->id);
-            return redirect('/user-dashboard');
+            return redirect($url);
         } else {
 //check if any user has same email
             $user_email_exist = Models\User::where('email', $oauthUser->email)->exists();
 
             if ($user_email_exist) {
-                return redirect('user-login')->with('status', 'You can not using Google login with Email which already registered');
+                return redirect($url)->with('status', 'You can not using Google login with Email which already registered');
             }
 
             $content = file_get_contents($oauthUser->avatar_original);
@@ -57,7 +60,7 @@ class GoogleController extends Controller
                 'password' => md5($oauthUser->token),
             ]);
             Auth::login($newUser);
-            return redirect('/user-dashboard');
+            return redirect($url);
         }
     }
 }

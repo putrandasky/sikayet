@@ -21,7 +21,7 @@
   cover-login.jpg
   @endslot
   <div class="d-flex justify-content-center align-items-center h-100 px-3">
-    <div id="login-form" class="text-center card  p-3">
+    {{-- <div id="login-form" class="text-center card  p-3">
       <div class=" pb-3 border-bottom">
   <a href="/">
     <img class="img-fluid" style="max-height:30px" src="/images/logo-large.png" alt="application logo"></img>
@@ -36,8 +36,8 @@
       </div>
       <div>
         OR
-      </div>
-      <user-register></user-register>
+      </div> --}}
+      <user-register :social-login-status="'{{ session('status') ?? '' }}'"></user-register>
       {{-- <form method="POST" action="{{ route('user-register') }}" class="mt-2">
         @csrf
         <div class="form-group  position-relative">
@@ -81,7 +81,7 @@
         </div>
       </form> --}}
 
-    </div>
+    {{-- </div> --}}
   </div>
 </x-base-plain>
 @endsection

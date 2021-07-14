@@ -39,17 +39,34 @@
 
     </b-modal>
     <b-overlay variant="dark" :show="isLoading" blur="" fixed no-wrap></b-overlay>
+    <b-modal :visible="!isLoggedIn" hide-footer hide-header no-close-on-backdrop content-class="bg-transparent border-0" body-class="d-flex justify-content-center">
+      <div>
+        <user-login v-show="authMode == 'login'" :hideRegisterLink="true" :targetWindowReload="`/brand/${this.slug}/write-review`" :socialLoginStatus="socialLoginStatus"></user-login>
+        <user-register v-show="authMode == 'register'" :hideLoginLink="true" :targetWindowReload="`/brand/${this.slug}/write-review`" :socialLoginStatus="socialLoginStatus"></user-register>
+        <b-card body-class="py-2" style="margin-top:-4px;border-top-left-radius:unset;border-top-right-radius:unset">
+          <div class="text-center" v-show="authMode == 'register'">
+            Already have Account? <b-link @click="authMode = 'login'">Sign In</b-link>
+          </div>
+          <div class="text-center" v-show="authMode == 'login'">
+            Don't have Account? <b-link @click="authMode = 'register'">Sign Up</b-link>
+          </div>
+        </b-card>
+      </div>
+    </b-modal>
   </b-card>
 </template>
 <script>
   import animationData from "../assets/submit.js";
   import Lottie from 'vue-lottie'
-
+  import UserLogin from './UserLogin.vue'
+  import UserRegister from './UserRegister.vue'
   export default {
     name: 'UserWriteReview',
-    props: ['companyid', 'slug', 'companyname', 'reviewtype', 'term'],
+    props: ['companyid', 'slug', 'companyname', 'reviewtype', 'term', 'socialLoginStatus', 'isLoggedIn'],
     components: {
-      Lottie
+      Lottie,
+      UserLogin,
+      UserRegister
     },
     data: function() {
       return {
@@ -57,6 +74,7 @@
           animationData: animationData,
           loop: false
         },
+        authMode: 'login',
         review_type_options: null,
         isLoading: false,
         submitedModal: false,
@@ -77,6 +95,7 @@
     mounted() {
       this.review_type_options = this.mutateKey(this.reviewtype)
       this.input.company_id = this.companyid
+
     },
     methods: {
       onFileChange(e) {

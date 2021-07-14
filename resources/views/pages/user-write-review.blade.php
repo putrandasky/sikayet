@@ -109,7 +109,15 @@
             Company Reviewed
           </div>
           @else
-          <user-write-review :companyid='@json($company->id)' :slug='@json($company->slug)' :companyname='@json($company->name)' :reviewtype='@json($review_type)' :term='@json($term)'>
+          <user-write-review
+          :companyid='@json($company->id)'
+          :slug='@json($company->slug)'
+          :companyname='@json($company->name)'
+          :reviewtype='@json($review_type)'
+          :term='@json($term)'
+          :social-login-status="'{{ session('status') ?? '' }}'"
+          :is-logged-in="'{{auth('web')->check()??false}}'"
+          >
             @endif
         </div>
       </div>

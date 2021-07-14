@@ -5,11 +5,11 @@
     </b-alert>
     <b-form @submit="submit" class="mt-3">
       <b-form-group class="position-relative" :invalid-feedback="errors.email" :state="stateEmail">
-        <b-form-input type="email" class="form-control pl-5" placeholder="Work Email Address" v-model="input.email" :state="stateEmail"></b-form-input>
+        <b-form-input type="email" class="form-control pl-5" placeholder="Work Email Address" v-model="input.email" :state="stateEmail" autocomplete="on"></b-form-input>
         <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
       </b-form-group>
       <b-form-group class="position-relative" :invalid-feedback="errors.password" :state="statePassword">
-        <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword"></b-form-input>
+        <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword" autocomplete="on"></b-form-input>
         <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
         <i v-show="!isPasswordOpen" class="fa fa-eye position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = true"></i>
         <i v-show="isPasswordOpen" class="fa fa-eye-slash position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = false"></i>

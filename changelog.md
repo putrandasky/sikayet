@@ -1,4 +1,11 @@
 # 12-Jul-21
+## 0.9.0
+### CHANGE
+- Write a review page wil show modal to login, not redirected to login/register page
+### FIXED
+- Autocomplete input login
+- remove href on website link in company detail
+# 12-Jul-21
 ## 0.8.5
 ### IMPROVE
 - CLS with homepage

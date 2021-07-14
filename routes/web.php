@@ -57,13 +57,14 @@ Route::post('user-login', [Controllers\Auth\LoginController::class, 'login'])->n
 Route::get('user-register', [Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('user-register');
 Route::post('user-register', [Controllers\Auth\RegisterController::class, 'register'])->name('user-register');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::get('/brand/{company_name}/write-review', [Controllers\Website\CompanyController::class, 'showReviewForm']);
+Route::get('/write-review', [Controllers\Website\CompanyController::class, 'showReviewAnyCompanyForm']);
 
-    Route::get('/write-review', [Controllers\Website\CompanyController::class, 'showReviewAnyCompanyForm']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/brand/{company_id}/write-review', [Controllers\Website\CompanyController::class, 'review']);
+
     Route::post('/write-review', [Controllers\Website\CompanyController::class, 'reviewAnyCompany']);
     Route::post('/give-review-response', [Controllers\Website\CompanyController::class, 'giveReviewAction']);
-    Route::get('/brand/{company_name}/write-review', [Controllers\Website\CompanyController::class, 'showReviewForm']);
-    Route::post('/brand/{company_id}/write-review', [Controllers\Website\CompanyController::class, 'review']);
     Route::get('/user-dashboard', [Controllers\User\ProfileController::class, 'show'])->name('home');
     Route::get('/user-dashboard/review', [Controllers\User\ReviewController::class, 'show']);
     Route::patch('/user-dashboard/review/{review_id}', [Controllers\User\ReviewController::class, 'update']);

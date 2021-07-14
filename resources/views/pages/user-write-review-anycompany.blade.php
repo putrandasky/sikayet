@@ -12,7 +12,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8">
-          <user-write-review-anycompany :reviewtype='@json($review_type)' :term='@json($term)' />
+          <user-write-review-anycompany :reviewtype='@json($review_type)' :term='@json($term)' :social-login-status="'{{ session('status') ?? '' }}'" :is-logged-in="'{{auth('web')->check() ?? false}}'" />
         </div>
       </div>
     </div>

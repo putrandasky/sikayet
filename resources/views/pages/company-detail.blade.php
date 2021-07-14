@@ -137,7 +137,7 @@
             <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
             @endif
             @if (!auth('web')->check() && !auth('company')->check())
-            <a class="btn btn-success  btn-block" href="/user-login">Write a Review</a>
+            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
             @endif
           </div>
           @if (!request()->input('keyword') && count($reviews) > 0)
@@ -400,7 +400,9 @@
             <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
             @endif
             @if (!auth('web')->check() && !auth('company')->check())
-            <a class="btn btn-success  btn-block" href="/user-login">Write a Review</a>
+            {{-- <a class="btn btn-success  btn-block" href="/user-login">Write a Review</a> --}}
+            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
+
             @endif
           </div>
           <div class="card mb-3">
@@ -414,7 +416,7 @@
               <div class="mb-3">
                 <strong>Website</strong>
                 <div>
-                  <a href="{{$company->website}}">{{$company->website}}</a>
+                  {{$company->website}}
                 </div>
               </div>
               <div>

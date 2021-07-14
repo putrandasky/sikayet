@@ -74,10 +74,14 @@ class CompanyController extends Controller
         //to modified with company is active or not suspended
         $company = Models\Company::where('slug', $company_name)->with('business_category')->first();
         $term = Models\Editor::key('term-of-use')->value;
-        $reviewed = Models\Review::where([
-            'user_id' => Auth::guard('web')->user()->id,
-            'company_id' => $company->id,
-        ])->first();
+        $reviewed = false;
+        if (Auth::guard('web')->check()) {
+            # code...
+            $reviewed = Models\Review::where([
+                'user_id' => Auth::guard('web')->user()->id,
+                'company_id' => $company->id,
+            ])->first();
+        }
         $review_type = Models\ReviewType::all();
         return view('pages.user-write-review', compact("company", "review_type", "term", "reviewed"));
     }

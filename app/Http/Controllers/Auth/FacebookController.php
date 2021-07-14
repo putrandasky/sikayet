@@ -6,21 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models;
 use Auth;
 use Hash;
+use Illuminate\Http\Request;
 use ImageResize;
 use Socialite;
 use Storage;
 use Str;
+use URL;
 
 class FacebookController extends Controller
 {
     public function redirect()
     {
-        return Socialite::driver('facebook')->stateless()->redirect();
+        return Socialite::driver('facebook')->with(['state' => URL::previous()])->redirect();
     }
 
-    public function callback()
+    public function callback(Request $request)
     {
-
+        $url = $request->input('state');
         // jika user masih login lempar ke home
         if (Auth::check()) {
             return redirect('/user-dashboard');
@@ -30,13 +32,13 @@ class FacebookController extends Controller
         $user = Models\User::where('facebook_id', $oauthUser->id)->first();
         if ($user) {
             Auth::loginUsingId($user->Id);
-            return redirect('/user-dashboard');
+            return redirect($url);
         } else {
             //check if any user has same email
             $user_email_exist = Models\User::where('email', $oauthUser->email)->exists();
 
             if ($user_email_exist) {
-                return redirect('user-login')->with('status', 'You can not using Facebook login with Email which already registered');
+                return redirect($url)->with('status', 'You can not using Facebook login with Email which already registered');
             }
 
             $content = file_get_contents($oauthUser->avatar_original . "&access_token={$oauthUser->token}");
@@ -58,7 +60,7 @@ class FacebookController extends Controller
                 'password' => Hash::make(md5($oauthUser->getEmail())),
             ]);
             Auth::login($newUser);
-            return redirect('/user-dashboard');
+            return redirect($url);
         }
     }
 }

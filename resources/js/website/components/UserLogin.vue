@@ -1,15 +1,35 @@
 <template>
-  <div>
+  <b-card id="login-form" class="text-center">
+    <b-card-title>
+      <a href="/">
+        <b-img fluid style="max-height:30px" src="/images/logo-large.png" alt="application logo"></b-img>
+      </a>
+
+    </b-card-title>
+    <b-alert :show="socialLoginStatus != ''" variant="warning">
+      {{socialLoginStatus}}
+    </b-alert>
     <b-alert :variant="alert.status" :show="alert.status != ''">
       {{alert.message}}
     </b-alert>
-    <b-form @submit="submit" class="mt-3">
+    <div class="py-2">
+      <a href="/facebook" class="btn btn-block text-white" style="background-color: #3B5998;">
+        <i class="fa fa-facebook"> </i>
+        Login with Facebook</a>
+      <a href="/google" class="btn btn-block text-white" style="background-color: #DC4E41;">
+        <i class="fa fa-google"> </i>
+        Login with Google</a>
+    </div>
+    <div>
+      OR
+    </div>
+    <b-form @submit="submit" class="mt-2">
       <b-form-group class="position-relative" :invalid-feedback="errors.email" :state="stateEmail">
-        <b-form-input type="email" class="form-control pl-5" placeholder="Email" v-model="input.email" :state="stateEmail"></b-form-input>
+        <b-form-input type="email" class="form-control pl-5" placeholder="Email" v-model="input.email" :state="stateEmail" autocomplete="on"></b-form-input>
         <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
       </b-form-group>
       <b-form-group class="position-relative" :invalid-feedback="errors.password" :state="statePassword">
-        <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword"></b-form-input>
+        <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword" autocomplete="on"></b-form-input>
         <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
         <i v-show="!isPasswordOpen" class="fa fa-eye position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = true"></i>
         <i v-show="isPasswordOpen" class="fa fa-eye-slash position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = false"></i>
@@ -31,18 +51,32 @@
       <div class=" mt-3 ">
         <b-btn type="submit" variant="primary" block class="rounded">Login</b-btn>
       </div>
-      <div class="mt-3 text-center">
+      <div class="mt-3 text-center" v-if="!hideRegisterLink">
         Don't have Account? <a href="/user-register">Sign Up</a>
       </div>
       <b-overlay variant="dark" :show="isLoading" blur="" fixed no-wrap></b-overlay>
     </b-form>
-  </div>
+  </b-card>
 
 </template>
 <script>
   export default {
     name: 'UserLogin',
-    props: ['status'],
+    props: {
+      socialLoginStatus: {
+        type: String,
+        default: ''
+      },
+      hideRegisterLink: {
+        type: Boolean,
+        default: false
+      },
+
+      targetWindowReload: {
+        type: String,
+        default: '/user-dashboard'
+      }
+    },
     data: function() {
       return {
         input: {
@@ -88,7 +122,7 @@
               password: '',
             }
             self.input = input
-            window.open('/user-dashboard', '_self')
+            window.open(this.targetWindowReload, '_self')
           })
           .catch((error) => {
             self.isLoading = false

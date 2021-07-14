@@ -21,16 +21,17 @@
   cover-login.jpg
   @endslot
   <div class="d-flex justify-content-center align-items-center h-100 px-3">
-    <div id="login-form" class="text-center card  p-3">
+    {{-- <div id="login-form" class="text-center card  p-3">
       <div class=" pb-3 border-bottom">
-  <a href="/">
-    <img class="img-fluid" style="max-height:30px" src="/images/logo-large.png" alt="application logo"></img>
-  </a> </div>
-            @if (session('status'))
-            <div class="alert alert-warning" role="alert">
-              {{ session('status') }}
-            </div>
-            @endif
+        <a href="/">
+          <img class="img-fluid" style="max-height:30px" src="/images/logo-large.png" alt="application logo"></img>
+        </a>
+      </div>
+      @if (session('status'))
+      <div class="alert alert-warning" role="alert">
+        {{ session('status') }}
+      </div>
+      @endif
       <div class=" py-2">
         <a href="{{ url('facebook') }}" class="btn btn-block text-white" style="background-color: #3B5998;">
           <i class="fa fa-facebook"> </i>
@@ -41,50 +42,50 @@
       </div>
       <div>
         OR
-      </div>
-      <user-login></user-login>
+      </div> --}}
+      <user-login :social-login-status="'{{ session('status') ?? '' }}'"></user-login>
       {{-- <form method="POST" action="{{ route('user-login') }}"class="mt-2">
-         @csrf
-        <div class="form-group  position-relative">
-          <input id="email" type="email" class="form-control pl-5 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
-          <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
-           @error('email')
-           <span class="invalid-feedback" role="alert">
-             <strong>{{ $message }}</strong>
-           </span>
-           @enderror
-        </div>
-        <div class="form-group  position-relative">
-          <input id="password" type="password" class="form-control pl-5 @error('password') is-invalid @enderror" name="password" required placeholder="Password">
-          <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
-            @error('password')
-            <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-        </div>
-        <div class="d-flex    justify-content-between">
-          <div class="">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="remember-me-user">
-              <label class="form-check-label" for="remember-me-user">
-                Remember Me
-              </label>
-            </div>
-          </div>
-          <div>
-            <a class="text-dark" href="/user-forgot-password">Forgot Password?</a>
+      @csrf
+      <div class="form-group  position-relative">
+        <input id="email" type="email" class="form-control pl-5 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
+        <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
+        @error('email')
+        <span class="invalid-feedback" role="alert">
+          <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+      </div>
+      <div class="form-group  position-relative">
+        <input id="password" type="password" class="form-control pl-5 @error('password') is-invalid @enderror" name="password" required placeholder="Password">
+        <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
+        @error('password')
+        <span class="invalid-feedback" role="alert">
+          <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+      </div>
+      <div class="d-flex    justify-content-between">
+        <div class="">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="remember-me-user">
+            <label class="form-check-label" for="remember-me-user">
+              Remember Me
+            </label>
           </div>
         </div>
-        <div class=" mt-3 ">
-          <button type="submit" class="btn btn-primary btn-block rounded" >Login</button>
+        <div>
+          <a class="text-dark" href="/user-forgot-password">Forgot Password?</a>
         </div>
-        <div class="mt-3 text-center">
-          Don't have Account? <a href="/user-register">Sign Up</a>
-        </div>
+      </div>
+      <div class=" mt-3 ">
+        <button type="submit" class="btn btn-primary btn-block rounded">Login</button>
+      </div>
+      <div class="mt-3 text-center">
+        Don't have Account? <a href="/user-register">Sign Up</a>
+      </div>
       </form> --}}
 
-    </div>
+    {{-- </div> --}}
   </div>
 </x-base-plain>
 @endsection

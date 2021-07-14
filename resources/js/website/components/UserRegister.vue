@@ -1,35 +1,78 @@
 <template>
-  <b-form @submit="submit" class="mt-3">
-    <b-form-group class="position-relative" :invalid-feedback="errors.name" :state="stateName">
-      <b-form-input type="text" class="form-control pl-5" placeholder="Full Name" v-model="input.name" :state="stateName"></b-form-input>
-      <i class="fa fa-briefcase position-absolute text-secondary" style="top:12px;left:18px"></i>
-    </b-form-group>
-    <b-form-group class="position-relative" :invalid-feedback="errors.email" :state="stateEmail">
-      <b-form-input type="email" class="form-control pl-5" placeholder="Email" v-model="input.email" :state="stateEmail"></b-form-input>
-      <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
-    </b-form-group>
-    <b-form-group class="position-relative" :invalid-feedback="errors.password" :state="statePassword">
-      <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword"></b-form-input>
-      <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
-      <i v-show="!isPasswordOpen" class="fa fa-eye position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = true"></i>
-      <i v-show="isPasswordOpen" class="fa fa-eye-slash position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = false"></i>
+  <b-card id="login-form" class="text-center">
+    <b-card-title>
+      <a href="/">
+        <b-img fluid style="max-height:30px" src="/images/logo-large.png" alt="application logo"></b-img>
+      </a>
 
-    </b-form-group>
-    <b-form-group class="position-relative">
-      <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Confirm Password" v-model="input.password_confirmation"></b-form-input>
-      <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
-    </b-form-group>
-    <div class=" mt-3 ">
-      <b-btn type="submit" variant="primary" block class="rounded">Register</b-btn>
+    </b-card-title>
+    <b-alert :show="socialLoginStatus != ''" variant="warning">
+      {{socialLoginStatus}}
+    </b-alert>
+    <b-alert :variant="alert.status" :show="alert.status != ''">
+      {{alert.message}}
+    </b-alert>
+    <div class="py-2">
+      <a href="/facebook" class="btn btn-block text-white" style="background-color: #3B5998;">
+        <i class="fa fa-facebook"> </i>
+        Login with Facebook</a>
+      <a href="/google" class="btn btn-block text-white" style="background-color: #DC4E41;">
+        <i class="fa fa-google"> </i>
+        Login with Google</a>
     </div>
-    <div class="mt-3 text-center">
-      Already have Account? <a href="/user-login">Sign In</a>
+    <div>
+      OR
     </div>
-  </b-form>
+    <b-form @submit="submit" class="mt-2">
+      <b-form-group class="position-relative" :invalid-feedback="errors.name" :state="stateName">
+        <b-form-input type="text" class="form-control pl-5" placeholder="Full Name" v-model="input.name" :state="stateName"></b-form-input>
+        <i class="fa fa-briefcase position-absolute text-secondary" style="top:12px;left:18px"></i>
+      </b-form-group>
+      <b-form-group class="position-relative" :invalid-feedback="errors.email" :state="stateEmail">
+        <b-form-input type="email" class="form-control pl-5" placeholder="Email" v-model="input.email" :state="stateEmail"></b-form-input>
+        <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
+      </b-form-group>
+      <b-form-group class="position-relative" :invalid-feedback="errors.password" :state="statePassword">
+        <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword"></b-form-input>
+        <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
+        <i v-show="!isPasswordOpen" class="fa fa-eye position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = true"></i>
+        <i v-show="isPasswordOpen" class="fa fa-eye-slash position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = false"></i>
+
+      </b-form-group>
+      <b-form-group class="position-relative">
+        <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Confirm Password" v-model="input.password_confirmation"></b-form-input>
+        <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
+      </b-form-group>
+      <div class=" mt-3 ">
+        <b-btn type="submit" variant="primary" block class="rounded">Register</b-btn>
+      </div>
+      <div class="mt-3 text-center" v-if="!hideLoginLink">
+        Already have Account? <a href="/user-login">Sign In</a>
+      </div>
+      <b-overlay variant="dark" :show="isLoading" blur="" fixed no-wrap></b-overlay>
+
+    </b-form>
+  </b-card>
+
 </template>
 <script>
   export default {
     name: 'UserRegister',
+    props: {
+      socialLoginStatus: {
+        type: String,
+        default: ''
+      },
+      hideLoginLink: {
+        type: Boolean,
+        default: false
+      },
+
+      targetWindowReload: {
+        type: String,
+        default: '/user-dashboard'
+      }
+    },
     data: function() {
       return {
         input: {
@@ -47,7 +90,10 @@
         },
         isPasswordOpen: false,
         isLoading: false,
-
+        alert: {
+          status: '',
+          message: ''
+        }
       }
     },
     created() {},
@@ -80,7 +126,7 @@
 
             }
             self.input = input
-            window.open('/user-dashboard', '_self')
+            window.open(this.targetWindowReload, '_self')
           })
           .catch((error) => {
             self.isLoading = false
@@ -92,6 +138,8 @@
             // }
             // self.input = input
             let errors = error.response.data.errors
+            self.alert.status = errors ? 'danger' : error.response.data.status
+            self.alert.message = error.response.data.message
             this.errors.name = errors.name ? errors.name[0] : 'no-error';
             this.errors.email = errors.email ? errors.email[0] : 'no-error';
             this.errors.password = errors.password ? errors.password[0] : 'no-error';
