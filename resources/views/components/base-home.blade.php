@@ -81,7 +81,7 @@
       </x-footer>
     </div>
     <div class="border-top text-center py-3">
-      © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
+      © {{ date('Y') }} {{ config('app.name') }} SKYT LTD @lang('All rights reserved.')
     </div>
   </div>
 </footer>
