@@ -1,3 +1,7 @@
+# 18-Jul-21
+## 0.9.2
+### ADD
+- Admin Area Protected with admin user and password
 # 16-Jul-21
 ## 0.9.1
 ### CHANGE

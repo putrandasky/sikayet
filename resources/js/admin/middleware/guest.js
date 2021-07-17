@@ -7,7 +7,7 @@ export default function guest({
     store.dispatch("auth/getAuthUser").then(() => {
       if (store.getters["auth/authUser"]) {
         next({
-          name: "ebooks"
+          name: "dashboard"
         });
       } else {
         store.dispatch("auth/setGuest", {

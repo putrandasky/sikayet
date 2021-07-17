@@ -8,7 +8,7 @@
               <i class="fa fa-user"></i>
             </b-input-group-text>
           </b-input-group-prepend>
-          <b-input type="text" v-model="input.name" :state="stateName">
+          <b-input type="text" v-model="input.name" :state="stateName" placeholder="Please Input Admin Name">
           </b-input>
         </b-input-group>
       </b-form-group>
@@ -19,8 +19,23 @@
               <i class="fa fa-envelope"></i>
             </b-input-group-text>
           </b-input-group-prepend>
-          <b-input type="text" v-model="input.email" :state="stateEmail">
+          <b-input type="text" v-model="input.email" :state="stateEmail" placeholder="Please Input Admin Email">
           </b-input>
+        </b-input-group>
+      </b-form-group>
+      <b-form-group label="Super Admin">
+        <b-input-group>
+
+          <b-input-group-prepend>
+            <b-input-group-text>
+              <i class="fa fa-cogs"></i>
+            </b-input-group-text>
+          </b-input-group-prepend>
+          <b-form-select plain v-model="input.is_super_admin" :options="options.is_super_admin">
+            <template slot="first">
+              <option :value="null" disabled>-- Please Select Super Admin Status --</option>
+            </template>
+          </b-form-select>
         </b-input-group>
       </b-form-group>
       <b-form-group label="Password" :invalid-feedback="errors.password" :state="statePassword">
@@ -30,7 +45,7 @@
               <i class="fa fa-lock"></i>
             </b-input-group-text>
           </b-input-group-prepend>
-          <b-input type="password" v-model="input.password" :state="statePassword"></b-input>
+          <b-input type="password" v-model="input.password" :state="statePassword" placeholder="Please Input Password"></b-input>
         </b-input-group>
       </b-form-group>
       <b-form-group label="Confirm Password">
@@ -40,7 +55,7 @@
               <i class="fa fa-lock"></i>
             </b-input-group-text>
           </b-input-group-prepend>
-          <b-input type="password" v-model="input.password_confirmation"></b-input>
+          <b-input type="password" v-model="input.password_confirmation" placeholder="Confirm Password"></b-input>
         </b-input-group>
       </b-form-group>
 
@@ -58,9 +73,21 @@
     data: function() {
       return {
         me: {},
+        options: {
+          is_super_admin: [{
+              value: 0,
+              text: 'False'
+            },
+            {
+              value: 1,
+              text: 'True'
+            }
+          ]
+        },
         input: {
           name: null,
           email: null,
+          is_super_admin: null,
           password: null,
           password_confirmation: null,
           isAdmin: 1
@@ -68,6 +95,7 @@
         errors: {
           name: null,
           email: null,
+          is_super_admin: null,
           password: null,
           password_confirmation: null,
           isAdmin: 1

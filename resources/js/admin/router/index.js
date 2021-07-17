@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import store from "@/admin/store/index";
-// import pipeline from "@/admin/router/pipeline";
+import store from "@/admin/store/index";
+import pipeline from "@/admin/router/pipeline";
 
-// import auth from "@/admin/middleware/auth";
-// import admin from "@/admin/middleware/admin";
-// import guest from "@/admin/middleware/guest";
+import auth from "@/admin/middleware/auth";
+import admin from "@/admin/middleware/admin";
+import guest from "@/admin/middleware/guest";
 
 import AppMain from '../view/main/AppMain.vue'
 import Dashboard from '../view/main/dashboard/Dashboard.vue'
@@ -56,14 +56,18 @@ const routes = [{
     children: [{
         path: '/dashboard',
         name: 'dashboard',
-
         component: Dashboard,
+        meta: {
+          middleware: [auth, admin]
+        },
       },
       {
         path: '/users',
         name: 'users',
-
         component: Users,
+        meta: {
+          middleware: [auth, admin]
+        },
       },
       {
         path: '/companies',
@@ -74,47 +78,67 @@ const routes = [{
             path: 'unactive',
             name: 'companiesUnactive',
             component: CompaniesUnactive,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'regular',
             name: 'companiesRegular',
             component: CompaniesRegular,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'premium',
             name: 'companiesPremium',
             component: CompaniesPremium,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'suspended',
             name: 'companiesSuspended',
             component: CompaniesSuspended,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
         ]
       },
       {
         path: '/adsense',
         name: 'adsense',
-
         component: Adsense,
+        meta: {
+          middleware: [auth, admin]
+        },
       },
       {
         path: '/business-category',
         name: 'businessCategory',
-
         component: BusinessCategory,
+        meta: {
+          middleware: [auth, admin]
+        },
       },
       {
         path: '/contact',
         name: 'contact',
-
         component: Contact,
+        meta: {
+          middleware: [auth, admin]
+        },
       },
       {
         path: '/membership',
         name: 'membership',
-
         component: Membership,
+        meta: {
+          middleware: [auth, admin]
+        },
       },
       {
         path: '/billings',
@@ -124,6 +148,9 @@ const routes = [{
           path: ':condition',
           name: 'bilingList',
           component: BillingList,
+          meta: {
+            middleware: [auth, admin]
+          },
         }, ]
       },
       {
@@ -134,21 +161,33 @@ const routes = [{
             path: 'new',
             name: 'reviewsNew',
             component: ReviewsNew,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'reported',
             name: 'reviewsReported',
             component: ReviewsReported,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'suspended',
             name: 'reviewsSuspended',
             component: ReviewsSuspended,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'orphans',
             name: 'reviewOrphans',
             component: ReviewsOrphans,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
         ]
       },
@@ -160,11 +199,17 @@ const routes = [{
             path: 'payment',
             name: 'thirdpartiesPayment',
             component: ThirdPartiesPayment,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'social',
             name: 'thirdpartiesSocial',
             component: ThirdPartiesSocial,
+            meta: {
+              middleware: [auth, admin]
+            },
           }
         ]
       },
@@ -172,11 +217,17 @@ const routes = [{
         path: '/register',
         name: 'adminRegister',
         component: Members,
+        meta: {
+          middleware: [auth, admin]
+        },
       },
       {
         path: '/profile',
         name: 'adminProfile',
         component: Profile,
+        meta: {
+          middleware: [auth, admin]
+        },
       },
       {
         path: '/editor',
@@ -186,41 +237,65 @@ const routes = [{
             path: 'homepage',
             name: 'editorHomepage',
             component: EditorHomepage,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'faq',
             name: 'editorFaq',
             component: EditorFaq,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'about',
             name: 'editorAbout',
             component: EditorAbout,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'membership-information',
             name: 'editorMembershipInfo',
             component: EditorMembershipInfo,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'privacy-policy',
             name: 'editorPrivacyPolicy',
             component: EditorPrivacyPolicy,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'agreement',
             name: 'editorAgreement',
             component: EditorAgreement,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'terms',
             name: 'editorTerms',
             component: EditorTerms,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
           {
             path: 'social',
             name: 'editorSocial',
             component: EditorSocial,
+            meta: {
+              middleware: [auth, admin]
+            },
           },
 
         ]
@@ -236,7 +311,9 @@ const routes = [{
         path: 'login',
         name: 'login',
         component: Login,
-
+        meta: {
+          middleware: [guest]
+        },
       },
       // {
       //   path: 'users',
@@ -282,24 +359,24 @@ const router = new Router({
   },
 });
 
-// router.beforeEach((to, from, next) => {
-//   const middleware = to.meta.middleware;
-//   const context = {
-//     to,
-//     from,
-//     next,
-//     store
-//   };
+router.beforeEach((to, from, next) => {
+  const middleware = to.meta.middleware;
+  const context = {
+    to,
+    from,
+    next,
+    store
+  };
 
-//   if (!middleware) {
-//     return next();
-//   }
+  if (!middleware) {
+    return next();
+  }
 
-//   middleware[0]({
-//     ...context,
-//     next: pipeline(context, middleware, 1),
-//   });
-// });
+  middleware[0]({
+    ...context,
+    next: pipeline(context, middleware, 1),
+  });
+});
 
 
 router.mode = 'html5'

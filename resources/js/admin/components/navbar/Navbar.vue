@@ -23,7 +23,7 @@
         <b-dropdown-item href="#" @click="signOut()">Sign Out</b-dropdown-item>
         <template #button-content>
           <b-btn size="sm" variant="outline-secondary">
-            <i class="fa fa-user"></i> <b>Administrator</b>
+            <i class="fa fa-user"></i> <b>{{user.name}}</b>
           </b-btn>
         </template>
       </b-nav-item-dropdown>
@@ -65,17 +65,15 @@
         })
       },
       signOut() {
-        this.$router.push({
-          name: 'login',
-        })
-        // AuthService.logout()
-        //   .then((response) => {
-        //     this.$store.commit('auth/SET_TOAST', [true, 'GOOD BYE', 'You are log out'])
-        //     this.$router.push({
-        //       name: 'login',
-        //     })
-        //   })
-        //   .catch((error) => (console.log(getError(error))));
+
+        AuthService.logout()
+          .then((response) => {
+            this.$store.commit('auth/SET_TOAST', [true, 'GOOD BYE', 'You are log out'])
+            this.$router.push({
+              name: 'login',
+            })
+          })
+          .catch((error) => (console.log(getError(error))));
       }
     },
   }

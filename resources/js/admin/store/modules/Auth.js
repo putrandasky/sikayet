@@ -61,12 +61,12 @@ export const actions = {
     commit("SET_LOADING", true);
     try {
       const response = await AuthService.getAuthUser();
-      commit("SET_USER", response.data.data);
+      commit("SET_USER", response.data);
       setTimeout(() => {
         commit("SET_LOADING", false);
 
       }, 500);
-      return response.data.data;
+      return response.data;
     } catch (error) {
       commit("SET_LOADING", false);
       commit("SET_USER", null);
@@ -85,7 +85,10 @@ export const getters = {
     return state.user;
   },
   isAdmin: (state) => {
-    return state.user ? state.user.isAdmin : false;
+    return state.user ? state.user.is_admin : false;
+  },
+  isSuperAdmin: (state) => {
+    return state.user ? state.user.is_super_admin : false;
   },
   error: (state) => {
     return state.error;
