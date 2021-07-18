@@ -149,9 +149,11 @@ class CompanyController extends Controller
         $review->save();
 
         if ($review->id) {
-            $company = Models\Company::id($review->company_id)->first();
+            $company = Models\Company::id($review->company_id)->with('membership_active')->first();
             $review_data = Models\Review::id($review->id)->withBelongings()->first();
-            $company->notify(new NewReviewSubmited($review_data));
+            if ($company->membership_active) {
+                $company->notify(new NewReviewSubmited($review_data));
+            }
             return response()->json(['status' => 'success', 'message' => 'Review Stored'], 200);
         }
 
