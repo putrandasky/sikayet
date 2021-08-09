@@ -20,35 +20,35 @@
           <b-progress height="2px" v-if="file.active || file.success || file.error" :value="file.progress * 1" variant="primary"></b-progress>
           <div>
             <span v-if="file.error"><span class="badge badge-pill badge-danger"> <i class="fa fa-exclamation"></i> {{file.error}}</span> </span>
-            <span v-else-if="file.success"><span class="badge badge-pill badge-success"> <i class="fa fa-check"></i> Uploaded</span> </span>
+            <span v-else-if="file.success"><span class="badge badge-pill badge-success"> <i class="fa fa-check"></i> {{'dashboard.avatarUpload.uploaded' | trans}}</span> </span>
             <span v-else-if="file.active">{{file.progress}}</span>
             <span v-else></span>
           </div>
         </div>
       </div>
       <div v-if="!files.length" class="text-center p-3" style="border: 2px dashed grey; clear:both">
-        <h4 class="text-muted">Drop files here to upload</h4>
-        <h6 class="text-muted">(Accepted Files : jpeg/jpg/png & Max Size : 512kb)</h6>
+        <h4 class="text-muted">{{'dashboard.avatarUpload.dropFile' | trans}}</h4>
+        <h6 class="text-muted">{{'dashboard.avatarUpload.acceptedFiles' | trans}}</h6>
 
         <!-- <label for="file" class="btn btn-lg btn-primary">Select Files</label> -->
       </div>
 
       <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
-        <h3>Drop files to upload</h3>
+        <h3>{{'dashboard.avatarUpload.dropToUpload' | trans}}</h3>
       </div>
 
       <div class="example-btn mt-2 float-right">
         <button type="button" class="btn btn-outline-danger btn-sm" v-show=" files.length > 0 && ( !$refs.upload || !$refs.upload.active)" @click.prevent="files = []">
           <i class="fa fa-trash" aria-hidden="true"></i>
-          Clear Files
+          {{'dashboard.avatarUpload.clearFile' | trans}}
         </button>
         <file-upload v-show="files.length == 0" :headers="{'x-xsrf-token': xsrfToken}" class="btn btn-outline-secondary btn-sm" style="cursor:pointer" :post-action="url" :multiple="false" :drop="true" :drop-directory="false" v-model="files" accept="image/jpeg,image/jpg,image/png" ref="upload" @input-filter="inputFilter" @input-file="inputFile">
           <i class="fa fa-plus"></i>
-          Add Image
+          {{'dashboard.avatarUpload.addImage' | trans}}
         </file-upload>
         <button type="button" class="btn btn-secondary btn-sm" v-if=" files.length > 0 && ( !$refs.upload || !$refs.upload.active)" @click.prevent="$refs.upload.active = true">
           <i class="fa fa-arrow-up" aria-hidden="true"></i>
-          Start Upload
+          {{'dashboard.avatarUpload.startUpload' | trans}}
         </button>
 
 

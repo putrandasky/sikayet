@@ -8,11 +8,11 @@
 
       </div>
       <div class="mt-3">
-        <h4>Business Account Register</h4>
+        <h4>{{'auth.businessAccountLogin' | trans}}</h4>
       </div>
       <div class="mt-3">
         <b-form-group class="position-relative" :invalid-feedback="errors.name" :state="stateName">
-          <b-form-input type="text" class="form-control pl-5" placeholder="Company Name" v-model="input.name" :state="stateName"></b-form-input>
+          <b-form-input type="text" class="form-control pl-5" :placeholder="'auth.companyName' | trans" v-model="input.name" :state="stateName"></b-form-input>
           <i class="fa fa-briefcase position-absolute text-secondary" style="top:12px;left:18px"></i>
         </b-form-group>
         <!-- <div class="form-group  position-relative">
@@ -21,45 +21,45 @@
         </div> -->
         <b-form-group class="position-relative" :invalid-feedback="errors.business_category" :state="stateBusinessCategory">
           <b-form-select class="pl-5" v-model="input.business_category" :options="category_options" :state="stateBusinessCategory">
-            <b-form-select-option :value="null" disabled>-- Please select business category --</b-form-select-option>
+            <b-form-select-option :value="null" disabled>-- {{'auth.selectBusinessCategory' | trans}} --</b-form-select-option>
           </b-form-select>
           <i class="fa fa-list position-absolute text-secondary" style="top:12px;left:18px"></i>
 
         </b-form-group>
         <b-form-group class="position-relative" :invalid-feedback="errors.email" :state="stateEmail">
-          <b-form-input type="email" class="form-control pl-5" placeholder="Work Email Address" v-model="input.email" :state="stateEmail"></b-form-input>
+          <b-form-input type="email" class="form-control pl-5" :placeholder="'auth.workEmailAddress' | trans" v-model="input.email" :state="stateEmail"></b-form-input>
           <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
         </b-form-group>
         <b-form-group class="position-relative" :invalid-feedback="errors.password" :state="statePassword">
-          <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword"></b-form-input>
+          <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" :placeholder="'auth.password' | trans" v-model="input.password" :state="statePassword"></b-form-input>
           <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
           <i v-show="!isPasswordOpen" class="fa fa-eye position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = true"></i>
           <i v-show="isPasswordOpen" class="fa fa-eye-slash position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = false"></i>
 
         </b-form-group>
         <b-form-group class="position-relative">
-          <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Confirm Password" v-model="input.password_confirmation"></b-form-input>
+          <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" :placeholder="'auth.confirmPassword' | trans" v-model="input.password_confirmation"></b-form-input>
           <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
         </b-form-group>
 
         <div class=" mt-3 ">
           <b-btn variant="primary" block @click="submit">
-            Register
+            {{'auth.register' | trans}}
           </b-btn>
         </div>
         <div class="mt-3 text-center">
-          Already have Business Account? <a href="/company-login">Sign In</a>
+          {{'auth.alreadyHaveBusinessAccount' | trans}} <a href="/company-login">{{'auth.signIn' | trans}}</a>
         </div>
       </div>
 
     </div>
-    <b-modal v-model="submitedModal" hide-footer title="Thank you for registering your business account." no-close-on-backdrop>
+    <b-modal v-model="submitedModal" hide-footer :title="'auth.postRegisterCompanyMessageTitle' | trans" no-close-on-backdrop>
       <lottie :options="defaultOptions" v-on:animCreated="handleAnimation" :height="200" />
       <div>
-        We will activate your account as soon as possible after your email address verification, please check your email.
+        {{'auth.postRegisterCompanyMessage1' | trans}}
       </div>
       <div>
-        Have a nice day
+        {{'auth.postRegisterCompanyMessage2' | trans}}
       </div>
     </b-modal>
     <b-overlay variant="dark" :show="isLoading" blur="" fixed no-wrap></b-overlay>

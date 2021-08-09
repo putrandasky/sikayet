@@ -18,15 +18,15 @@
 
     <b-navbar-nav class="d-none ml-auto d-md-flex d-none ">
 
-      <b-nav-item href="/about">About</b-nav-item>
-      <b-nav-item href="/contact">Contact</b-nav-item>
-      <b-nav-item href="/faq">FAQ</b-nav-item>
+      <b-nav-item href="/about">{{'nav.about' | trans}}</b-nav-item>
+      <b-nav-item href="/contact">{{'nav.contact' | trans}}</b-nav-item>
+      <b-nav-item href="/faq">{{'nav.faq' | trans}}</b-nav-item>
 
 
     </b-navbar-nav>
     <b-navbar-nav class="justify-content-end d-none d-md-flex ">
-      <a v-if="!iscompany" class="mr-2 btn btn-sm btn-primary" href="/write-review">Write a Review</a>
-      <a v-if="!iscompany && !isuser" class="mr-2 btn btn-sm btn-dark" href="/company-login">For Companies</a>
+      <a v-if="!iscompany" class="mr-2 btn btn-sm btn-primary" href="/write-review">{{'nav.writeReview' | trans}}</a>
+      <a v-if="!iscompany && !isuser" class="mr-2 btn btn-sm btn-dark" href="/company-login">{{'nav.forCompanies' | trans}}</a>
 
 
 
@@ -44,19 +44,19 @@
       <b-list-group flush class="mt-3 bg-dark">
 
         <b-list-group-item href="/faq" class="bg-dark text-white border-bottom border-light">
-          FAQ
+          {{'nav.faq' | trans}}
         </b-list-group-item>
         <b-list-group-item href="/contact" class="bg-dark text-white border-bottom border-light">
-          Contact
+          {{'nav.contact' | trans}}
         </b-list-group-item>
         <b-list-group-item href="/about" class="bg-dark text-white border-bottom border-light">
-          About
+          {{'nav.about' | trans}}
         </b-list-group-item>
       </b-list-group>
       <div class="mt-3">
 
-        <a v-if="!iscompany" class="mr-2 btn btn-sm btn-primary" href="/write-review">Write a Review</a>
-        <a v-if="!iscompany && !isuser" class="mr-2 btn btn-sm btn-dark" href="/company-login">For Companies</a>
+        <a v-if="!iscompany" class="mr-2 btn btn-sm btn-primary" href="/write-review">{{'nav.writeReview' | trans}}</a>
+        <a v-if="!iscompany && !isuser" class="mr-2 btn btn-sm btn-dark" href="/company-login">{{'nav.forCompanies' | trans}}</a>
       </div>
     </b-sidebar>
   </b-navbar>

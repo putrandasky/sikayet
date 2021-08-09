@@ -1,6 +1,6 @@
 @extends('layouts.website')
 @section('meta')
-<title>Privacy Policy</title>
+<title>@lang('website/home.general_title.privacy_policy')</title>
 @endsection
 
 @section('content')

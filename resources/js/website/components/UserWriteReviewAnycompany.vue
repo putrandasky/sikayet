@@ -1,9 +1,9 @@
 <template>
   <b-card>
-    <b-form-group label="Company Name">
+    <b-form-group :label="'auth.companyName' | trans">
       <!-- <b-form-input v-model="input.company_name" placeholder="Please write the company name"></b-form-input> -->
 
-      <vue-bootstrap-typeahead class="autocomplete" @keyup.native="onKeyUpSearchCompany" v-model="input.company_name" :data="companies" :serializer="company => company.name" @hit="openCompany($event)" :minMatchingChars="3" placeholder="Please write the company name">
+      <vue-bootstrap-typeahead class="autocomplete" @keyup.native="onKeyUpSearchCompany" v-model="input.company_name" :data="companies" :serializer="company => company.name" @hit="openCompany($event)" :minMatchingChars="3" :placeholder="'review.searchCompanyPlaceholder' | trans">
         <template slot="suggestion" slot-scope="{ data, htmlText }">
           <div class="d-flex justify-content-between">
 
@@ -21,51 +21,55 @@
       </vue-bootstrap-typeahead>
 
     </b-form-group>
-    <b-form-group label="Company Rating">
+    <b-form-group :label="'review.companyRating' | trans">
       <b-form-rating class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="input.rating"></b-form-rating>
     </b-form-group>
-    <b-form-group label="Review Title">
-      <b-form-input v-model="input.title" placeholder="What is your experience?"></b-form-input>
+    <b-form-group :label="'review.TitleLabel' | trans">
+      <b-form-input v-model="input.title" :placeholder="'review.TitlePlaceholder' | trans"></b-form-input>
     </b-form-group>
-    <b-form-group label="Your Review">
-      <b-form-textarea v-model="input.description" rows="4" placeholder="Describe your review to help others"></b-form-textarea>
+    <b-form-group :label="'review.DescriptionLabel' | trans">
+      <b-form-textarea v-model="input.description" rows="4" :placeholder="'review.DescriptionLabelPlaceholder' | trans"></b-form-textarea>
     </b-form-group>
-    <b-form-group label="Type of Review">
+    <b-form-group :label="'review.SelectTypeLabel' | trans">
       <b-form-select v-model="input.review_type_id" :options="review_type_options">
-        <b-form-select-option :value="null" disabled>-- Please select type of Review --</b-form-select-option>
+        <b-form-select-option :value="null" disabled>-- {{'review.SelectTypePlaceholder' | trans}} --</b-form-select-option>
       </b-form-select>
     </b-form-group>
-    <b-form-group label="Photo(optional)">
-      <b-form-file ref="photo" name="photo" v-model="file" placeholder="Choose a file or drop it here..." drop-placeholder="Drop file here..." @change="onFileChange"></b-form-file>
+    <b-form-group :label="'review.PhotoLabel' | trans">
+      <b-form-file ref="photo" name="photo" v-model="file" :placeholder="'review.PhotoPlaceholder' | trans" drop-placeholder="Drop file here..." @change="onFileChange"></b-form-file>
     </b-form-group>
     <b-form-checkbox id="checkbox-1" v-model="input.accept_tnc" name="checkbox-1" value="accepted" unchecked-value="not_accepted">
-      I agree the <b-link href="#" @click="tncModal=true">terms and condition</b-link> for my review
+      {{'review.tnc.iAgree' | trans}}
+      <b-link href="#" @click="tncModal=true">{{'review.tnc.tnc' | trans}}</b-link> {{'review.tnc.forMyReview' | trans}}
     </b-form-checkbox>
     <b-btn variant="primary" class="float-right" size="sm" @click="submit" :disabled="!input.rating || !input.title || !input.description || !input.review_type_id || input.accept_tnc == 'not_accepted' || companies.length > 0 || input.company_name == ''">
       Submit Review
     </b-btn>
-    <b-modal size="lg" v-model="tncModal" hide-footer title="Terms and Condition">
+    <b-modal size="lg" v-model="tncModal" hide-footer :title="'review.tnc.tnc' | trans">
       <div v-html="term"></div>
     </b-modal>
-    <b-modal v-model="submitedModal" hide-footer @close="close" title="Thank you for your business review" no-close-on-backdrop no-close-on-esc>
+    <b-modal v-model="submitedModal" hide-footer @close="close" :title="'review.postReview.title' | trans" no-close-on-backdrop no-close-on-esc>
       <lottie :options="defaultOptions" v-on:animCreated="handleAnimation" :height="200" />
 
-      We will check your review for the company that not registered yet in our database. If approved, the review will be show on the main website under the company name you write before and it will be show in your dashboard.
+      {{'review.postReview.Message3' | trans}}
+
       <br>
-      have a nice day
+      {{'review.postReview.Message2' | trans}}
 
     </b-modal>
     <b-overlay variant="dark" :show="isLoading" blur="" fixed no-wrap></b-overlay>
     <b-modal :visible="!isLoggedIn" hide-footer hide-header no-close-on-backdrop content-class="bg-transparent border-0" body-class="d-flex justify-content-center">
       <div>
-        <user-login v-show="authMode == 'login'" :hideRegisterLink="true" :targetWindowReload="`/brand/${this.slug}/write-review`" :socialLoginStatus="socialLoginStatus"></user-login>
-        <user-register v-show="authMode == 'register'" :hideLoginLink="true" :targetWindowReload="`/brand/${this.slug}/write-review`" :socialLoginStatus="socialLoginStatus"></user-register>
+        <user-login v-show="authMode == 'login'" :hideRegisterLink="true" :targetWindowReload="`/write-review`" :socialLoginStatus="socialLoginStatus"></user-login>
+        <user-register v-show="authMode == 'register'" :hideLoginLink="true" :targetWindowReload="`/write-review`" :socialLoginStatus="socialLoginStatus"></user-register>
         <b-card body-class="py-2" style="margin-top:-4px;border-top-left-radius:unset;border-top-right-radius:unset">
           <div class="text-center" v-show="authMode == 'register'">
-            Already have Account? <b-link @click="authMode = 'login'">Sign In</b-link>
+            {{'auth.alreadyHaveAccount' | trans}}
+            <b-link @click="authMode = 'login'">{{'auth.signIn' | trans}}</b-link>
           </div>
           <div class="text-center" v-show="authMode == 'login'">
-            Don't have Account? <b-link @click="authMode = 'register'">Sign Up</b-link>
+            {{'auth.dontHaveAccount' | trans}}
+            <b-link @click="authMode = 'register'">{{'auth.signUp' | trans}}</b-link>
           </div>
         </b-card>
       </div>

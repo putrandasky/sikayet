@@ -40,7 +40,7 @@
 
         <h4>
 
-          <b>Company Brand </b>
+          <b>@lang('website/home.company_brand') </b>
         </h4>
       </div>
       <div class="  d-flex  align-items-center justify-content-between">
@@ -63,7 +63,8 @@
       <div class="w-100 text-center  mb-3">
         <h2>
           <strong>
-            Our Top Companies
+                @lang('website/home.our_top_companies')
+
           </strong>
         </h2>
       </div>

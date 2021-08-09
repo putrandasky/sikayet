@@ -1,10 +1,7 @@
 @extends('layouts.website')
 
 @section('meta')
-<title>Dashboard | {{$user->name}}</title>
-
-
-
+<title>@lang('website/common.dashboard') | {{$user->name}}</title>
 @endsection
 @section('content')
 <x-base>
@@ -41,7 +38,7 @@
             {{$user->review }}
             @endslot
             @slot('title')
-            <i class="fa fa-star"></i> Reviews
+            <i class="fa fa-star"></i> @lang('website/common.reviews')
             @endslot
           </x-user-dashboard.summary>
           <x-user-dashboard.summary>
@@ -49,7 +46,7 @@
             {{$user->like}}
             @endslot
             @slot('title')
-            <i class="fa fa-thumbs-up"></i> Likes
+            <i class="fa fa-thumbs-up"></i> @lang('website/common.likes')
             @endslot
           </x-user-dashboard.summary>
           <x-user-dashboard.summary>
@@ -57,7 +54,7 @@
             {{$user->dislike}}
             @endslot
             @slot('title')
-            <i class="fa fa-thumbs-down"></i> Dislikes
+            <i class="fa fa-thumbs-down"></i> @lang('website/common.dislikes')
             @endslot
           </x-user-dashboard.summary>
 

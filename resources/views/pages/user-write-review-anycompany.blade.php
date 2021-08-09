@@ -5,7 +5,7 @@
 <x-base>
   <x-header-wrapper>
     <div class="py-3 text-white">
-    <h1 class="">Write a Review for Any Company May We Don't Have</h1>
+    <h1 class="">@lang('user/review.review_any_company')</h1>
     </div>
   </x-header-wrapper>
   <section class="py-3">

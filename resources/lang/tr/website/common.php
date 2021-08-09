@@ -1,0 +1,35 @@
+<?php
+
+return [
+
+    'likes' => 'Seviyor',
+    'dislikes' => 'hoşlanmayan',
+    'reviews' => 'Yorumlar',
+    'reviewed_by' => 'Tarafından Gözden Geçirildi',
+    'company_reviewed' => 'Şirket İncelendi',
+    'write_review' => 'Bir değerlendirme yazın',
+    'profile' => 'Profil',
+    'website' => 'İnternet sitesi',
+    'published' => 'Yayınlanan',
+    'dashboard' => 'Gösterge Paneli',
+    'review_for' => 'Için gözden geçirin',
+    'rating' => 'Değerlendirme',
+    'of' => 'nın-nin',
+    'solutions' => 'Çözümler',
+    'complaints' => 'şikayetler',
+    'generals' => 'Generaller',
+    'visitor' => 'Ziyaretçi',
+    'stars' => 'Yıldızlar',
+    'keyword_filter' => 'Anahtar Kelime Filtresi',
+    'latest' => 'En sonuncu',
+    'oldest' => 'En eski',
+    'reply_from' => 'Şuradan yanıt:',
+    'all' => 'Herşey',
+    'show_all' => 'Hepsini Göster',
+    'reset_password' => 'Şifreyi yenile',
+    'review_not_found' => 'İnceleme Bulunamadı',
+    'our_social_media' => 'Sosyal Medyamız',
+    'review_not_found_be_first' => 'Bu şirket hakkında yorum yapan ilk kişi olun',
+    'review_not_found_of_keyword' => 'Anahtar kelimenizin inceleme tabanı bulunamadı, lütfen farklı bir anahtar kelime ile deneyin',
+
+];

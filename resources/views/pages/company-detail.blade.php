@@ -60,13 +60,13 @@
                   @endfor
                   <div class="text-light">
 
-                    Rating : {{$company->rating}} of 5.0
+                    @lang('website/common.rating') : {{$company->rating}} @lang('website/common.of') 5.0
                   </div>
             </div>
             <div class="d-flex" style="overflow: auto;white-space:nowrap">
-              <div class="text-success">Solutions : {{$company->review_solution ?? 0}}</div>
-              <div class="text-danger ml-3">Complaints : {{$company->review_complaint ?? 0}}</div>
-              <div class="text-secondary ml-3">Generals : {{$company->review_general ?? 0}}</div>
+              <div class="text-success">@lang('website/common.solutions') : {{$company->review_solution ?? 0}}</div>
+              <div class="text-danger ml-3">@lang('website/common.complaints') : {{$company->review_complaint ?? 0}}</div>
+              <div class="text-secondary ml-3">@lang('website/common.generals') : {{$company->review_general ?? 0}}</div>
             </div>
           </div>
           @endslot
@@ -83,35 +83,35 @@
             @slot('value')
             {{ $total_star_count ? ($company->star_5 * 100) /($total_star_count ) : 0 }}
             @endslot
-            5 stars
+            5 @lang('website/common.stars')
           </x-progress>
           <x-progress>
             @slot('value')
             {{ $total_star_count ? ($company->star_4 * 100) /($total_star_count ) : 0 }}
             @endslot
-            4 stars
+            4 @lang('website/common.stars')
           </x-progress>
           <x-progress>
             @slot('value')
             {{ $total_star_count ? ($company->star_3 * 100) /($total_star_count ) : 0 }}
             @endslot
-            3 stars
+            3 @lang('website/common.stars')
           </x-progress>
           <x-progress>
             @slot('value')
             {{ $total_star_count ? ($company->star_2 * 100) /($total_star_count ) : 0 }}
             @endslot
-            2 stars
+            2 @lang('website/common.stars')
           </x-progress>
           <x-progress>
             @slot('value')
             {{ $total_star_count ? ($company->star_1 * 100) /($total_star_count ) : 0 }}
             @endslot
-            1 stars
+            1 @lang('website/common.stars')
           </x-progress>
         </div>
         <div class="w-100 text-center text-light">
-          Visitor : {{$company->visited}}
+          @lang('website/common.visitor') : {{$company->visited}}
         </div>
       </div>
     </div>
@@ -126,18 +126,17 @@
           @endphp
 
           @if (request()->input('keyword') && count($reviews) == 0)
-          <div class="alert alert-info">
-            <p class="h4 alert-heading">Review Not Found</p>
-            <p>The review base on your keyword was not found, please try with different keyword</p>
+          <div class="alert alert-info">@lang('website/common.review_not_found')</p>
+            <p>@lang('website/common.review_not_found_of_keyword')</p>
           </div>
           @endif
           <div class="w-100 mb-3  d-block d-lg-none">
             @if (auth('web')->check() && !$reviewed)
 
-            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
+            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">@lang('website/common.write_review')</a>
             @endif
             @if (!auth('web')->check() && !auth('company')->check())
-            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
+            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">@lang('website/common.write_review')</a>
             @endif
           </div>
           @if (!request()->input('keyword') && count($reviews) > 0)
@@ -148,19 +147,19 @@
             @endphp
             <a class=" mr-2  {{(request()->input('order_by') != 'oldest') ? 'btn-success  btn btn-sm disabled' : 'btn btn-sm btn-outline-success'}} " href="{{ $url_order_by }}order_by=latest  ">
               <p class="mb-0">
-                Latest
+                @lang('website/common.latest')
               </p>
             </a>
             <a class=" btn {{(request()->input('order_by') == 'oldest') ? 'btn-success  btn btn-sm disabled' : 'btn btn-sm btn-outline-success'}} " href="{{$url_order_by}}order_by=oldest">
               <p class="mb-0">
-                Oldest
+                @lang('website/common.oldest')
               </p>
             </a>
           </div>
           <div class=" pt-3 mb-3 " style="overflow: auto;white-space:nowrap">
             <a class="mr-2 {{!(request()->input('rating')) ? 'btn-success  btn btn-sm disabled' : 'btn btn-sm btn-outline-success'}}  " href="/brand/{{$company->slug}}">
               <p class="mb-0">
-                All
+                @lang('website/common.all')
               </p>
             </a>
 
@@ -199,8 +198,9 @@
           @endif
           @if (!request()->input('keyword') && count($reviews) == 0)
           <div class="alert alert-info">
-            <p class="h4 alert-heading">Review Not Found</p>
-            <p>Be the the first to review this company</p>
+            <p class="h4 alert-heading"> @lang('website/common.review_not_found')
+</p>
+            <p>@lang('website/common.review_not_found_be_first')</p>
           </div>
           @endif
           @foreach ( $reviews as $review )
@@ -244,7 +244,7 @@
 
                   @endslot
                   @slot('posted_date')
-                  Published {{Carbon\Carbon::parse($review->created_at)->format('d M Y')}}
+                  @lang('website/common.published') {{Carbon\Carbon::parse($review->created_at)->format('d M Y')}}
                   @endslot
                   @slot('review_title')
                   <a class="text-dark" href="/review/{{$review->slug}}">{{$review->title}}</a>
@@ -282,7 +282,7 @@
               @endslot
 
               @slot('posted_date')
-              Published {{ Carbon\Carbon::parse($review->company_respond->created_at)->format('d M Y')}}
+              @lang('website/common.published') {{ Carbon\Carbon::parse($review->company_respond->created_at)->format('d M Y')}}
 
               @endslot
 
@@ -397,30 +397,30 @@
           <div class="w-100 mb-3  d-none d-lg-block">
             @if (auth('web')->check() && !$reviewed)
 
-            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
+            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">@lang('website/common.write_review')</a>
             @endif
             @if (!auth('web')->check() && !auth('company')->check())
-            {{-- <a class="btn btn-success  btn-block" href="/user-login">Write a Review</a> --}}
-            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">Write a Review</a>
+            {{-- <a class="btn btn-success  btn-block" href="/user-login">@lang('website/common.write_review')</a> --}}
+            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">@lang('website/common.write_review')</a>
 
             @endif
           </div>
           <div class="card mb-3">
             <div class="card-body">
               <div class="mb-3">
-                <strong>Profile</strong>
+                <strong>@lang('website/common.profile')</strong>
                 <div>
                   {{$company->profile}}
                 </div>
               </div>
               <div class="mb-3">
-                <strong>Website</strong>
+                <strong>@lang('website/common.website')</strong>
                 <div>
                   {{$company->website}}
                 </div>
               </div>
               <div>
-                <strong>Our Social Media</strong>
+                <strong>@lang('website/common.our_social_media')</strong>
                 <div>
 
                   @if ($company->facebook_url)
@@ -445,7 +445,7 @@
           <div class="card mb-3">
             <div class="card-body">
               <div class="card-title">
-                <p class="h4">Keyword Filter</p>
+                <p class="h4">@lang('website/common.keyword_filter')</p>
               </div>
               <div class="mb-3">
                 <form action="{{request()->url()}}" method="get">
@@ -457,7 +457,7 @@
                 </form>
               </div>
               <div class="d-flex flex-wrap">
-                <a class="btn {{(request()->input('keyword') ) ? 'btn-outline-secondary ' : 'btn-secondary disabled'    }}  mr-1 mb-1" href="{{request()->url()}}">Show All</a>
+                <a class="btn {{(request()->input('keyword') ) ? 'btn-outline-secondary ' : 'btn-secondary disabled'    }}  mr-1 mb-1" href="{{request()->url()}}">@lang('website/common.show_all')</a>
                 @foreach ( $common_words as $word )
                 <a class="btn {{(request()->input('keyword') == $word) ? 'btn-secondary disabled' : 'btn-outline-secondary '  }} mr-1 mb-1" href="{{$urlquery}}keyword={{$word}}">{{$word}}</a>
                 @endforeach

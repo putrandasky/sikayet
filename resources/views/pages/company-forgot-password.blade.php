@@ -9,10 +9,12 @@
   <div class="h-100 position-relative">
     <div id="login-form" class="text-center position-absolute bg-white h-100 px-3" style="right:0">
       <div class=" py-3 border-bottom">
-        <h3 class="mb-0">APP Logo</h3>
-      </div>
+   <a href="/">
+     <img class="img-fluid" style="max-height:30px" src="/images/logo-large.png" alt="application logo"></img>
+   </a>
+  </div>
       <div class="mt-3">
-        <h4>Business Account Forgot Password</h4>
+        <h4>@lang('company/auth.view.business_account_forgot_password')</h4>
       </div>
       @if (session('status'))
       <div class="alert alert-success" role="alert">
@@ -23,7 +25,7 @@
         @csrf
 
         <div class="form-group  position-relative">
-          <input id="email" type="email" class="form-control pl-5 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Work Email Address">
+          <input id="email" type="email" class="form-control pl-5 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="@lang('company/auth.workEmailAddress')">
 
           <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
           @error('email')
@@ -35,7 +37,7 @@
 
 
         <div class=" mt-3 ">
-          <button type="submit" class="btn btn-primary btn-block rounded">Reset Password</button>
+          <button type="submit" class="btn btn-primary btn-block rounded">@lang('website/common.reset_password')</button>
         </div>
 
       </form>

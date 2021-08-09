@@ -4,11 +4,10 @@
     <b-card v-show="!isPaymentProcess">
 
       <b-card-title>
-        <strong>Company Plans</strong>
+        <strong>{{'subscription.title' | trans}}</strong>
       </b-card-title>
       <b-card-text>
-
-        Show that you care about your customers. Subscribe as a premium company and claim your page to take advantage of the membership.
+        {{'subscription.description' | trans}}
       </b-card-text>
       <b-row class="mb-3">
 
@@ -22,26 +21,26 @@
             </template>
             <template v-slot:benefits>
               <ol class="pl-3">
-                <li>Manage One Company</li>
-                <li>Email Notifications when someone posts a new review to your company</li>
-                <li>No ADS on your company page</li>
-                <li>Reply to reviews in the name of your company</li>
-                <li>Answer limit : <span v-if="item.respond_quota<0">No Limit</span>
+                <li>{{'subscription.benefit.1' | trans}}</li>
+                <li>{{'subscription.benefit.2' | trans}}</li>
+                <li>{{'subscription.benefit.3' | trans}}</li>
+                <li>{{'subscription.benefit.4' | trans}}</li>
+                <li>{{'subscription.benefit.5' | trans}} : <span v-if="item.respond_quota<0">{{'subscription.noLimit' | trans}}</span>
                   <span v-if="item.respond_quota>=0">{{item.respond_quota}}</span>
                 </li>
               </ol>
             </template>
             <template v-slot:buyMonthly>
               <div class="mb-2">
-                {{item.monthly_price}} usd / Month
+                {{item.monthly_price}} usd / {{'subscription.month' | trans}}
               </div>
-              <b-btn size="sm" variant="dark" @click="buyMembership('monthly',item)">Buy Monthly</b-btn>
+              <b-btn size="sm" variant="dark" @click="buyMembership('monthly',item)">{{'subscription.buyMonthly' | trans}}</b-btn>
             </template>
             <template v-slot:buyAnnualy>
               <div class="mb-2">
-                {{item.annual_price}} usd / 12 Month
+                {{item.annual_price}} usd / 12 {{'subscription.month' | trans}}
               </div>
-              <b-btn size="sm" variant="primary" @click="buyMembership('annualy',item)">Buy Annualy</b-btn>
+              <b-btn size="sm" variant="primary" @click="buyMembership('annualy',item)">{{'subscription.buyAnnually' | trans}}</b-btn>
             </template>
 
           </pricing>
@@ -54,16 +53,17 @@
     <b-modal v-model="isShowSelectPaymentModal" hide-footer no-close-on-backdrop no-close-on-esc :hide-header-close="isProcessingCheckout">
       <template #modal-title>
         <strong>
-          Payment Process
+          {{'subscription.process' | trans}}
         </strong>
       </template>
       <div class="mb-3">
 
-        <strong>Your Selected Package</strong>
+        <strong> {{'subscription.package' | trans}}
+        </strong>
       </div>
       <div class="d-flex justify-content-between ">
         <div>
-          Subscription Name
+          {{'subscription.name' | trans}}
         </div>
         <div>
           {{selectedItem.subscription_type}}
@@ -71,7 +71,7 @@
       </div>
       <div class="d-flex justify-content-between ">
         <div>
-          Subscription Period
+          {{'subscription.period' | trans}}
         </div>
         <div>
           {{selectedPeriod}}
@@ -79,10 +79,10 @@
       </div>
       <div class="d-flex justify-content-between ">
         <div>
-          Respond Quota
+          {{'subscription.respondQuota' | trans}}
         </div>
         <div>
-          <span v-if="selectedItem.respond_quota == -1">No Limit</span>
+          <span v-if="selectedItem.respond_quota == -1">{{'subscription.noLimit' | trans}}</span>
           <span v-if="selectedItem.respond_quota > 0">{{selectedItem.respond_quota}}</span>
 
         </div>
@@ -99,7 +99,7 @@
       <hr>
       <div class="mb-3">
         <div class="mb-3">
-          <strong>Payment Method</strong>
+          <strong>{{'subscription.paymentMethod' | trans}}</strong>
         </div>
 
         <div id="payment-method-area" class="text-center">
@@ -111,7 +111,7 @@
                 <b-img fluid src="/images/websites/stripe-logo.png"></b-img>
               </div>
               <div>
-                <strong>Pay with Stripe</strong>
+                <strong>{{'subscription.payWith' | trans}} Stripe</strong>
               </div>
             </div>
           </b-form-radio>
@@ -121,7 +121,7 @@
                 <img class="img-fluid" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png" alt="PayPal" />
               </div>
               <strong>
-                Pay with Paypal
+                {{'subscription.payWith' | trans}} Paypal
               </strong>
 
             </div>
@@ -132,10 +132,10 @@
       <b-button variant="primary" block :disabled="isProcessingCheckout || selectedPaymentMethod == ''" @click="processingCheckout">
         <div v-show="isProcessingCheckout">
           <b-spinner small></b-spinner>
-          Processing...
+          {{'subscription.processing' | trans}}
         </div>
         <div v-show="!isProcessingCheckout">
-          Checkout </div>
+          {{'subscription.checkout' | trans}} </div>
       </b-button>
     </b-modal>
 

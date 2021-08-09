@@ -1,8 +1,7 @@
 <template>
   <div style="min-height:100px">
-    <h3 class="mb-3">Company Reviews</h3>
+    <h3 class="mb-3">{{'dashboard.review.title'|trans}}</h3>
     <b-overlay variant="dark" :show="!isLoaded" blur=""></b-overlay>
-
     <div v-if="isLoaded && itemsData.length > 0">
       <b-row v-show="!detailMode">
         <b-col xl="4" md="6" class="mb-3">
@@ -10,17 +9,15 @@
             <b-input-group-prepend>
               <b-form-select plain v-model="selectedInputSearch" :options="optionsInputSearch" />
             </b-input-group-prepend>
-
-            <b-form-input v-if="selectedInputSearch == 'title' || selectedInputSearch == 'from' " autofocus v-model="search" @input="onInput" type="text" placeholder="Instant Search">
+            <b-form-input v-if="selectedInputSearch == 'title' || selectedInputSearch == 'from' " autofocus v-model="search" @input="onInput" type="text" :placeholder="'common.instantSearch' | trans">
             </b-form-input>
             <b-form-select v-if="selectedInputSearch !== 'title' && selectedInputSearch !== 'from' " plain v-model="search" :options="optionsSelect[selectedInputSearch]">
               <template slot="first">
-                <option disabled :value="''">-- Please Select --</option>
+                <option disabled :value="''">-- {{'common.pleaseSelect'|trans}} --</option>
               </template>
             </b-form-select>
-
             <b-input-group-append>
-              <b-btn :disabled="!search" @click="search = ''">Clear</b-btn>
+              <b-btn :disabled="!search" @click="search = ''">{{'common.clear'|trans}}</b-btn>
             </b-input-group-append>
           </b-input-group>
         </b-col>
@@ -29,7 +26,6 @@
         </b-col>
       </b-row>
       <div v-show="!detailMode" style="overflow:auto">
-
         <b-table small stacked="sm" :fields="FieldTableItems" :items="filteredItemsData" :current-page="currentPage" :per-page="perPage">
           <template v-slot:cell(no)="data">
             {{data.index+1}}
@@ -81,22 +77,20 @@
         </b-table>
       </div>
       <div v-show="detailMode">
-
         <b-container>
           <b-row class=" justify-content-center">
             <b-col md="8" lg="6">
               <div class="d-flex justify-content-between">
-
-                <b-btn variant="secondary" class="mb-3" size="sm" @click="handleBack"><i class="fa fa-arrow-left"></i> Back</b-btn>
+                <b-btn variant="secondary" class="mb-3" size="sm" @click="handleBack"><i class="fa fa-arrow-left"></i> {{'common.back'|trans}}</b-btn>
                 <div>
-                  <b-btn v-if="!reportStatus" variant="danger" class="mb-3" size="sm" @click="report"><i class="fa fa-exclamation"></i> Report</b-btn>
-                  <b-btn v-if="reportStatus" disabled variant="outline-secondary" class="mb-3" size="sm" @click="report"><i class="fa fa-check"></i> Reported</b-btn>
+                  <b-btn v-if="!reportStatus" variant="danger" class="mb-3" size="sm" @click="report"><i class="fa fa-exclamation"></i> {{'dashboard.review.report' | trans}}</b-btn>
+                  <b-btn v-if="reportStatus" disabled variant="outline-secondary" class="mb-3" size="sm" @click="report"><i class="fa fa-check"></i> {{'dashboard.review.reported'| trans}}</b-btn>
                 </div>
               </div>
               <div v-if="detail.review_status_id == 1">
                 <b-alert show>
                   <div>
-                    Under review by us, you can respond after it published.
+                    {{'dashboard.review.underReview'|trans}}
                   </div>
                 </b-alert>
               </div>
@@ -146,15 +140,15 @@
                     <b-form-textarea placeholder="Reply Your User Review" v-model="respond" rows="4" :state="stateRespond"></b-form-textarea>
                   </b-form-group>
                   <div class="float-right">
-                    <b-btn variant="secondary" size="sm" class="mr-1" @click="cancelUpdateData">Cancel</b-btn>
-                    <b-btn variant="primary" size="sm" @click="updateData">Update</b-btn>
+                    <b-btn variant="secondary" size="sm" class="mr-1" @click="cancelUpdateData">{{'common.cancel'|trans}}</b-btn>
+                    <b-btn variant="primary" size="sm" @click="updateData">{{'common.update'|trans}}</b-btn>
                   </div>
 
                 </div>
                 <div class="border-left ml-3 pl-3" v-if="respondData && !editMode">
                   <div class="d-flex mb-3 justify-content-between w-100">
                     <strong class="d-flex">
-                      Replied from you
+                      {{'dashboard.review.repliedFromYou'|trans}}
                     </strong>
                     <div class="text-muted">
                       <em>{{detail.company_respond.created_at | dateFormated}}</em>
@@ -178,27 +172,27 @@
                   </div>
                   <div class="text-right">
                     <div>
-                      <b-btn size="sm" variant="success" @click="handleEditButton()">Edit</b-btn>
-                      <b-btn size="sm" variant="danger" @click="handleDeleteButton()">Delete</b-btn>
+                      <b-btn size="sm" variant="success" @click="handleEditButton()">{{'common.edit'|trans}}</b-btn>
+                      <b-btn size="sm" variant="danger" @click="handleDeleteButton()">{{'common.delete'|trans}}</b-btn>
                     </div>
                   </div>
                 </div>
               </div>
               <div v-if="!company.membership_active && !respondData">
                 <b-alert show>
-                  <h4>Please Subscribe to Respond</h4>
+                  <h4>{{'dashboard.review.title.pleaseSubscriptTitle'|trans}}</h4>
                   <hr>
                   <div>
-                    For responding a review for your company, you need to get quotas and subscribtion any available premium membership.
+                    {{'dashboard.review.pleaseSubscriptDescription'|trans}}
                   </div>
                 </b-alert>
               </div>
               <div v-if="company.membership_active && !respondData && company.respond_quota==0">
                 <b-alert show>
-                  <h4>Out of Quota</h4>
+                  <h4>{{'dashboard.review.outOfQuotaTitle'|trans}}</h4>
                   <hr>
                   <div>
-                    Your quota for responding a review has been exceded.
+                    {{'dashboard.review.outOfQuotaDescription'|trans}}
                   </div>
                 </b-alert>
               </div>
@@ -211,16 +205,16 @@
 
     </div>
     <b-alert show v-if="isLoaded && itemsData.length == 0">
-      <h4>No Review Data</h4>
+      <h4>{{'dashboard.review.noReviewTitle'|trans}}</h4>
       <hr>
       <div>
-        Your review from users will be shown here
+        {{'dashboard.review.noReviewDescription'|trans}}
       </div>
     </b-alert>
     <confirmation-modal ref="deleteRespondConfirmation" title="Delete Respond" @ok="deleteRespond">
       <template v-slot:body>
         <div>
-          You are about to delete your respond for this review and will not getting back the respond quota you spend before
+          {{'dashboard.review.deleteNotification'|trans}}
         </div>
 
       </template>

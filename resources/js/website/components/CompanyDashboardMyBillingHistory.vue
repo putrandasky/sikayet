@@ -1,6 +1,6 @@
 <template>
   <div style="min-height:100px">
-    <h3>My Billing History</h3>
+    <h3>{{'dashboard.billing.title'|trans}}</h3>
     <b-overlay variant="dark" :show="!isLoaded " blur=""></b-overlay>
     <div style="overflow:auto" v-if="isLoaded && items.length > 0">
 
@@ -21,16 +21,16 @@
         </template>
         <template v-slot:cell(respond_quota)="data">
           <span v-if="data.item.respond_quota>0">{{data.item.respond_quota}}</span>
-          <span v-if="data.item.respond_quota<0">No Limit</span>
+          <span v-if="data.item.respond_quota<0">{{'dashboard.noLimit'|trans}}</span>
         </template>
 
       </b-table>
     </div>
     <b-alert show v-if="isLoaded && items.length == 0">
-      <h4>No Billing History</h4>
+      <h4>{{'dashboard.noBillingAlertTitle'|trans}}</h4>
       <hr>
-      <div>
-        Your bililng history will be shown here
+      <div>{{'dashboard.noBillingAlertDescription'|trans}}
+
       </div>
     </b-alert>
 

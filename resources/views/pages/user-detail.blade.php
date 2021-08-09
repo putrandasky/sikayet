@@ -59,7 +59,7 @@
             {{$user->review }}
             @endslot
             @slot('title')
-            <i class="fa fa-star"></i> Reviews
+            <i class="fa fa-star"></i> @lang('website/common.reviews')
             @endslot
           </x-user-dashboard.summary>
           <x-user-dashboard.summary>
@@ -67,7 +67,7 @@
             {{$user->like}}
             @endslot
             @slot('title')
-            <i class="fa fa-thumbs-up"></i> Likes
+            <i class="fa fa-thumbs-up"></i> @lang('website/common.likes')
             @endslot
           </x-user-dashboard.summary>
           <x-user-dashboard.summary>
@@ -75,7 +75,7 @@
             {{$user->dislike}}
             @endslot
             @slot('title')
-            <i class="fa fa-thumbs-down"></i> Dislikes
+            <i class="fa fa-thumbs-down"></i> @lang('website/common.dislikes')
             @endslot
           </x-user-dashboard.summary>
 
@@ -90,7 +90,7 @@
           @foreach ( $reviews as $review )
           <p class="h4">
 
-            Review for <a class="text-primary" href="/brand/{{$review->company->slug}}">{{$review->company->name}}</a>
+            @lang('website/common.review_for') <a class="text-primary" href="/brand/{{$review->company->slug}}">{{$review->company->name}}</a>
           </p>
           <x-company-detail.card-review>
 
@@ -123,7 +123,8 @@
 
                   @endslot
                   @slot('posted_date')
-                  Published {{Carbon\Carbon::parse($review->created_at)->format('d M Y')}}
+                                @lang('website/common.published')
+ {{Carbon\Carbon::parse($review->created_at)->format('d M Y')}}
                   @endslot
                   @slot('review_title')
                   <a class="text-dark" href="/review/{{$review->slug}}">{{$review->title}}</a>
@@ -161,7 +162,7 @@
               @endslot
 
               @slot('posted_date')
-              Published {{ Carbon\Carbon::parse($review->company_respond->created_at)->format('d M Y')}}
+              @lang('website/common.published') {{ Carbon\Carbon::parse($review->company_respond->created_at)->format('d M Y')}}
 
               @endslot
 
@@ -243,7 +244,7 @@
         <div class="col-lg-4 pt-4">
           <div class="card">
             <div class="card-body">
-              <strong>Profile</strong>
+              <strong>@lang('website/common.profile')</strong>
               <div>
                 {{$user->profile}}
               </div>

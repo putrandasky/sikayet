@@ -9,12 +9,12 @@
       <div class="card w-100">
         <div class="card-title text-center mt-3">
           <div class="mb-2"><i class="fa fa-check fa-3x text-light bg-success rounded-circle p-2"></i></div>
-          <p class="h3">Payment Success</p>
+          <p class="h3">@lang('company/payment.success.title')</p>
         </div>
         <div class="card-body ">
           <div class="d-flex justify-content-between">
             <div>
-              Invoice Number
+              @lang('company/payment.success.invoice_number')
             </div>
             <div>
               {{$membership_paid->payment_invoice}}
@@ -22,7 +22,7 @@
           </div>
           <div class="d-flex justify-content-between">
             <div>
-              Invoice Date
+              @lang('company/payment.success.invoice_date')
             </div>
             <div>
               {{$membership_paid->date_invoice}}
@@ -30,7 +30,7 @@
           </div>
           <div class="d-flex justify-content-between">
             <div>
-              Company name
+              @lang('company/payment.success.company_name')
             </div>
             <div>
               {{$company->name}}
@@ -38,7 +38,7 @@
           </div>
           <div class="d-flex justify-content-between">
             <div>
-              Subsription type
+              @lang('company/payment.success.type')
             </div>
             <div>
               {{$membership_paid->subscription_type}} ({{$membership_paid->period_type}})
@@ -46,11 +46,11 @@
           </div>
           <div class="d-flex justify-content-between">
             <div>
-              Respond Quotas
+              @lang('company/payment.success.quotas')
             </div>
             <div>
               @if ($membership_paid->respond_quota == -1)
-              No Limit
+              @lang('company/payment.success.no_limit')
               @endif
               @if ($membership_paid->respond_quota > -1)
               {{$membership_paid->respond_quota}}
@@ -60,7 +60,7 @@
           </div>
           <div class="d-flex justify-content-between">
             <div>
-              Amount
+              @lang('company/payment.success.amount')
             </div>
             <div>
               $ {{$membership_paid->amount}}
@@ -68,7 +68,7 @@
           </div>
           <div class="d-flex justify-content-between">
             <div>
-              Date Payment
+              @lang('company/payment.success.date_payment')
             </div>
             <div>
               {{$membership_paid->date_payment}}
@@ -76,14 +76,15 @@
           </div>
           <div class="d-flex justify-content-between">
             <div>
-              End Date Package
+              @lang('company/payment.success.end_date')
             </div>
             <div>
               {{$membership_paid->ending_period}}
             </div>
           </div>
 
-          <a class="btn btn-primary btn-block mt-3" href="/company-dashboard">Back to Dashboard</a>
+          <a class="btn btn-primary btn-block mt-3" href="/company-dashboard"> @lang('company/payment.success.back')
+</a>
         </div>
       </div>
     </div>

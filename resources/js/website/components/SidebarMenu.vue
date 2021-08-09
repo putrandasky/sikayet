@@ -7,16 +7,16 @@
           FAQ
         </b-list-group-item>
         <b-list-group-item href="#" class="bg-dark text-white border-bottom border-light">
-          Contact
+          {{'nav.contact' | trans}}
         </b-list-group-item>
         <b-list-group-item href="#" class="bg-dark text-white border-bottom border-light">
-          About
+          {{'nav.about' | trans}}
         </b-list-group-item>
       </b-list-group>
       <div class="mt-3">
 
-        <b-btn block variant="primary" size="sm">Write a review</b-btn>
-        <b-btn block variant="light" size="sm">For Companies</b-btn>
+        <b-btn block variant="primary" size="sm">{{'nav.writeReview' | trans}}</b-btn>
+        <b-btn block variant="light" size="sm">{{'nav.forCompanies' | trans}}</b-btn>
       </div>
     </b-sidebar>
 

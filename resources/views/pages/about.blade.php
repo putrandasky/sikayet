@@ -1,6 +1,6 @@
 @extends('layouts.website')
 @section('meta')
-<title>About</title>
+<title>@lang('website/home.general_title.about')</title>
 @endsection
 
 
@@ -19,7 +19,7 @@
         <h3 class="text-center text-light">
           {{$text->where('key','about_subheader')->first()->value}}
         </h3>
-        <a class="btn btn-light text-primary" href="/company-register">Join Us Now!</a>
+        <a class="btn btn-light text-primary" href="/company-register">@lang('website/home.join_us')</a>
       </div>
 
     </div>
@@ -29,8 +29,7 @@
       <div class="col-md-6">
         <img class="img-fluid" src="{{ asset('images/websites/about1.jpg') }}" alt="">
       </div>
-      <div class="col-md-6 p-4">
-        <h2 class="font-weight-bold">Passion Drive Us</h2>
+      <div class="col-md-6 p-4">@lang('website/home.about.passion_drive_us')</h2>
         <p class="lead text-secondary">{{$text->where('key','about_image_info')->first()->value}}</p>
       </div>
     </div>
@@ -72,7 +71,7 @@
   <div class="bg-white">
     <div class="container py-3 ">
       <div class="w-100 text-center">
-        <h2 class="font-weight-bold">Features</h2>
+        <h2 class="font-weight-bold">@lang('website/home.about.features')</h2>
       </div>
       <div class="row">
         <div class="col-lg-6">
@@ -153,14 +152,11 @@
   <div style="background-color: #051d4d;" class=" w-100">
     <div class="container  d-flex justify-content-center align-items-center py-5">
       <div class="text-center my-3">
-
         <h3 class="text-center text-light">
-                    {{$text->where('key','about_subheader')->first()->value}}
-
+          {{$text->where('key','about_subheader')->first()->value}}
         </h3>
-        <a class="btn btn-light text-primary" href="/company-register">Join Us Now!</a>
+        <a class="btn btn-light text-primary" href="/company-register">@lang('website/home.join_us')</a>
       </div>
-
     </div>
   </div>
 </x-base>

@@ -1,6 +1,6 @@
 @extends('layouts.website')
 @section('meta')
-<title>Frequently Asked Question</title>
+<title>@lang('website/home.general_title.faq')</title>
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@
   <x-header-wrapper>
     <div class="row">
       <div class="col-md-6 text-white">
-        <h4 class="">Frequently Asked Question</h4>
+        <h4 class="">@lang('website/home.general_title.faq')</h4>
 
       </div>
       <div class="col-md-6 w-100">

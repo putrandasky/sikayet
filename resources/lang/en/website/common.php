@@ -1,0 +1,35 @@
+<?php
+
+return [
+
+    'likes' => 'Likes',
+    'dislikes' => 'Dislikes',
+    'reviews' => 'Reviews',
+    'reviewed_by' => 'Reviewed By',
+    'company_reviewed' => 'Company Reviewed',
+    'write_review' => 'Write a Review',
+    'profile' => 'Profile',
+    'website' => 'Website',
+    'published' => 'Published',
+    'dashboard' => 'Dashboard',
+    'review_for' => 'Review for',
+    'rating' => 'Rating',
+    'of' => 'of',
+    'solutions' => 'Solutions',
+    'complaints' => 'Complaints',
+    'generals' => 'Generals',
+    'visitor' => 'Visitor',
+    'stars' => 'Stars',
+    'keyword_filter' => 'Keyword Filter',
+    'latest' => 'Latest',
+    'oldest' => 'Oldest',
+    'reply_from' => 'Reply from',
+    'all' => 'All',
+    'show_all' => 'Show All',
+    'reset_password' => 'Reset Password',
+    'review_not_found' => 'Review Not Found',
+    'our_social_media' => 'Our Social Media',
+    'review_not_found_be_first' => 'Be the the first to review this company',
+    'review_not_found_of_keyword' => 'The review base on your keyword was not found, please try with different keyword',
+
+];

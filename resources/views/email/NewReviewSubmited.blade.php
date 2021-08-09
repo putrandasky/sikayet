@@ -1,6 +1,6 @@
 @component('mail::message')
-<h1>Hello, {{$data->company->name}}</h1>
-New review has been sent to your company.
+<h1>@lang('email/common.hello'), {{$data->company->name}}</h1>
+@lang('email/new_review.greetings')
 
 @component('mail::panel')
 <blockquote>
@@ -13,15 +13,15 @@ New review has been sent to your company.
 </blockquote>
 @endcomponent
 
-Thank you for using our application.
+@lang('email/common.thanks_for_using')
 <br>
 <br>
-Best Regards
+@lang('email/common.best_regards')
 <br>
 {{ config('app.name') }}
 
 @slot('subcopy')
 
-<a href="{{ config('app.url') }}/term-of-use">Term Condition</a> <a href="{{ config('app.url') }}/privacy-policy">Privacy Policy</a> <a href="{{ config('app.url') }}/contact">Contact Us</a>
+<a href="{{ config('app.url') }}/term-of-use">@lang('email/common.term_conditions')</a> <a href="{{ config('app.url') }}/privacy-policy">@lang('email/common.privacy')</a> <a href="{{ config('app.url') }}/contact">@lang('email/common.contact_us')</a>
 @endslot
 @endcomponent

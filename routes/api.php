@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
+Route::get('/membership', [Controllers\Admin\MembershipPlanController::class, 'index']);
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/admin/users/auth', Controllers\AuthAdmin\AuthController::class);
     Route::get('/admin/users/{user}', [Controllers\AuthAdmin\UserController::class, 'show']);
@@ -31,7 +33,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/reviews/{condition}', [Controllers\Admin\ReviewController::class, 'index']);
     Route::patch('/review/{review_id}', [Controllers\Admin\ReviewController::class, 'update']);
     Route::post('/review-orphans', [Controllers\Admin\ReviewController::class, 'registerCompanyByReviewOrphan']);
-    Route::get('/membership', [Controllers\Admin\MembershipPlanController::class, 'index']);
     Route::post('/membership', [Controllers\Admin\MembershipPlanController::class, 'store']);
     Route::patch('/membership', [Controllers\Admin\MembershipPlanController::class, 'update']);
     Route::delete('/membership/{membership_id}', [Controllers\Admin\MembershipPlanController::class, 'delete']);

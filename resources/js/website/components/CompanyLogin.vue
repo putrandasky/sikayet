@@ -5,11 +5,11 @@
     </b-alert>
     <b-form @submit="submit" class="mt-3">
       <b-form-group class="position-relative" :invalid-feedback="errors.email" :state="stateEmail">
-        <b-form-input type="email" class="form-control pl-5" placeholder="Work Email Address" v-model="input.email" :state="stateEmail" autocomplete="on"></b-form-input>
+        <b-form-input type="email" class="form-control pl-5" :placeholder="'auth.workEmailAddress' | trans" v-model="input.email" :state="stateEmail" autocomplete="on"></b-form-input>
         <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
       </b-form-group>
       <b-form-group class="position-relative" :invalid-feedback="errors.password" :state="statePassword">
-        <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword" autocomplete="on"></b-form-input>
+        <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" :placeholder="'auth.password' | trans" v-model="input.password" :state="statePassword" autocomplete="on"></b-form-input>
         <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
         <i v-show="!isPasswordOpen" class="fa fa-eye position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = true"></i>
         <i v-show="isPasswordOpen" class="fa fa-eye-slash position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = false"></i>
@@ -20,19 +20,19 @@
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="remember-me-user" v-model="input.remember">
             <label class="form-check-label" for="remember-me-user">
-              Remember Me
+              {{'auth.rememberMe' | trans}}
             </label>
           </div>
         </div>
         <div>
-          <a class="text-dark" href="/company-forgot-password">Forgot Password?</a>
+          <a class="text-dark" href="/company-forgot-password">{{'auth.forgotPassword' | trans}}</a>
         </div>
       </div>
       <div class=" mt-3 ">
-        <b-btn type="submit" variant="primary" block class="rounded">Login</b-btn>
+        <b-btn type="submit" variant="primary" block class="rounded">{{'auth.login' | trans}}</b-btn>
       </div>
       <div class="mt-3 text-center">
-        Don't have Business Account? <a href="/company-register">Sign Up</a>
+        {{'auth.dontHaveBusinessAccount' | trans}} <a href="/company-register">{{'auth.signUp' | trans}}</a>
       </div>
       <b-overlay variant="dark" :show="isLoading" blur="" fixed no-wrap></b-overlay>
     </b-form>

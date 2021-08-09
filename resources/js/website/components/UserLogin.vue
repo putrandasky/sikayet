@@ -15,21 +15,21 @@
     <div class="py-2">
       <a href="/facebook" class="btn btn-block text-white" style="background-color: #3B5998;">
         <i class="fa fa-facebook"> </i>
-        Login with Facebook</a>
+        {{'auth.loginWith' | trans}} Facebook</a>
       <a href="/google" class="btn btn-block text-white" style="background-color: #DC4E41;">
         <i class="fa fa-google"> </i>
-        Login with Google</a>
+        {{'auth.loginWith' | trans}} Google</a>
     </div>
     <div>
       OR
     </div>
     <b-form @submit="submit" class="mt-2">
       <b-form-group class="position-relative" :invalid-feedback="errors.email" :state="stateEmail">
-        <b-form-input type="email" class="form-control pl-5" placeholder="Email" v-model="input.email" :state="stateEmail" autocomplete="on"></b-form-input>
+        <b-form-input type="email" class="form-control pl-5" :placeholder="'auth.email' | trans" v-model="input.email" :state="stateEmail" autocomplete="on"></b-form-input>
         <i class="fa fa-envelope position-absolute text-secondary" style="top:12px;left:18px"></i>
       </b-form-group>
       <b-form-group class="position-relative" :invalid-feedback="errors.password" :state="statePassword">
-        <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" placeholder="Password" v-model="input.password" :state="statePassword" autocomplete="on"></b-form-input>
+        <b-form-input :type="isPasswordOpen? 'text':'password'" class="form-control pl-5" :placeholder="'auth.password' | trans" v-model="input.password" :state="statePassword" autocomplete="on"></b-form-input>
         <i class="fa fa-key position-absolute text-secondary" style="top:12px;left:18px"></i>
         <i v-show="!isPasswordOpen" class="fa fa-eye position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = true"></i>
         <i v-show="isPasswordOpen" class="fa fa-eye-slash position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = false"></i>
@@ -40,19 +40,19 @@
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="remember-me-user" v-model="input.remember">
             <label class="form-check-label" for="remember-me-user">
-              Remember Me
+              {{'auth.rememberMe' | trans}}
             </label>
           </div>
         </div>
         <div>
-          <a class="text-dark" href="/user-forgot-password">Forgot Password?</a>
+          <a class="text-dark" href="/user-forgot-password">{{'auth.forgotPassword' | trans}}</a>
         </div>
       </div>
       <div class=" mt-3 ">
-        <b-btn type="submit" variant="primary" block class="rounded">Login</b-btn>
+        <b-btn type="submit" variant="primary" block class="rounded">{{'auth.login' | trans}}</b-btn>
       </div>
       <div class="mt-3 text-center" v-if="!hideRegisterLink">
-        Don't have Account? <a href="/user-register">Sign Up</a>
+        {{'auth.dontHaveAccount' | trans}} <a href="/user-register">{{'auth.signUp' | trans}}</a>
       </div>
       <b-overlay variant="dark" :show="isLoading" blur="" fixed no-wrap></b-overlay>
     </b-form>

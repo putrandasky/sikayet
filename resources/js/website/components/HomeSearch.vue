@@ -3,7 +3,7 @@
     <b-form @submit="openCompaniesListing">
       <b-input-group>
         <!-- <b-input placeholder=" What are you looking for "></b-input> -->
-        <vue-bootstrap-typeahead class="autocomplete" @keyup.native="onKeyUpSearchCompany" v-model="companySearch" :data="companies" :serializer="company => company.name" @hit="openCompany($event)" :minMatchingChars="3" placeholder="What company do you looking for">
+        <vue-bootstrap-typeahead class="autocomplete" @keyup.native="onKeyUpSearchCompany" v-model="companySearch" :data="companies" :serializer="company => company.name" @hit="openCompany($event)" :minMatchingChars="3" :placeholder="'home.whatCompany' | trans">
           <template slot="suggestion" slot-scope="{ data, htmlText }">
             <div class="d-flex justify-content-between">
 

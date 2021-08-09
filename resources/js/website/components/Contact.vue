@@ -10,8 +10,8 @@
               </span>
               <div class="text-left">
 
-                <div><strong>Questions</strong></div>
-                <div>Omnis justo gloriatur et sit</div>
+                <div><strong>{{'common.question'|trans}}</strong></div>
+                <div>{{'common.questionDescription'|trans}}</div>
               </div>
             </template>
           </b-tab>
@@ -21,8 +21,8 @@
                 <i class="ri-lifebuoy-fill ri-3x"></i>
               </span>
               <div class="text-left">
-                <div><strong>Support</strong></div>
-                <div>Omnis justo gloriatur et sit</div>
+                <div><strong>{{'common.support'|trans}}</strong></div>
+                <div>{{'common.supportDescription'|trans}}</div>
               </div>
             </template>
           </b-tab>
@@ -33,23 +33,23 @@
             <b-col md="6">
 
               <b-form-group>
-                <b-input v-model="input.name" type="text" placeholder="Full Name"></b-input>
+                <b-input v-model="input.name" type="text" :placeholder="'auth.fullName'|trans"></b-input>
               </b-form-group>
             </b-col>
             <b-col md="6">
               <b-form-group>
-                <b-input v-model="input.email" type="email" placeholder="Email"></b-input>
+                <b-input v-model="input.email" type="email" :placeholder="'auth.email'|trans"></b-input>
               </b-form-group>
             </b-col>
             <b-col md="12">
               <b-form-group>
-                <b-form-textarea v-model="input.message" type="text" placeholder="Message" rows="6"></b-form-textarea>
+                <b-form-textarea v-model="input.message" type="text" :placeholder="'auth.message'|trans" rows="6"></b-form-textarea>
               </b-form-group>
             </b-col>
           </b-row>
         </b-card>
         <div class="w-100 text-center">
-          <b-btn class="px-5" variant="primary" @click="postData">Submit</b-btn>
+          <b-btn class="px-5" variant="primary" @click="postData">{{'common.suubmit'|trans}}</b-btn>
         </div>
       </b-col>
     </b-row>

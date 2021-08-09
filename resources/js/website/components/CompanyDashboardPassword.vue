@@ -2,22 +2,22 @@
   <b-row>
 
     <b-col md="6">
-      <h3>Change Password</h3>
+      <h3>{{'auth.changePassword'|trans}}</h3>
       <div>
 
-        <b-form-group class="position-relative" label="Current Password" :invalid-feedback="errors_password.current_password" :state="stateCurrentPassword">
+        <b-form-group class="position-relative" :label="'auth.currentPassword'|trans" :invalid-feedback="errors_password.current_password" :state="stateCurrentPassword">
           <b-form-input :type="isPasswordOpen? 'text':'password'" v-model="password.current_password" :state="stateCurrentPassword"></b-form-input>
           <i v-show="!isPasswordOpen" class="fa fa-eye position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = true"></i>
           <i v-show="isPasswordOpen" class="fa fa-eye-slash position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = false"></i>
 
         </b-form-group>
-        <b-form-group label="New Password" :invalid-feedback="errors_password.password" :state="statePassword">
+        <b-form-group :label="'auth.newPassword'|trans" :invalid-feedback="errors_password.password" :state="statePassword">
           <b-form-input :type="isPasswordOpen? 'text':'password'" v-model="password.password" :state="statePassword"></b-form-input>
         </b-form-group>
-        <b-form-group label="Confirm New Password">
+        <b-form-group :label="'auth.confirmNewPassword'|trans">
           <b-form-input :type="isPasswordOpen? 'text':'password'" v-model="password.password_confirmation"></b-form-input>
         </b-form-group>
-        <b-btn class="mt-auto float-right" variant="primary" @click="updatePassword">Change Password</b-btn>
+        <b-btn class="mt-auto float-right" variant="primary" @click="updatePassword">{{'auth.changePassword'|trans}}</b-btn>
       </div>
 
     </b-col>

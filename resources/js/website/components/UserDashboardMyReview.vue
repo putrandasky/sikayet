@@ -1,6 +1,6 @@
 <template>
   <div style="min-height:100px">
-    <h3 class="mb-3">My Reviews</h3>
+    <h3 class="mb-3">{{'dashboard.review.title'|trans}}</h3>
     <b-overlay variant="dark" :show="!isLoaded" blur=""></b-overlay>
     <div v-if="isLoaded && itemsData.length > 0">
       <b-row>
@@ -9,10 +9,10 @@
             <b-input-group-prepend>
               <b-form-select plain v-model="selectedInputSearch" :options="optionsInputSearch" />
             </b-input-group-prepend>
-            <b-form-input autofocus v-model="search" @input="onInput" type="text" placeholder="Instant Search">
+            <b-form-input autofocus v-model="search" @input="onInput" type="text" :placeholder="'common.instantSearch' | trans">
             </b-form-input>
             <b-input-group-append>
-              <b-btn :disabled="!search" @click="search = ''">Clear</b-btn>
+              <b-btn :disabled="!search" @click="search = ''">{{'common.clear' | trans}}</b-btn>
             </b-input-group-append>
           </b-input-group>
         </b-col>
@@ -80,20 +80,20 @@
       </div>
     </div>
     <b-alert show v-if="isLoaded && itemsData.length == 0">
-      <h4>No Review Data</h4>
+      <h4>{{'review.noReviewData' | trans}}</h4>
       <hr>
       <div>
-        Review from you will be shown here
+        {{'review.ReviewFromYouShownHere' | trans}}
       </div>
     </b-alert>
-    <b-modal v-if="isLoaded && itemsData.length > 0" v-model="modalEditReview" @ok="updateData">
+    <b-modal v-if="isLoaded && itemsData.length > 0" v-model="modalEditReview" @ok="updateData" :ok-title="'common.ok' | trans" :cancel-title="'common.cancel' | trans">
       <template #modal-title>
-        <strong>Your review for {{input.company.name}}</strong>
+        <strong>{{'dashboard.review.reviewFor'|trans}} {{input.company.name}}</strong>
       </template>
-      <b-form-group id="review-title" label="Title" label-for="review-title-input">
+      <b-form-group id="review-title" :label="'review.TitleLabel'|trans" label-for="review-title-input">
         <b-form-input id="review-title-input" v-model="input.title" trim></b-form-input>
       </b-form-group>
-      <b-form-group id="review-content" label="Review" label-for="review-content-input">
+      <b-form-group id="review-content" :label="'review.DescriptionLabel'|trans" label-for="review-content-input">
         <b-form-textarea id="review-content-input" v-model="input.description" rows="3"></b-form-textarea>
       </b-form-group>
 
@@ -103,7 +103,7 @@
       </div>
       <b-row>
         <b-col col>
-          <b-form-group id="rating" label="Rating" label-for="rating-input">
+          <b-form-group id="rating" :label="'review.rating'|trans" label-for="rating-input">
             <b-form-rating id="rating-input" class="pl-0" icon-empty="star-fill" inline no-border variant="light" v-model="input.rating"></b-form-rating>
           </b-form-group>
         </b-col>
@@ -112,7 +112,7 @@
 
             <b-form-select plain v-model="input.review_type.id" :options="review_types">
               <template slot="first">
-                <option disabled :value="null">-- Please Select Review Type --</option>
+                <option disabled :value="null">-- {{'review.SelectTypePlaceholder'|trans}} --</option>
               </template>
             </b-form-select>
           </b-form-group>
@@ -123,7 +123,7 @@
           </b-form-group> -->
         </b-col>
         <b-col col>
-          <b-form-group id="status" label="Status" label-for="status-input">
+          <b-form-group id="status" :label="'review.status'|trans" label-for="status-input">
             <b-badge :variant="getBadgeStatus(input.status)" class="p-1">
               {{ input.status }}
             </b-badge>
@@ -134,7 +134,7 @@
         <hr>
         <div class="d-flex mb-3 justify-content-between w-100">
           <strong class="d-flex">
-            Replied from Brand Owner
+            {{'review.repliedFromBrand'|trans }}
           </strong>
           <div class="text-muted">
             <em>{{input.company_respond.created_at | dateFormated}}</em>
@@ -161,10 +161,10 @@
 
 
     </b-modal>
-    <confirmation-modal ref="deleteReviewConfirmation" title="Delete Review" @ok="deleteData">
+    <confirmation-modal ref="deleteReviewConfirmation" :title="'review.deleteReview'|trans" @ok="deleteData">
       <template v-slot:body>
         <div>
-          You are about to delete your review. You will lose your review, like, and dislike status.
+          {{'review.user.deleteConfirmationDescription'|trans}}
         </div>
 
       </template>

@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <b-modal size="sm" v-model="isOpenModal" @close="isOpenModal=false" hide-footer title="Change Profile Image" class="position-relative">
+    <b-modal size="sm" v-model="isOpenModal" @close="isOpenModal=false" hide-footer :title="'dashboard.avatarUpload.placeholder' | trans" class="position-relative">
 
       <file-upload :url="`/user-dashboard/profile-image`" @uploaded="changeProfileImage"></file-upload>
     </b-modal>

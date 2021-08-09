@@ -27,7 +27,7 @@
         <b-col md="3" class="text-secondary">
           <div class="text-center">
             <small>
-              Based on {{v.review}} reviews
+              {{'review.basedOn' | trans}} {{v.review}} {{'review.reviews' | trans}}
 
             </small>
           </div>
@@ -36,16 +36,16 @@
             <div v-for="j in v.rating_grey" :key="'grey'+j" class="bg-secondary rounded px-1 mr-1"><i class="fa fa-star text-white  "></i></div>
           </div>
           <div class="text-center text-secondary mb-2">
-            Rating : {{v.rating}} of 5.0
+            {{'review.rating' | trans}} : {{v.rating}} {{'home.of' | trans}} 5.0
           </div>
           <div class="text-center">
-            <a class="btn btn-primary btn-sm" :href="`/brand/${v.slug}`">Read More</a>
+            <a class="btn btn-primary btn-sm" :href="`/brand/${v.slug}`">{{'home.readMore' | trans}}</a>
           </div>
         </b-col>
       </b-row>
     </b-card>
     <div v-if="!isAllLoaded" class="text-center">
-      <b-btn variant="primary" class="px-5" @click="updateData">Load More</b-btn>
+      <b-btn variant="primary" class="px-5" @click="updateData">{{'home.loadMore' | trans}}</b-btn>
     </div>
   </div>
 

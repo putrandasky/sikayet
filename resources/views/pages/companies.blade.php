@@ -5,17 +5,17 @@
 <x-base>
   <x-header-wrapper>
     <div class="row">
-<div class="col-md-6 text-white">
-        <h4 class="">{{$count}} Results of your query</h4>
+      <div class="col-md-6 text-white">
+        <h4 class="">{{$count}} @lang('website/home.companies.result_query')</h4>
 
-</div>
-<div class="col-md-6 w-100">
-  <div class="row justify-content-end">
+      </div>
+      <div class="col-md-6 w-100">
+        <div class="row justify-content-end">
 
-    <home-search></home-search>
-  </div>
+          <home-search></home-search>
+        </div>
 
-</div>
+      </div>
     </div>
   </x-header-wrapper>
   <section class="py-3">
@@ -26,15 +26,15 @@
         @slot('name')
         <a class="text-dark" href="/brand/{{$company['slug']}}">{{$company['name']}}</a>
         @endslot
-              @slot('avatar')
-            <a class="text-dark" href="/brand/{{$company['slug']}}">
-              @if ($company['avatar'])
-              <img class="img-fluid " src="{{ asset("/storage/company/{$company['avatar']}") }}" alt="">
-              @else
-              <span class="b-avatar badge-secondary rounded-sm" style="width:120px;height:120px"><i class="fa fa-briefcase fa-3x"></i></span>
-              @endif
-            </a>
-              @endslot
+        @slot('avatar')
+        <a class="text-dark" href="/brand/{{$company['slug']}}">
+          @if ($company['avatar'])
+          <img class="img-fluid " src="{{ asset("/storage/company/{$company['avatar']}") }}" alt="">
+          @else
+          <span class="b-avatar badge-secondary rounded-sm" style="width:120px;height:120px"><i class="fa fa-briefcase fa-3x"></i></span>
+          @endif
+        </a>
+        @endslot
         @slot('profile')
         {{$company['profile']}}
         @endslot
@@ -54,31 +54,31 @@
             </x-rating-grey>
             @endfor
             @endslot
-                     @slot('total_rating')
-                     Rating: {{$company['rating']}} of 5.0
-                     @endslot
+            @slot('total_rating')
+            @lang('website/common.rating'): {{$company['rating']}} of 5.0
+            @endslot
             @slot('slug')
             {{$company['slug']}}
             @endslot
       </x-home.companies>
       @endforeach
-        @if ($companies->lastPage() >1)
+      @if ($companies->lastPage() >1)
 
-        <nav aria-label="">
-          <ul class="pagination text-center justify-content-center">
+      <nav aria-label="">
+        <ul class="pagination text-center justify-content-center">
 
-            @php
-            $paginate_name = (request()->has('name')) ? '&name=' . (request()->input('name')) : '';
-            $paginate_url =$paginate_name;
-            @endphp
-            @for ($i = 1; $i <=$companies->lastPage() ; $i++ )
-              <li class="page-item {{$companies->currentPage() == $i ? 'active' : ''}} "><a class="page-link" href="{{(request()->url())}}?page={{$i . $paginate_url}}">{{$i}}</a></li>
+          @php
+          $paginate_name = (request()->has('name')) ? '&name=' . (request()->input('name')) : '';
+          $paginate_url =$paginate_name;
+          @endphp
+          @for ($i = 1; $i <=$companies->lastPage() ; $i++ )
+            <li class="page-item {{$companies->currentPage() == $i ? 'active' : ''}} "><a class="page-link" href="{{(request()->url())}}?page={{$i . $paginate_url}}">{{$i}}</a></li>
 
-              @endfor
+            @endfor
 
-          </ul>
-        </nav>
-        @endif
+        </ul>
+      </nav>
+      @endif
     </div>
   </section>
 </x-base>

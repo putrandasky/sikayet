@@ -1,46 +1,46 @@
 <template>
   <div>
-    <h3>My Account</h3>
+    <h3>{{'dashboard.account.title'|trans}}</h3>
     <b-row>
       <b-col md="6">
-        <b-form-group label="Website URL">
+        <b-form-group :label="'dashboard.account.website'|trans">
           <b-form-input type="text" v-model="input.website"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Facebook URL">
+        <b-form-group :label="'dashboard.account.facebook'|trans">
           <b-form-input type="text" v-model="input.facebook_url"></b-form-input>
         </b-form-group>
-        <b-form-group label="Twitter URL">
+        <b-form-group :label="'dashboard.account.twitter'|trans">
           <b-form-input type="text" v-model="input.twitter_url"></b-form-input>
         </b-form-group>
-        <b-form-group label="Linkedin URL">
+        <b-form-group :label="'dashboard.account.linkedin'|trans">
           <b-form-input type="text" v-model="input.linkedin_url"></b-form-input>
         </b-form-group>
-        <b-form-group label="Instagram URL">
+        <b-form-group :label="'dashboard.account.instagram'|trans">
           <b-form-input type="text" v-model="input.instagram_url"></b-form-input>
         </b-form-group>
 
       </b-col>
       <b-col md="6">
-        <b-form-group label="Email">
+        <b-form-group :label="'auth.email'|trans">
           <b-form-input disabled type="text" v-model="input.email"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="Profile">
+        <b-form-group :label="'dashboard.profile.profile'|trans">
           <b-form-textarea v-model="input.profile" rows="6"></b-form-textarea>
         </b-form-group>
-        <b-form-group label="Business Category">
+        <b-form-group :label="'auth.businessCategory'|trans">
 
           <b-form-select plain v-model="input.business_category_id" :options="options.business_category">
             <template slot="first">
-              <option disabled :value="null">-- Please Select Business Category --</option>
+              <option disabled :value="null">-- {{'auth.selectBusinessCategory'|trans}} --</option>
             </template>
           </b-form-select>
         </b-form-group>
       </b-col>
       <b-col cols="12">
 
-        <b-btn class="mt-3 float-right" variant="primary" @click="updateData">Update Account</b-btn>
+        <b-btn class="mt-3 float-right" variant="primary" @click="updateData">{{'dashboard.account.update'|trans}}</b-btn>
       </b-col>
 
     </b-row>

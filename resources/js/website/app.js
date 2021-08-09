@@ -9,8 +9,17 @@ import BootstrapVue from 'bootstrap-vue';
 window.Vue = require('vue').default;
 window.EventBus = new Vue();
 
-window.Vue2 = require('vue').default;
-window.Vue3 = require('vue').default;
+var Lang = require('lang.js');
+import source from "./lang/localization"
+var lang = new Lang({
+  messages: source,
+  locale: 'tr',
+});
+Vue.prototype.$lang = lang
+Vue.filter('trans', (...args) => {
+  return lang.get(...args);
+});
+
 Vue.use(BootstrapVue);
 window.dayjs = require('dayjs');
 Vue.mixin({
@@ -39,13 +48,6 @@ Vue.mixin({
 });
 import './filter/filter';
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Lang;
 
 class LoginController extends Controller
 {
@@ -38,14 +39,14 @@ class LoginController extends Controller
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            return response()->json(['status' => 'info', 'message' => 'Your account is not active or under review'], 403);
+            return response()->json(['status' => 'info', 'message' => Lang::get('auth.accountNotActived')], 403);
         }
         if ($user->account_status_id == 3) {
             $this->guard()->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            return response()->json(['status' => 'info', 'message' => 'Your account has been suspended'], 403);
+            return response()->json(['status' => 'info', 'message' => Lang::get('auth.accountSuspended')], 403);
         }
     }
     protected function guard()

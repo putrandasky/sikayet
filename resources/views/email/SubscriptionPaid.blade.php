@@ -1,46 +1,46 @@
 @component('mail::message')
-<h1>Hello, {{$data->company->name}}</h1>
+<h1>@lang('email/common.hello'), {{$data->company->name}}</h1>
 
 <br>
-You already purchased a subscription for premium membership package as below
+@lang('email/subscription.greetings')
 
 @component('mail::table')
 |||||||
 |-|-| :- | -: | -: | -:|
 |||||||
-||| <strong>Invoice Number</strong> |{{$data->payment_invoice}}||
-||| <strong>Invoice Date</strong> |{{$data->date_invoice}} |
-||| <strong>Subscription type</strong> | {{$data->subscription_type}} ({{$data->period_type}})||
-||| <strong>Respond Quotas</strong> |@if ($data->respond_quota == -1)
+||| <strong>@lang('company/payment.success.invoice_number')</strong> |{{$data->payment_invoice}}||
+||| <strong>@lang('company/payment.success.invoice_date')</strong> |{{$data->date_invoice}} |
+||| <strong>@lang('company/payment.success.type')</strong> | {{$data->subscription_type}} ({{$data->period_type}})||
+||| <strong>@lang('company/payment.success.quotas')</strong> |@if ($data->respond_quota == -1)
 No Limit
 @endif
 @if ($data->respond_quota > -1)
 {{$data->respond_quota}}
 @endif||
-||| <strong>Amount</strong> | $ {{$data->amount}}||
-||| <strong>Date Payment</strong> | {{$data->date_payment}} ||
-||| <strong>End Date Package</strong> | {{$data->ending_period}} ||
+||| <strong>@lang('company/payment.success.amount')</strong> | $ {{$data->amount}}||
+||| <strong>@lang('company/payment.success.date_payment')</strong> | {{$data->date_payment}} ||
+||| <strong>@lang('company/payment.success.end_date')</strong> | {{$data->ending_period}} ||
 @endcomponent
 @component('mail::panel')
 
-<strong>Previlage of being premium membership :</strong>
+<strong>@lang('company/membership.title') :</strong>
 <ul>
-  <li>Able to respond user review to your brand</li>
-  <li>No Ads on your company page</li>
-  <li>Receive email notification while user submit a review for your brand</li>
+  <li>@lang('company/membership.items.0')</li>
+  <li>@lang('company/membership.items.1')</li>
+  <li>@lang('company/membership.items.2')</li>
 </ul>
 @endcomponent
 
-Thank you for join us with premium membership.
+@lang('email/common.thanks_for_premium')
 <br>
 <br>
-Best Regards
+@lang('email/common.best_regards')
 <br>
 <br>
 {{ config('app.name') }}
 
 @slot('subcopy')
 
-  <a href="{{ config('app.url') }}/term-of-use">Term Condition</a> <a href="{{ config('app.url') }}/privacy-policy">Privacy Policy</a> <a href="{{ config('app.url') }}/contact">Contact Us</a>
+<a href="{{ config('app.url') }}/term-of-use">@lang('email/common.term_conditions')</a> <a href="{{ config('app.url') }}/privacy-policy">@lang('email/common.privacy')</a> <a href="{{ config('app.url') }}/contact">@lang('email/common.contact_us')</a>
 @endslot
 @endcomponent

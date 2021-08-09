@@ -10,7 +10,8 @@
           <h5>
 
             <strong>
-              Reply from {{$company_name}}
+                            @lang('website/common.reply_from')
+ {{$company_name}}
             </strong>
           </h5>
         <div class="text-muted">

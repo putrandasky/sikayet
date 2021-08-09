@@ -1,3 +1,9 @@
+# 10-Aug-21
+## 0.10
+### ADDED
+- Turkish lang (remaining for some error input data, some email notifications)
+### FIXED
+- Redirection after login/register in review form any company
 # 18-Jul-21
 ## 0.9.3
 ### FIXED

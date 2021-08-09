@@ -1,6 +1,6 @@
 <template>
   <div style="min-height:100px">
-    <h3>My Packages & Billing</h3>
+    <h3>{{'dashboard.package.title'|trans}}</h3>
     <b-overlay variant="dark" :show="!isLoaded" blur=""></b-overlay>
 
     <div style="overflow:auto" v-if="isLoaded  && items[0]">
@@ -19,10 +19,10 @@
       </b-table>
     </div>
     <b-alert show v-if="isLoaded && !items[0]">
-      <h4>No Active Package</h4>
+      <h4>{{'dashboard.package.noPackageAlert.title'|trans}}</h4>
       <hr>
       <div>
-        You are not subscribe any premium membership
+        {{'dashboard.package.noPackageAlert.description'|trans}}
       </div>
     </b-alert>
   </div>

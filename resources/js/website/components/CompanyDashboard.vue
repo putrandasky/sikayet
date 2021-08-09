@@ -6,7 +6,7 @@
         <b-card v-show="isLoaded" class="text-center">
           <h1>{{review.unanswered}}</h1>
           <div>
-            New Review
+            {{'dashboard.summary.new'|trans}}
           </div>
         </b-card>
       </b-col>
@@ -14,7 +14,7 @@
         <b-card v-show="isLoaded" class="text-center">
           <h1>{{review.answered}}</h1>
           <div>
-            Answered Review
+            {{'dashboard.summary.answered'|trans}}
           </div>
         </b-card>
       </b-col>
@@ -22,7 +22,7 @@
         <b-card v-show="isLoaded" class="text-center">
           <h1>{{review.total}}</h1>
           <div>
-            Total Review
+            {{'dashboard.summary.total'|trans}}
           </div>
         </b-card>
       </b-col>
@@ -30,7 +30,7 @@
         <b-card v-show="isLoaded" class="text-center">
           <h1>{{respond_quota}}</h1>
           <div>
-            Respond Quotas
+            {{'dashboard.summary.quotas'|trans}}
           </div>
         </b-card>
       </b-col>
@@ -41,13 +41,13 @@
       <b-nav tabs class="mb-3" style="overflow-x: auto;overflow-y: hidden;
     white-space: nowrap;
     flex-wrap: unset;">
-        <b-nav-item :active="component == 'MyReview'" @click="component = 'MyReview'">My Review</b-nav-item>
-        <b-nav-item :active="component == 'MyAccount'" @click="component = 'MyAccount'">My Account</b-nav-item>
-        <b-nav-item :active="component == 'MyPackage'" @click="component = 'MyPackage'">My Package & Billing</b-nav-item>
-        <b-nav-item :active="component == 'MyBillingHistory'" @click="component = 'MyBillingHistory'">Billing History</b-nav-item>
-        <b-nav-item :active="component == 'Password'" @click="component = 'Password'">Password</b-nav-item>
+        <b-nav-item :active="component == 'MyReview'" @click="component = 'MyReview'">{{'dashboard.review.title'|trans}}</b-nav-item>
+        <b-nav-item :active="component == 'MyAccount'" @click="component = 'MyAccount'">{{'dashboard.account.title'|trans}}</b-nav-item>
+        <b-nav-item :active="component == 'MyPackage'" @click="component = 'MyPackage'"> {{'dashboard.package.title'|trans}}</b-nav-item>
+        <b-nav-item :active="component == 'MyBillingHistory'" @click="component = 'MyBillingHistory'">{{'dashboard.billing.title'|trans}}</b-nav-item>
+        <b-nav-item :active="component == 'Password'" @click="component = 'Password'">{{'auth.password'|trans}}</b-nav-item>
         <b-nav-item>
-          <b-btn variant="danger" size="sm" @click="logout">Log Out</b-btn>
+          <b-btn variant="danger" size="sm" @click="logout">{{'auth.logout'|trans}}</b-btn>
         </b-nav-item>
       </b-nav>
       <component :companydata="company" :business_category="business_category" @updateReviewSummary="updateReviewSummary" @updateQuota="updateQuota" v-bind:is="component"></component>

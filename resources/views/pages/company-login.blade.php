@@ -1,14 +1,14 @@
 @extends('layouts.website')
 
 @section('meta')
-<title>Company Login | {{config('app.name')}}</title>
-<meta property="og:title" content="Company Login | {{config('app.name')}}" />
-<meta property="og:site_name" content="Company Login | {{config('app.name')}}" />
+<title>@lang('company/auth.title.login') | {{config('app.name')}}</title>
+<meta property="og:title" content="@lang('company/auth.title.login') | {{config('app.name')}}" />
+<meta property="og:site_name" content="@lang('company/auth.title.login') | {{config('app.name')}}" />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="{{ asset('images/icon.png') }}">
 <meta property="og:url" content="{{config('app.url')}}" />
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Company Login | {{config('app.name')}}">
+<meta name="twitter:title" content="@lang('company/auth.title.login') | {{config('app.name')}}">
 <meta name="twitter:image:src" content="{{ asset('images/icon.png') }}">
 <meta name="twitter:image" content="{{ asset('images/icon.png') }}">
 
@@ -29,7 +29,7 @@
         </a>
       </div>
       <div class="mt-3">
-        <h4>Business Account Login</h4>
+        <h4>@lang('company/auth.view.business_account_login')</h4>
       </div>
              @if (session('status'))
              <div class="alert alert-info" role="alert">

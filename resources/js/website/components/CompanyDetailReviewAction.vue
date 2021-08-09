@@ -1,8 +1,10 @@
 <template>
   <div>
-    <b-btn :disabled="isDisabled" variant="light" size="sm" @click="submit('like')"><i class=" fa fa-thumbs-up"></i> Useful <b-badge>{{currentlike}}</b-badge>
+    <b-btn :disabled="isDisabled" variant="light" size="sm" @click="submit('like')"><i class=" fa fa-thumbs-up"></i> {{review.useful}}
+      <b-badge>{{currentlike}}</b-badge>
     </b-btn>
-    <b-btn :disabled="isDisabled" variant="light" size="sm" @click="submit('dislike')"><i class=" fa fa-thumbs-down"></i> Not Useful <b-badge>{{currentdislike}}</b-badge>
+    <b-btn :disabled="isDisabled" variant="light" size="sm" @click="submit('dislike')"><i class=" fa fa-thumbs-down"></i> {{review.notUseful}}
+      <b-badge>{{currentdislike}}</b-badge>
     </b-btn>
   </div>
 </template>

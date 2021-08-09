@@ -5,6 +5,7 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Lang;
 
 class CompanySubscriptionPaid extends Notification
 {
@@ -41,7 +42,7 @@ class CompanySubscriptionPaid extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Subscription Premium Membership Paid')
+            ->subject(Lang::get('email/subscription.title'))
             ->markdown('email.SubscriptionPaid', ['data' => $this->data]);
 
     }

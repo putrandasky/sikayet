@@ -1,6 +1,6 @@
 @extends('layouts.website')
 @section('meta')
-<title>Agreement</title>
+<title>@lang('website/home.general_title.agreement')</title>
 @endsection
 
 @section('content')

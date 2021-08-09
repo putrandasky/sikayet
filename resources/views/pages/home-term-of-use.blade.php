@@ -1,6 +1,6 @@
 @extends('layouts.website')
 @section('meta')
-<title>Term of Use</title>
+<title>@lang('website/home.general_title.term_of_use')</title>
 @endsection
 
 @section('content')

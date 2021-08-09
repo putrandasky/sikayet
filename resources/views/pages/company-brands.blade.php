@@ -9,7 +9,7 @@
     <h1>
       <strong>
 
-        Company Brand
+        @lang('website/home.company_brand')
       </strong>
     </h1>
   </div>

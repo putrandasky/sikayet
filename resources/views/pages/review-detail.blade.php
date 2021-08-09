@@ -1,17 +1,17 @@
 @extends('layouts.website')
 
 @section('meta')
-<title>{{$review->company->name}} reviewed by {{$review->user->name}} </title>
+<title>{{$review->company->name}} @lang('website/common.reviewed_by') {{$review->user->name}} </title>
 
 <meta name="description" content="{{$review->description}}">
-<meta property="og:title" content="{{$review->company->name}} reviewed by {{$review->user->name}}" />
-<meta property="og:site_name" content="{{$review->company->name}} reviewed by {{$review->user->name}}" />
+<meta property="og:title" content="{{$review->company->name}}  @lang('website/common.reviewed_by') {{$review->user->name}}" />
+<meta property="og:site_name" content="{{$review->company->name}} @lang('website/common.reviewed_by') {{$review->user->name}}" />
 <meta property="og:type" content="website" />
 <meta property="og:description" content="{{$review->description}}">
 <meta property="og:image" content="{{ $review->user->avatar ? asset("/storage/user/{$review->user->avatar}") : asset("/images/user-no-avatar.png") }}">
 <meta property="og:url" content="{{url()->current()}}" />
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="{{$review->company->name}} reviewed by {{$review->user->name}}">
+<meta name="twitter:title" content="{{$review->company->name}} @lang('website/common.reviewed_by') {{$review->user->name}}">
 <meta name="twitter:description" content="{{$review->description}}">
 <meta name="twitter:image:src" content="{{ $review->user->avatar ? asset("/storage/user/{$review->user->avatar}") : asset("/images/user-no-avatar.png") }}">
 <meta name="twitter:image" content="{{ $review->user->avatar ? asset("/storage/user/{$review->user->avatar}") : asset("/images/user-no-avatar.png") }}">
@@ -27,7 +27,7 @@
         <div class="col-lg-8">
           <p class="h4">
 
-            Review for <a class="text-primary" href="/brand/{{$review->company->slug}}">{{$review->company->name}}</a>
+            @lang('website/common.review_for') <a class="text-primary" href="/brand/{{$review->company->slug}}">{{$review->company->name}}</a>
           </p>
           <x-company-detail.card-review>
 
@@ -35,7 +35,7 @@
 
               @slot('review_visitor')
               <div class="col-12 mb-3 pb-2 text-right text-secondary border-bottom border-grey">
-               {{$review->visited}} visitor
+               {{$review->visited}} @lang('website/common.visitor')
               </div>
               @endslot
               @slot('user_avatar')
@@ -73,7 +73,7 @@
 
                   @endslot
                   @slot('posted_date')
-                  Published {{Carbon\Carbon::parse($review->created_at)->format('d M Y')}}
+                  @lang('website/common.published') {{Carbon\Carbon::parse($review->created_at)->format('d M Y')}}
                   @endslot
                   @slot('review_title')
                   {{$review->title}}
@@ -110,7 +110,7 @@
               @endslot
 
               @slot('posted_date')
-              Published {{ Carbon\Carbon::parse($review->company_respond->created_at)->format('d M Y')}}
+              @lang('website/common.published') {{ Carbon\Carbon::parse($review->company_respond->created_at)->format('d M Y')}}
 
               @endslot
 

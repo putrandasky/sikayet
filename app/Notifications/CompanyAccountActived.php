@@ -43,11 +43,11 @@ class CompanyAccountActived extends Notification
     {
         $url = url(route('company-login', false));
         return (new MailMessage)
-            ->subject(Lang::get('Business Account Activation'))
-            ->greeting(Lang::get("Hi {$this->data->name},"))
-            ->line(Lang::get("Your Business Account for your brand has been activated, now you can login by click the button below"))
-            ->action(Lang::get('Login here'), $url)
-            ->line('Thank you for using our application!');
+            ->subject(Lang::get('email/company_account.subject'))
+            ->greeting(Lang::get("email/common.hello") . ', ' . $this->data->name)
+            ->line(Lang::get('email/company_account.description'))
+            ->action(Lang::get('email/company_account.action'), $url)
+            ->line(Lang::get("email/common.thanks_for_using"));
     }
 
     /**

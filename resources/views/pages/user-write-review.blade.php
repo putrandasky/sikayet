@@ -43,13 +43,13 @@
                   @endfor
                      <div class="text-light">
 
-                       Rating : {{$company->rating}} of 5.0
+                       @lang('website/common.rating') : {{$company->rating}} @lang('website/common.of') 5.0
                      </div>
             </div>
             <div class="d-flex" style="overflow: auto;white-space:nowrap">
-              <div class="text-success">Solutions : {{$company->review_solution ?? 0}}</div>
-              <div class="text-danger ml-3">Complaints : {{$company->review_complaint ?? 0}}</div>
-              <div class="text-secondary ml-3">Generals : {{$company->review_general ?? 0}}</div>
+              <div class="text-success">@lang('website/common.solutions') : {{$company->review_solution ?? 0}}</div>
+              <div class="text-danger ml-3">@lang('website/common.complaints') : {{$company->review_complaint ?? 0}}</div>
+              <div class="text-secondary ml-3">@lang('website/common.generals') : {{$company->review_general ?? 0}}</div>
             </div>
           </div>
           @endslot
@@ -66,35 +66,35 @@
             @slot('value')
             {{ $total_star_count ? ($company->star_5 * 100) /($total_star_count) : 0 }}
             @endslot
-            5 stars
+            5 @lang('website/common.stars')
           </x-progress>
           <x-progress>
             @slot('value')
             {{ $total_star_count ? ($company->star_4 * 100) /($total_star_count) : 0 }}
             @endslot
-            4 stars
+            4 @lang('website/common.stars')
           </x-progress>
           <x-progress>
             @slot('value')
             {{ $total_star_count ? ($company->star_3 * 100) /($total_star_count) : 0 }}
             @endslot
-            3 stars
+            3 @lang('website/common.stars')
           </x-progress>
           <x-progress>
             @slot('value')
             {{ $total_star_count ? ($company->star_2 * 100) /($total_star_count) : 0 }}
             @endslot
-            2 stars
+            2 @lang('website/common.stars')
           </x-progress>
           <x-progress>
             @slot('value')
             {{ $total_star_count ? ($company->star_1 * 100) /($total_star_count) : 0 }}
             @endslot
-            1 stars
+            1 @lang('website/common.stars')
           </x-progress>
         </div>
            <div class="w-100 text-center text-light">
-             Visitor : {{$company->visited}}
+             @lang('website/common.visitor') : {{$company->visited}}
            </div>
       </div>
     </div>
@@ -106,7 +106,7 @@
         <div class="col-lg-8">
           @if ($reviewed)
           <div class="alert alert-info">
-            Company Reviewed
+            @lang('website/common.company_reviewed')
           </div>
           @else
           <user-write-review
