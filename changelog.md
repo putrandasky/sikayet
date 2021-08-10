@@ -1,4 +1,7 @@
 # 10-Aug-21
+## 0.10.1
+### FIXED
+- Turkish lang (Email notification)
 ## 0.10
 ### ADDED
 - Turkish lang (remaining for some error input data, some email notifications)

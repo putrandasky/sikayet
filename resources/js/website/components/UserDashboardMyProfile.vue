@@ -21,7 +21,7 @@
         <h3>{{'auth.changePassword' | trans}}</h3>
         <div v-if="!userdata.facebook_id && !userdata.google_id">
 
-          <b-form-group class="position-relative" :label="'dashboard.profile.profile' | trans" :invalid-feedback="errors_password.current_password" :state="stateCurrentPassword">
+          <b-form-group class="position-relative" :label="'auth.currentPassword' | trans" :invalid-feedback="errors_password.current_password" :state="stateCurrentPassword">
             <b-form-input :type="isPasswordOpen? 'text':'password'" v-model="password.current_password" :state="stateCurrentPassword"></b-form-input>
             <i v-show="!isPasswordOpen" class="fa fa-eye position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = true"></i>
             <i v-show="isPasswordOpen" class="fa fa-eye-slash position-absolute text-secondary" style="top:12px;right:18px" @click="isPasswordOpen = false"></i>

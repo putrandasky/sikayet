@@ -10,7 +10,7 @@
       <div class="card-title text-center mt-3">
         {{-- <i class="ri-{{$text->where('key','about_benefit1_icon')->first()->value}} ri-4x text-primary mr-3"></i> --}}
         <div><i class="ri-rotate-lock-line ri-3x text-light bg-success rounded-circle p-2"></i></div>
-        <div class="h4">Reset Password</div>
+        <div class="h4">{{ __('Reset Password') }}</div>
       </div>
       <div class="card-body">
         <form method="POST" action="{{ route('company-password.update') }}">
