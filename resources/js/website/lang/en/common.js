@@ -10,10 +10,11 @@ export default {
     'delete': 'Delete',
     'instantSearch': 'Instant Search',
     'pleaseSelect': 'Please Select',
-    'question': 'Question',
-    'questionDescription': 'Reach us directly',
-    'support': 'Support',
-    'supportDescription': 'General support'
+    'question': 'Write to Us',
+    'questionDescription': 'Write us a message',
+    'support': 'Support Line',
+    'supportDescription': 'See frequently asked questions',
+    'uploadFile': 'Upload File'
 
   }
 }

@@ -19,6 +19,7 @@ Vue.filter("last4Chars", str => str.substring(str.length - 4))
 Vue.filter("noData", str => str ? str : 'No Data')
 Vue.filter("_toSpace", str => str.replace(/_/g, ' '))
 Vue.filter("ucfirst", str => str.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' '))
+Vue.filter("upper", str => str.toUpperCase())
 Vue.filter('formatSize', function(size) {
   if (size > 1024 * 1024 * 1024 * 1024) {
     return (size / 1024 / 1024 / 1024 / 1024).toFixed(2) + ' TB'

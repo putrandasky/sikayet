@@ -3,24 +3,24 @@
 return [
 
     'title' => [
-        'quick_links' => 'Hızlı Linkler',
-        'business' => 'İşletme',
-        'social_media' => 'Sosyal medya',
-        'other_country' => 'Diğer ülke',
+        'quick_links' => 'Bilgi',
+        'business' => 'Kurumsal Bilgi',
+        'social_media' => 'Sosyal Medya',
+        'other_country' => 'Diğer Ülkeler',
     ],
     'items' => [
         'quick_links' => [
-            'about' => 'Hakkında',
+            'about' => 'Hakkımızda',
             'faq' => 'SSS',
-            'agreement' => 'Anlaşma',
-            'term_of_use' => 'Kullanım koşulu',
+            'agreement' => 'Antlaşma detayları',
+            'term_of_use' => 'Şartlar ve Koşullar',
             'privacy_policy' => 'Gizlilik Politikası',
         ],
         'business' => [
-            'business' => 'İşletme',
-            'register' => 'İş Kaydı',
-            'login' => 'İşletme Girişi',
-            'faq' => 'SSS İş',
+            'business' => 'Açıklama',
+            'register' => 'Yeni Hesap Aç',
+            'login' => 'Kurumsal Giriş',
+            'faq' => 'Kurumsal Sıkça Sorulan Sorulan',
         ],
     ],
 

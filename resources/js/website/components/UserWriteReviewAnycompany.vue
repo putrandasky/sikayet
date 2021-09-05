@@ -35,8 +35,8 @@
         <b-form-select-option :value="null" disabled>-- {{'review.SelectTypePlaceholder' | trans}} --</b-form-select-option>
       </b-form-select>
     </b-form-group>
-    <b-form-group :label="'review.PhotoLabel' | trans">
-      <b-form-file ref="photo" name="photo" v-model="file" :placeholder="'review.PhotoPlaceholder' | trans" drop-placeholder="Drop file here..." @change="onFileChange"></b-form-file>
+    <b-form-group :label="'review.PhotoReviewLabel' | trans">
+      <b-form-file :browse-text="'common.uploadFile' | trans" ref="photo" name="photo" v-model="file" :placeholder="'review.PhotoReviewPlaceholder' | trans" drop-placeholder="Drop file here..." @change="onFileChange"></b-form-file>
     </b-form-group>
     <b-form-checkbox id="checkbox-1" v-model="input.accept_tnc" name="checkbox-1" value="accepted" unchecked-value="not_accepted">
       {{'review.tnc.iAgree' | trans}}

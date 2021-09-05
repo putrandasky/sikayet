@@ -9,6 +9,7 @@ return [
     'company_reviewed' => 'Company Reviewed',
     'write_review' => 'Write a Review',
     'profile' => 'Profile',
+    'company_profile' => 'Company / Brand Profile',
     'website' => 'Website',
     'published' => 'Published',
     'dashboard' => 'Dashboard',

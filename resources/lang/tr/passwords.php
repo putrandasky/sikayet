@@ -14,9 +14,9 @@ return [
      */
 
     'reset' => 'Şifreniz sıfırlandı!',
-    'sent' => 'Şifre sıfırlama bağlantınızı e-posta ile gönderdik!',
+    'sent' => 'Şifre sıfırlama bağlantınızı E-Mail adresi ile gönderdik!',
     'throttled' => 'Lütfen yeniden denemeden önce bekleyin.',
     'token' => 'Bu parola sıfırlama jetonu geçersiz.',
-    'user' => "Bu e-posta adresine sahip bir kullanıcı bulamıyoruz.",
+    'user' => "Bu E-Mail adresi sahip bir kullanıcı bulamıyoruz.",
 
 ];

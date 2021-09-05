@@ -1,10 +1,11 @@
 export default {
   'tr.nav': {
-    'about': 'Hakkında',
-    'contact': 'Temas etmek',
+    'about': 'Hakkımızda',
+    'contact': 'İletişim',
     'faq': 'SSS',
-    'writeReview': 'Bir değerlendirme yazın',
-    'forCompanies': 'Şirketler için',
+    'writeReview': 'Şikayet Yaz',
+    'forCompanies': 'Kurumsal Giriş',
+    'memberLogin': 'Üye Girişi'
 
   }
 }

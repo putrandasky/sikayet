@@ -85,8 +85,9 @@ class CompanyResetPasswordNotification extends Notification
     {
         return (new MailMessage)
             ->subject(Lang::get('email/reset_password.title'))
+            ->greeting(Lang::get('email/common.hello'))
             ->line(Lang::get('email/reset_password.description'))
-            ->action(Lang::get('email/reset_password.action'), $url)
+            ->action(Lang::get('email/reset_password.action_upper'), $url)
             ->line(Lang::get('email/reset_password.expire_notes', ['count' => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire')]))
             ->line(Lang::get('email/reset_password.closure'));
     }

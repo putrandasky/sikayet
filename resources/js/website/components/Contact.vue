@@ -49,7 +49,7 @@
           </b-row>
         </b-card>
         <div class="w-100 text-center">
-          <b-btn class="px-5" variant="primary" @click="postData">{{'common.suubmit'|trans}}</b-btn>
+          <b-btn class="px-5" variant="primary" @click="postData">{{'common.submit'|trans|upper}}</b-btn>
         </div>
       </b-col>
     </b-row>

@@ -48,7 +48,7 @@
                   @endfor
                          <div class="text-light">
 
-                           @lang('website/common.rating') : {{$data['company']['rating']}} @lang('website/common.of') 5.0
+                           @lang('website/common.rating') : {{$data['company']['rating']}} / 5.0
                          </div>
             </div>
             <div class="d-flex" style="overflow: auto;

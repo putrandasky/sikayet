@@ -4,7 +4,7 @@ export default {
     'description': 'Müşterilerinizi önemsediğinizi gösterin. Premium bir şirket olarak abone olun ve üyelikten yararlanmak için sayfanızı talep edin.',
     'benefit': {
       '1': 'Bir Şirketi Yönet',
-      '2': 'Birisi şirketinize yeni bir inceleme gönderdiğinde E-posta Bildirimleri',
+      '2': 'Birisi şirketinize yeni bir inceleme gönderdiğinde E-Mail adresi Bildirimleri',
       '3': 'Şirket sayfanızda reklam yok',
       '4': 'Şirketiniz adına yorumlara yanıt verin',
       '5': 'Cevap sınırı'

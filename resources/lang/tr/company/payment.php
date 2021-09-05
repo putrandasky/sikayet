@@ -7,7 +7,7 @@ return [
         'title' => 'Başarılı ödeme',
         'invoice_number' => 'Fatura numarası',
         'invoice_date' => 'Fatura tarihi',
-        'company_name' => 'Firma Adı',
+        'company_name' => 'Şirket / Marka Adı',
         'type' => 'abonelik türü',
         'quotas' => 'Yanıt Kotaları',
         'no_limit' => 'Limit yok',

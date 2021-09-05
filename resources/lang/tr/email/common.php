@@ -2,7 +2,7 @@
 
 return [
 
-    'hello' => 'Merhaba',
+    'hello' => 'Merhaba!',
     'thanks_for_using' => 'Uygulamamızı kullandığınız için teşekkür ederiz.',
     'thanks_for_premium' => 'Premium üyelikle bize katıldığınız için teşekkür ederiz.',
     'best_regards' => 'Saygılarımla',

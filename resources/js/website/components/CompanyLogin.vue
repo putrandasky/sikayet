@@ -32,7 +32,7 @@
         <b-btn type="submit" variant="primary" block class="rounded">{{'auth.login' | trans}}</b-btn>
       </div>
       <div class="mt-3 text-center">
-        {{'auth.dontHaveBusinessAccount' | trans}} <a href="/company-register">{{'auth.signUp' | trans}}</a>
+        {{'auth.dontHaveBusinessAccount' | trans}} <a href="/company-register">{{'auth.pleaseSignUp' | trans}}</a>
       </div>
       <b-overlay variant="dark" :show="isLoading" blur="" fixed no-wrap></b-overlay>
     </b-form>

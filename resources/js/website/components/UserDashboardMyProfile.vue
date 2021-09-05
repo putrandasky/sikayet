@@ -15,7 +15,7 @@
         <!-- <b-form-group id="review-name" label="Name">
         <b-form-input type="text" v-model="input.name"></b-form-input>
       </b-form-group> -->
-        <b-btn class="mt-3 float-right" variant="primary" @click="updateData">{{'dashboard.profile.update' | trans}}</b-btn>
+        <b-btn class="mt-3 float-right" variant="primary" @click="updateData">{{'dashboard.profile.update' | trans | upper }}</b-btn>
       </b-col>
       <b-col md="6">
         <h3>{{'auth.changePassword' | trans}}</h3>
@@ -33,7 +33,7 @@
           <b-form-group :label="'auth.confirmNewPassword' | trans">
             <b-form-input :type="isPasswordOpen? 'text':'password'" v-model="password.password_confirmation"></b-form-input>
           </b-form-group>
-          <b-btn class="mt-auto float-right" variant="primary" @click="updatePassword">{{'auth.changePassword' | trans}}</b-btn>
+          <b-btn class="mt-auto float-right" variant="primary" @click="updatePassword">{{'auth.changePassword' | trans | upper}}</b-btn>
         </div>
         <div v-if="userdata.facebook_id">
           {{'auth.warningChangePasswordFB' | trans}}

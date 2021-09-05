@@ -4,13 +4,13 @@ return [
 
     'view' => [
 
-        'business_account_login' => 'İşletme Hesabı Girişi',
+        'business_account_login' => 'Kurumsal Hesap Girişi',
         'business_account_forgot_password' => 'İşletme Hesabı Şifremi Unuttum',
     ],
     'title' => [
         'login' => 'Şirket Girişi',
         'register' => 'Şirket tescili',
     ],
-    'workEmailAddress' => 'İş E-posta Adresi',
+    'workEmailAddress' => 'İş E-Mail adresi',
 
 ];

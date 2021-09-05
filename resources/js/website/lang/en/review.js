@@ -17,10 +17,13 @@ export default {
     'DescriptionLabel': 'Your Review',
     'DescriptionLabelPlaceholder': 'Describe your review to help others',
     'PhotoLabel': 'Photo(optional)',
+    'PhotoReviewLabel': 'Add document. Invoice, product photo, etc. If there is any document, attach it to the complaint. ( optional )',
     'PhotoPlaceholder': 'Drop file here...',
+    'PhotoReviewPlaceholder': 'Add Document or Photo...',
     'SelectTypeLabel': 'Type of Review',
     'SelectTypePlaceholder': 'Please select type of Review',
     'repliedFromBrand': 'Replied from Brand Owner',
+    'submitReview': 'Submit Review',
     'tnc': {
       'iAgree': 'I agree the',
       'tnc': 'terms and condition',

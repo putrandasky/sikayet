@@ -43,7 +43,7 @@
                   @endfor
                      <div class="text-light">
 
-                       @lang('website/common.rating') : {{$company->rating}} @lang('website/common.of') 5.0
+                       @lang('website/common.rating') : {{$company->rating}} / 5.0
                      </div>
             </div>
             <div class="d-flex" style="overflow: auto;white-space:nowrap">

@@ -32,7 +32,9 @@
 
     </b-navbar-nav>
     <b-navbar-nav class="justify-content-end">
-      <a v-if="!iscompany && !isuser" class="btn-sm btn btn-outline-secondary" href="/user-login"><i class="fa fa-sign-in"></i></a>
+      <a v-if="!iscompany && !isuser" class="btn-sm btn btn-outline-secondary" href="/user-login">
+        {{'auth.memberLogin' | trans}}
+      </a>
       <a v-if="isuser" class="btn-sm btn btn-outline-secondary" href="/user-dashboard"><i class="fa fa-user"></i></a>
       <a v-if="iscompany" class="btn-sm btn btn-outline-secondary" href="/company-dashboard"><i class="fa fa-briefcase"></i></a>
 

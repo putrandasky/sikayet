@@ -12,12 +12,12 @@ export default {
     },
     'noLimit': 'Limit yok',
     'profile': {
-      'title': 'Benim profilim',
-      'profile': 'Profil',
-      'update': 'Profili Güncelle'
+      'title': 'Profilim',
+      'profile': 'Hakkınızda',
+      'update': 'Profilimi Güncelle'
     },
     'review': {
-      'title': 'İncelemelerim',
+      'title': 'Şikayetlerim / Yorumlarım',
       'reviewFor': 'için yorumunuz',
       'report': 'Bildiri',
       'reported': 'Bildirildi',

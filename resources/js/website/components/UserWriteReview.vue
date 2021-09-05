@@ -14,8 +14,8 @@
     <b-form-group :label="'review.DescriptionLabel' | trans">
       <b-form-textarea v-model="input.description" rows="4" :placeholder="'review.DescriptionLabelPlaceholder' | trans"></b-form-textarea>
     </b-form-group>
-    <b-form-group :label="'review.PhotoLabel' | trans">
-      <b-form-file ref="photo" name="photo" v-model="file" :placeholder="'review.PhotoPlaceholder' | trans" @change="onFileChange"></b-form-file>
+    <b-form-group :label="'review.PhotoReviewLabel' | trans">
+      <b-form-file :browse-text="'common.uploadFile' | trans" ref="photo" name="photo" v-model="file" :placeholder="'review.PhotoReviewPlaceholder' | trans" @change="onFileChange"></b-form-file>
     </b-form-group>
     <b-form-group :label="'review.SelectTypeLabel' | trans">
       <b-form-select v-model="input.review_type_id" :options="review_type_options">
@@ -27,7 +27,7 @@
       <b-link href="#" @click="tncModal=true">{{'review.tnc.tnc' | trans}}</b-link> {{'review.tnc.forMyReview' | trans}}
     </b-form-checkbox>
     <b-btn variant="primary" class="float-right" size="sm" @click="submit" :disabled="!input.rating || !input.title || !input.description || !input.review_type_id || input.accept_tnc == 'not_accepted'">
-      Submit Review
+      {{'review.submitReview' | trans}}
     </b-btn>
     <b-modal size="lg" v-model="tncModal" hide-footer :title="'review.tnc.tnc' | trans">
       <div v-html="term"></div>

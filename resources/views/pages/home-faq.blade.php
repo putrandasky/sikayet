@@ -11,13 +11,13 @@
         <h4 class="">@lang('website/home.general_title.faq')</h4>
 
       </div>
-      <div class="col-md-6 w-100">
+      {{-- <div class="col-md-6 w-100">
         <div class="row justify-content-end">
 
           <home-search></home-search>
         </div>
 
-      </div>
+      </div> --}}
     </div>
   </x-header-wrapper>
   <section class="py-3">

@@ -1,8 +1,8 @@
 export default {
   'tr.home': {
     'whatCompany': 'hangi firmayı arıyorsunuz',
-    'loadMore': 'Daha fazla yükle',
-    'readMore': 'Daha fazla oku',
+    'loadMore': 'Daha Fazla Göster',
+    'readMore': 'İncele',
     'of': 'nın-nin'
 
   }

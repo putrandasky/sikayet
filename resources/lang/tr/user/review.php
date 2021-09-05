@@ -2,6 +2,6 @@
 
 return [
 
-    'review_any_company' => "Sahip Olmadığımız Herhangi Bir Şirket İçin Yorum Yazın",
+    'review_any_company' => "Bir şirket veya marka için şikayet yazınız",
 
 ];

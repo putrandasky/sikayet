@@ -36,7 +36,7 @@
             <div v-for="j in v.rating_grey" :key="'grey'+j" class="bg-secondary rounded px-1 mr-1"><i class="fa fa-star text-white  "></i></div>
           </div>
           <div class="text-center text-secondary mb-2">
-            {{'review.rating' | trans}} : {{v.rating}} {{'home.of' | trans}} 5.0
+            {{'review.rating' | trans}} : {{v.rating}} / 5.0
           </div>
           <div class="text-center">
             <a class="btn btn-primary btn-sm" :href="`/brand/${v.slug}`">{{'home.readMore' | trans}}</a>

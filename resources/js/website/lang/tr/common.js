@@ -1,19 +1,20 @@
 export default {
   'tr.common': {
     'ok': 'Tamam',
-    'submit': 'Göndermek',
+    'submit': 'Gönder',
     'cancel': 'İptal',
-    'clear': 'Temizlemek',
+    'clear': 'Aramaları Temizle',
     'back': 'Geri',
     'update': 'Güncelleme',
     'edit': 'Düzenlemek',
     'delete': 'Silmek',
-    'instantSearch': 'Anında Arama',
+    'instantSearch': 'Arama Yap',
     'pleaseSelect': 'Lütfen seçin',
-    'question': 'Soru',
-    'questionDescription': 'Bize doğrudan ulaşın',
-    'support': 'Destek',
-    'supportDescription': 'Genel Destek'
+    'question': 'Bize yazınız',
+    'questionDescription': 'Bize bir mesaj yazınız',
+    'support': 'Destek Hattı',
+    'supportDescription': 'Sık sorulan sorulara bakınız',
+    'uploadFile': 'Dosya Yükle'
 
   }
 }

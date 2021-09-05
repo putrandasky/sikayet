@@ -2,22 +2,22 @@
 
 return [
 
-    'company_brand' => 'Şirket Markası',
-    'our_top_companies' => 'En İyi Şirketlerimiz',
+    'company_brand' => 'Şirket ve Marka Alfabetik Liste',
+    'our_top_companies' => 'Trend Şirket ve Markalar',
     'general_title' => [
         'privacy_policy' => 'Gizlilik Politikası',
-        'term_of_use' => 'Kullanım koşulu',
+        'term_of_use' => 'Şartlar ve Koşullar',
         'faq' => 'Sıkça sorulan soru',
-        'agreement' => 'Anlaşma',
+        'agreement' => 'Antlaşma detayları',
         'contact_us' => 'Bizimle iletişime geçin',
-        'get_in_touch' => 'Bizimle temasa geçin',
-        'about' => 'Hakkında',
+        'get_in_touch' => 'Bizimle İrtibata Geçiniz',
+        'about' => 'Hakkımızda',
     ],
     'join_us' => 'Şimdi bize katılın!',
     'top_companies' => [
         'based_on' => 'Dayalı',
-        'reviews' => 'yorumlar',
-        'read_more' => 'Daha fazla oku',
+        'reviews' => 'Şikayetlerim',
+        'read_more' => 'İncele',
     ],
     'about' => [
         'passion_drive_us' => 'Tutku Bizi Yönlendiriyor',

@@ -60,7 +60,7 @@
                   @endfor
                   <div class="text-light">
 
-                    @lang('website/common.rating') : {{$company->rating}} @lang('website/common.of') 5.0
+                    @lang('website/common.rating') : {{$company->rating}} / 5.0
                   </div>
             </div>
             <div class="d-flex" style="overflow: auto;white-space:nowrap">
@@ -397,18 +397,18 @@
           <div class="w-100 mb-3  d-none d-lg-block">
             @if (auth('web')->check() && !$reviewed)
 
-            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">@lang('website/common.write_review')</a>
+            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">{{strtoupper(trans('website/common.write_review'))}}</a>
             @endif
             @if (!auth('web')->check() && !auth('company')->check())
             {{-- <a class="btn btn-success  btn-block" href="/user-login">@lang('website/common.write_review')</a> --}}
-            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">@lang('website/common.write_review')</a>
+            <a class="btn btn-success btn-block" href="/brand/{{$company->slug}}/write-review">{{strtoupper(trans('website/common.write_review'))}}</a>
 
             @endif
           </div>
           <div class="card mb-3">
             <div class="card-body">
               <div class="mb-3">
-                <strong>@lang('website/common.profile')</strong>
+                <strong>@lang('website/common.company_profile')</strong>
                 <div>
                   {{$company->profile}}
                 </div>

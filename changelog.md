@@ -1,3 +1,7 @@
+# 6-Sept-21
+## 0.10.2
+### FIXED
+- Turkish lang (a whole page)
 # 10-Aug-21
 ## 0.10.1
 ### FIXED

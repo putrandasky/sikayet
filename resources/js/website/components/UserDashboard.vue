@@ -6,7 +6,7 @@
       <b-nav-item :active="component == 'MyReview'" @click="component = 'MyReview'">{{'dashboard.review.title' | trans}}</b-nav-item>
       <b-nav-item :active="component == 'MyProfile'" @click="component = 'MyProfile'">{{'dashboard.profile.title' | trans}}</b-nav-item>
       <b-nav-item>
-        <b-btn variant="danger" size="sm" @click="logout()">{{'auth.logout' | trans}}</b-btn>
+        <b-btn variant="danger" size="sm" @click="logout()">{{'auth.logout' | trans | upper}}</b-btn>
 
       </b-nav-item>
     </b-nav>
