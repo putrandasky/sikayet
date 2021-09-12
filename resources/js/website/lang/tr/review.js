@@ -24,6 +24,8 @@ export default {
     'SelectTypePlaceholder': 'Lütfen şikayet türünü seçiniz',
     'repliedFromBrand': 'Marka Sahibi tarafından yanıtlandı',
     'submitReview': 'Şikayet Oluştur',
+    'reply': 'Cevap vermek',
+    'replyYourUserReview': 'Kullanıcı İncelemenizi Yanıtlayın',
     'tnc': {
       'iAgree': 'Bu şikayet veya yorumu yayınlatmak için',
       'tnc': 'şartlar ve koşullar',

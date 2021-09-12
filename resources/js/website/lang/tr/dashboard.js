@@ -60,6 +60,19 @@ export default {
       'answered': 'Yanıtlanan İnceleme',
       'total': 'Toplam İnceleme',
       'quotas': 'Yanıt Kotaları'
+    },
+    'table': {
+      'company': 'Şirket',
+      'companyName': 'Şirket Adı',
+      'title': 'Başlık',
+      'insight': 'Takip Eden',
+      'rating': 'Değerlendirme',
+      'type': 'Tip',
+      'status': 'Durum',
+      'answered': 'Cevaplandı',
+      'reviewDate': 'Tarih',
+      'from': 'itibaren'
+
     }
   }
 }

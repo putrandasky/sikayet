@@ -1,4 +1,7 @@
 # 6-Sept-21
+## 0.10.3
+### FIXED
+- Turkish lang (in table dashboard company and user)
 ## 0.10.2
 ### FIXED
 - Turkish lang (a whole page)

@@ -12,7 +12,7 @@ export const MyReviewTable = {
         },
         {
           key: 'company.name',
-          label: 'Company Name',
+          label: this.$options.filters.trans('dashboard.table.companyName'),
           tdClass: 'truncate-cell',
           thStyle: {
             minWidth: '150px'
@@ -20,7 +20,7 @@ export const MyReviewTable = {
         },
         {
           key: 'review_title',
-          label: 'Title',
+          label: this.$options.filters.trans('dashboard.table.title'),
           thStyle: {
             minWidth: '175px',
             width: '175px'
@@ -28,7 +28,7 @@ export const MyReviewTable = {
         },
         {
           key: 'insight',
-          label: 'Insight',
+          label: this.$options.filters.trans('dashboard.table.insight'),
           class: 'text-center',
           thStyle: {
             minWidth: '125px',
@@ -37,7 +37,7 @@ export const MyReviewTable = {
         },
         {
           key: 'rating',
-          label: 'Rating',
+          label: this.$options.filters.trans('dashboard.table.rating'),
           class: 'text-center',
           thStyle: {
             minWidth: '125px',
@@ -46,7 +46,7 @@ export const MyReviewTable = {
         },
         {
           key: 'type',
-          label: 'Type',
+          label: this.$options.filters.trans('dashboard.table.type'),
           class: 'text-center',
           thStyle: {
             minWidth: '100px',
@@ -55,7 +55,7 @@ export const MyReviewTable = {
         },
         {
           key: 'status',
-          label: 'Status',
+          label: this.$options.filters.trans('dashboard.table.status'),
           class: 'text-center',
           thStyle: {
             minWidth: '100px',
@@ -64,7 +64,7 @@ export const MyReviewTable = {
         },
         {
           key: 'answered',
-          label: 'Answered',
+          label: this.$options.filters.trans('dashboard.table.answered'),
           class: 'text-center',
 
           thStyle: {
@@ -75,7 +75,7 @@ export const MyReviewTable = {
 
         {
           key: 'created_at',
-          label: 'Review Date',
+          label: this.$options.filters.trans('dashboard.table.reviewDate'),
           class: 'text-center',
           thStyle: {
             minWidth: '150px',
@@ -97,11 +97,11 @@ export const MyReviewTable = {
       selectedInputSearch: 'company',
       optionsInputSearch: [{
           value: 'company',
-          text: 'Company'
+          text: this.$options.filters.trans('dashboard.table.company')
         },
         {
           value: 'title',
-          text: 'Title'
+          text: this.$options.filters.trans('dashboard.table.title')
         },
 
       ],

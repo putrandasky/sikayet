@@ -12,21 +12,21 @@ export const MyPackageTable = {
         },
         {
           key: 'subscription_type',
-          label: 'Subscription Type',
+          label: this.$options.filters.trans('subscription.name'),
 
         },
         {
           key: 'date_payment',
-          label: 'Last Payment',
+          label: this.$options.filters.trans('subscription.lastPayment'),
 
         },
         {
           key: 'ending_period',
-          label: 'Ending Period',
+          label: this.$options.filters.trans('subscription.endingPeriod'),
         },
         {
           key: 'payment_method',
-          label: 'Payment Method',
+          label: this.$options.filters.trans('subscription.paymentMethod'),
         },
 
 

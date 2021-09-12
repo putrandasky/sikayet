@@ -24,6 +24,8 @@ export default {
     'SelectTypePlaceholder': 'Please select type of Review',
     'repliedFromBrand': 'Replied from Brand Owner',
     'submitReview': 'Submit Review',
+    'reply': 'Reply',
+    'replyYourUserReview': 'Reply Your User Review',
     'tnc': {
       'iAgree': 'I agree the',
       'tnc': 'terms and condition',

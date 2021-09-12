@@ -131,13 +131,13 @@
               <div>
                 <div v-if="detail.review_status_id !=1 && !respondData && company.membership_active && (company.respond_quota > 0|| company.respond_unlimited == 1)">
                   <b-form-group :invalid-feedback="error_respond" :state="stateRespond">
-                    <b-form-textarea placeholder="Reply Your User Review" v-model="respond" rows="4" :state="stateRespond"></b-form-textarea>
+                    <b-form-textarea :placeholder="'review.replyYourUserReview'|trans" v-model="respond" rows="4" :state="stateRespond"></b-form-textarea>
                   </b-form-group>
-                  <b-btn variant="primary" size="sm" class="float-right mt-3" @click="sendData">Reply</b-btn>
+                  <b-btn variant="primary" size="sm" class="float-right mt-3" @click="sendData">{{'review.reply'|trans}}</b-btn>
                 </div>
                 <div v-if="editMode ">
                   <b-form-group :invalid-feedback="error_respond" :state="stateRespond">
-                    <b-form-textarea placeholder="Reply Your User Review" v-model="respond" rows="4" :state="stateRespond"></b-form-textarea>
+                    <b-form-textarea :placeholder="'review.replyYourUserReview'|trans" v-model="respond" rows="4" :state="stateRespond"></b-form-textarea>
                   </b-form-group>
                   <div class="float-right">
                     <b-btn variant="secondary" size="sm" class="mr-1" @click="cancelUpdateData">{{'common.cancel'|trans}}</b-btn>

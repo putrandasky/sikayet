@@ -12,39 +12,39 @@ export const MyPackageTable = {
         },
         {
           key: 'date_payment',
-          label: 'Date Payment',
+          label: this.$options.filters.trans('subscription.datePayment'),
           class: 'text-center',
         },
         {
           key: 'payment_invoice',
-          label: 'Invoice',
+          label: this.$options.filters.trans('subscription.invoice'),
         },
         {
           key: 'subscription_type',
-          label: 'Subscription Type',
+          label: this.$options.filters.trans('subscription.name'),
         },
         {
           key: 'respond_quota',
-          label: 'Respond Quota',
+          label: this.$options.filters.trans('subscription.respondQuota'),
         },
         {
           key: 'payment_method',
-          label: 'Payment Method',
+          label: this.$options.filters.trans('subscription.paymentMethod'),
           class: 'text-center',
         },
         {
           key: 'status',
-          label: 'Status',
+          label: this.$options.filters.trans('subscription.paymentMethod'),
           class: 'text-center',
         },
         {
           key: 'payment_status',
-          label: 'Payment Status',
+          label: this.$options.filters.trans('subscription.paymentStatus'),
           class: 'text-center',
         },
         {
           key: 'amount',
-          label: 'Amount',
+          label: this.$options.filters.trans('subscription.amount'),
           class: 'text-right',
 
         },

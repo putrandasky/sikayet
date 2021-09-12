@@ -18,12 +18,18 @@ export default {
     'package': 'Seçtiğiniz Paket',
     'name': 'Abonelik Adı',
     'period': 'Abonelik Süresi',
+    'lastPayment': 'Son ödeme',
+    'endingPeriod': 'Bitiş Dönemi',
+    'datePayment': 'Tarih Ödeme',
+    'invoice': 'Fatura',
     'respondQuota': 'Yanıt Kotası',
     'amount': 'Miktar',
     'paymentMethod': 'Ödeme şekli',
     'payWith': 'İle ödemek',
     'checkout': 'Çıkış yapmak',
-    'processing': 'İşleme...'
+    'processing': 'İşleme...',
+    'paymentStatus': 'Ödeme Durumu'
+
   },
 
 }

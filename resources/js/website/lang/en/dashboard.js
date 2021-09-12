@@ -60,6 +60,19 @@ export default {
       'answered': 'Answered Review',
       'total': 'Total Review',
       'quotas': 'Respond Quotas'
+    },
+    'table': {
+      'company': 'Company',
+      'companyName': 'Company Name',
+      'title': 'Title',
+      'insight': 'Insight',
+      'rating': 'Rating',
+      'type': 'Type',
+      'status': 'Status',
+      'answered': 'Answered',
+      'reviewDate': 'Review Date',
+      'from': 'From'
+
     }
   }
 }

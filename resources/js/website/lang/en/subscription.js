@@ -18,12 +18,17 @@ export default {
     'package': 'Your Selected Package',
     'name': 'Subscription Name',
     'period': 'Subscription Period',
+    'lastPayment': 'Last Payment',
+    'endingPeriod': 'Ending Period',
+    'datePayment': 'Date Payment',
+    'invoice': 'Invoice',
     'respondQuota': 'Respond Quota',
     'amount': 'Amount',
     'paymentMethod': 'Payment Method',
     'payWith': 'Pay with',
     'checkout': 'Checkout',
-    'processing': 'Processing...'
+    'processing': 'Processing...',
+    'paymentStatus': 'Payment Status'
   },
 
 }
