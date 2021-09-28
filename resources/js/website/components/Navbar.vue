@@ -24,23 +24,24 @@
 
 
     </b-navbar-nav>
-    <b-navbar-nav class="justify-content-end d-none d-md-flex ">
+    <b-navbar-nav class="justify-content-end">
       <a v-if="!iscompany" class="mr-2 btn btn-sm btn-primary" href="/write-review">{{'nav.writeReview' | trans}}</a>
-      <a v-if="!iscompany && !isuser" class="mr-2 btn btn-sm btn-dark" href="/company-login">{{'nav.forCompanies' | trans}}</a>
-
-
 
     </b-navbar-nav>
-    <b-navbar-nav class="justify-content-end">
+    <b-navbar-nav class="justify-content-end d-none d-md-flex ">
+      <a v-if="!iscompany && !isuser" class="mr-2 btn btn-sm btn-dark" href="/company-login">{{'nav.forCompanies' | trans}}</a>
+
       <a v-if="!iscompany && !isuser" class="btn-sm btn btn-outline-secondary" href="/user-login">
         {{'auth.memberLogin' | trans}}
       </a>
+
+    </b-navbar-nav>
+    <b-navbar-nav class="justify-content-end">
+
       <a v-if="isuser" class="btn-sm btn btn-outline-secondary" href="/user-dashboard"><i class="fa fa-user"></i></a>
       <a v-if="iscompany" class="btn-sm btn btn-outline-secondary" href="/company-dashboard"><i class="fa fa-briefcase"></i></a>
 
     </b-navbar-nav>
-
-
 
     <b-sidebar body-class="px-3" bg-variant="dark" title="Navigation" backdrop id="sidebar-1" :z-index="1001" :shadow="true">
       <b-list-group flush class="mt-3 bg-dark">

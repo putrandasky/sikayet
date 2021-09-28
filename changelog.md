@@ -1,3 +1,7 @@
+# 30-Sept-21
+## 0.10.4
+### CHANGED
+- Showing "write a review button" in smaller screen
 # 6-Sept-21
 ## 0.10.3
 ### FIXED
