@@ -43,7 +43,7 @@
       <b-link href="#" @click="tncModal=true">{{'review.tnc.tnc' | trans}}</b-link> {{'review.tnc.forMyReview' | trans}}
     </b-form-checkbox>
     <b-btn variant="primary" class="float-right" size="sm" @click="submit" :disabled="!input.rating || !input.title || !input.description || !input.review_type_id || input.accept_tnc == 'not_accepted' || companies.length > 0 || input.company_name == ''">
-      Submit Review
+      {{'review.submitReview' | trans}}
     </b-btn>
     <b-modal size="lg" v-model="tncModal" hide-footer :title="'review.tnc.tnc' | trans">
       <div v-html="term"></div>
@@ -120,7 +120,7 @@
       }
     },
     mounted() {
-      this.review_type_options = this.mutateKey(this.reviewtype)
+      this.review_type_options = this.mutateReviewTypeKey(this.reviewtype)
 
     },
     methods: {
@@ -157,6 +157,10 @@
             console.log(response.data)
             this.isLoading = false
             this.submitedModal = true
+            setTimeout(() => {
+              window.open(`/user-dashboard`, '_self')
+
+            }, 5000);
           })
           .catch((error) => {
             console.log(error);
@@ -168,6 +172,17 @@
           return {
             value: item.id,
             text: item.range || item.name || item.description,
+            state: false
+          };
+        });
+        return mutateData;
+      },
+      mutateReviewTypeKey(data) {
+        let self = this
+        let mutateData = data.map(function(item) {
+          return {
+            value: item.id,
+            text: self.$options.filters.trans(`review.reviewType.${item.name}`),
             state: false
           };
         });

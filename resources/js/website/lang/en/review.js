@@ -31,11 +31,16 @@ export default {
       'tnc': 'terms and condition',
       'forMyReview': 'for my review'
     },
+    'reviewType': {
+      'GENERAL': 'GENERAL',
+      'SOLUTION': 'SOLUTION',
+      'COMPLAIN': 'COMPLAIN',
+    },
     'postReview': {
       'title': 'Thank you for your business review',
       'Message1': 'We will check and activate your review as soon as possible and we will inform you by e-mail.',
       'Message2': 'have a nice day',
-      'message3': 'We will check your review for the company that not registered yet in our database. If approved, the review will be show on the main website under the company name you write before and it will be show in your dashboard.'
+      'Message3': 'We will check your review for the company that not registered yet in our database. If approved, the review will be show on the main website under the company name you write before and it will be show in your dashboard.'
     },
     'writeFor': 'Write Review for',
     'deleteReview': 'Delete Review',

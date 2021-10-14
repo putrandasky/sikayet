@@ -31,11 +31,16 @@ export default {
       'tnc': 'şartlar ve koşullar',
       'forMyReview': 'okudum ve kabul ediyorum'
     },
+    'reviewType': {
+      'GENERAL': 'Bilgi Almak',
+      'SOLUTION': 'Çözüm Aramak',
+      'COMPLAIN': 'Şikayet Etmek',
+    },
     'postReview': {
       'title': 'İşletme incelemeniz için teşekkür ederiz',
       'Message1': 'İncelemenizi en kısa sürede kontrol edip etkinleştireceğiz ve sizi E-Mail adresi ile bilgilendireceğiz..',
       'Message2': 'iyi günler',
-      'message3': 'Veritabanımızda henüz kayıtlı olmayan şirket için yorumunuzu kontrol edeceğiz. Onaylanırsa inceleme, ana web sitesinde daha önce yazdığınız şirket adı altında gösterilecek ve kontrol panelinizde gösterilecektir.'
+      'Message3': 'Veritabanımızda henüz kayıtlı olmayan şirket için yorumunuzu kontrol edeceğiz. Onaylanırsa inceleme, ana web sitesinde daha önce yazdığınız şirket adı altında gösterilecek ve kontrol panelinizde gösterilecektir.'
     },
     'writeFor': 'Şikayet veya Yorum yaz için',
     'deleteReview': 'İncelemeyi Sil',

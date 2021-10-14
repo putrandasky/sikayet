@@ -112,7 +112,7 @@ class ReviewController extends Controller
             $review->save();
             $review_orphan->review_status_id = 2;
             $review_orphan->save();
-            $this->incrementReviewData($review->id);
+            $this->incrementReviewData($review->id, $review_orphan->rating);
 
             if ($review->id) {
                 return response()->json(['status' => 'success', 'message' => 'New Company Created and Review Stored'], 200);

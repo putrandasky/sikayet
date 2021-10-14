@@ -96,7 +96,7 @@
     },
     created() {},
     mounted() {
-      this.review_type_options = this.mutateKey(this.reviewtype)
+      this.review_type_options = this.mutateReviewTypeKey(this.reviewtype)
       this.input.company_id = this.companyid
 
     },
@@ -125,6 +125,17 @@
         });
         return mutateData;
       },
+      mutateReviewTypeKey(data) {
+        let self = this
+        let mutateData = data.map(function(item) {
+          return {
+            value: item.id,
+            text: self.$options.filters.trans(`review.reviewType.${item.name}`),
+            state: false
+          };
+        });
+        return mutateData;
+      },
       backToCompanyDetail() {
         window.open(`/brand/${this.slug}`, '_self')
       },
@@ -144,6 +155,10 @@
             console.log(response.data)
             this.isLoading = false
             this.submitedModal = true
+            setTimeout(() => {
+              window.open(`/user-dashboard`, '_self')
+
+            }, 5000);
           })
           .catch((error) => {
             console.log(error);

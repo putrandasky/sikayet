@@ -120,7 +120,7 @@ Route::get('/company-forgot-password', function () {
 Route::get('/404', function () {
     return view('pages.404');
 });
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'adm'], function () {
 
     Route::get('/{vue_capture?}', function () {
         return View::make('layouts.admin');

@@ -4,17 +4,19 @@
       <b-btn variant="outline-secondary" v-b-toggle="'sidebar-1'">
         <i class="fa fa-list"></i>
       </b-btn>
+
+      <b-img class="my-auto d-md-none" style="min-height:30px;height:30px" src="/images/logo.png" alt="application logo"></b-img>
+
     </b-navbar-nav>
     <b-navbar-brand class="mr-auto  d-none d-md-flex" href="/">
       <b-img style="min-height:30px;height:30px" src="/images/logo.png" alt="application logo"></b-img>
       <!-- APP LOGO -->
 
     </b-navbar-brand>
-    <b-navbar-brand class="center-h   d-flex d-md-none" href="/">
-      <b-img style="min-height:30px;height:30px" src="/images/logo.png" alt="application logo"></b-img>
-      <!-- APP LOGO -->
+    <!-- <b-navbar-brand class="center-h   d-flex d-md-none" href="/"> -->
+    <!-- APP LOGO -->
 
-    </b-navbar-brand>
+    <!-- </b-navbar-brand> -->
 
     <b-navbar-nav class="d-none ml-auto d-md-flex d-none ">
 

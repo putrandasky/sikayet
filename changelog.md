@@ -1,3 +1,12 @@
+# 15-Okt-21
+## 0.11
+### CHANGED
+- Icon navbar to placed to the left instead center
+- Redirect after review
+- base link for admin to adm
+### FIXED
+- translation in review any company
+- rating not added in orphan mode
 # 30-Sept-21
 ## 0.10.4
 ### CHANGED
