@@ -1,3 +1,12 @@
+# 22-Okt-21
+## 0.12
+### CHANGED
+- Alphabetically order in business category options
+### ADDED
+- "Please Wait" text in loading spinner
+### FIXED
+- Translation in input validation
+- homepage link for brand icon in small screen
 # 15-Okt-21
 ## 0.11
 ### CHANGED

@@ -31,7 +31,7 @@
         </b-form-group>
         <b-form-group :label="'auth.businessCategory'|trans">
 
-          <b-form-select plain v-model="input.business_category_id" :options="options.business_category">
+          <b-form-select plain v-model="input.business_category_id" :options="sortedCategoryOptions">
             <template slot="first">
               <option disabled :value="null">-- {{'auth.selectBusinessCategory'|trans}} --</option>
             </template>
@@ -72,6 +72,18 @@
 
       this.input = this.companydata
       this.options.business_category = this.mutateKey(this.business_category)
+    },
+    computed: {
+      sortedCategoryOptions: function() {
+        function compare(a, b) {
+          if (a.text < b.text) return -1;
+          if (a.text > b.text)
+            return 1;
+          return 0;
+        }
+
+        return this.options.business_category.sort(compare);
+      }
     },
     methods: {
 

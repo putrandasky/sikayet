@@ -1,7 +1,7 @@
 <template>
   <div style="min-height:100px">
     <h3>{{'dashboard.package.title'|trans}}</h3>
-    <b-overlay variant="dark" :show="!isLoaded" blur=""></b-overlay>
+    <overlay :isLoaded="isLoaded"></overlay>
 
     <div style="overflow:auto" v-if="isLoaded  && items[0]">
 

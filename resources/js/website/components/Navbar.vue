@@ -4,8 +4,10 @@
       <b-btn variant="outline-secondary" v-b-toggle="'sidebar-1'">
         <i class="fa fa-list"></i>
       </b-btn>
+      <a class="my-auto d-md-none" href="/">
 
-      <b-img class="my-auto d-md-none" style="min-height:30px;height:30px" src="/images/logo.png" alt="application logo"></b-img>
+        <b-img style="min-height:30px;height:30px" src="/images/logo.png" alt="application logo"></b-img>
+      </a>
 
     </b-navbar-nav>
     <b-navbar-brand class="mr-auto  d-none d-md-flex" href="/">

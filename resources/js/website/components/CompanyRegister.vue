@@ -20,7 +20,7 @@
           <i class="fa fa-list position-absolute text-secondary" style="top:12px;left:18px"></i>
         </div> -->
         <b-form-group class="position-relative" :invalid-feedback="errors.business_category" :state="stateBusinessCategory">
-          <b-form-select class="pl-5" v-model="input.business_category" :options="category_options" :state="stateBusinessCategory">
+          <b-form-select class="pl-5" v-model="input.business_category" :options="sortedCategoryOptions" :state="stateBusinessCategory">
             <b-form-select-option :value="null" disabled>-- {{'auth.selectBusinessCategory' | trans}} --</b-form-select-option>
           </b-form-select>
           <i class="fa fa-list position-absolute text-secondary" style="top:12px;left:18px"></i>
@@ -116,6 +116,16 @@
       statePassword() {
         return this.errors.password == 'no-error' ? true : this.errors.password ? false : null
       },
+      sortedCategoryOptions: function() {
+        function compare(a, b) {
+          if (a.text < b.text) return -1;
+          if (a.text > b.text)
+            return 1;
+          return 0;
+        }
+
+        return this.category_options.sort(compare);
+      }
     },
     methods: {
       handleAnimation: function(anim) {

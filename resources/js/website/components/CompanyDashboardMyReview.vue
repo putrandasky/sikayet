@@ -1,7 +1,7 @@
 <template>
   <div style="min-height:100px">
     <h3 class="mb-3">{{'dashboard.review.title'|trans}}</h3>
-    <b-overlay variant="dark" :show="!isLoaded" blur=""></b-overlay>
+    <overlay :isLoaded="isLoaded"></overlay>
     <div v-if="isLoaded && itemsData.length > 0">
       <b-row v-show="!detailMode">
         <b-col xl="4" md="6" class="mb-3">

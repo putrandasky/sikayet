@@ -14,7 +14,9 @@ export default {
     'questionDescription': 'Write us a message',
     'support': 'Support Line',
     'supportDescription': 'See frequently asked questions',
-    'uploadFile': 'Upload File'
+    'uploadFile': 'Upload File',
+    'please_wait': 'Please wait',
+
 
   }
 }

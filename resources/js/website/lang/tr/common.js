@@ -14,7 +14,8 @@ export default {
     'questionDescription': 'Bize bir mesaj yazınız',
     'support': 'Destek Hattı',
     'supportDescription': 'Sık sorulan sorulara bakınız',
-    'uploadFile': 'Dosya Yükle'
+    'uploadFile': 'Dosya Yükle',
+    'please_wait': 'Lütfen bekle',
 
   }
 }

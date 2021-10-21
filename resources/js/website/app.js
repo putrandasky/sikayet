@@ -19,7 +19,8 @@ Vue.prototype.$lang = lang
 Vue.filter('trans', (...args) => {
   return lang.get(...args);
 });
-
+import Overlay from './widgets/Overlay'
+Vue.component('overlay', Overlay)
 Vue.use(BootstrapVue);
 window.dayjs = require('dayjs');
 Vue.mixin({
@@ -47,6 +48,7 @@ Vue.mixin({
   }
 });
 import './filter/filter';
+import Vue from 'vue';
 
 
 // const files = require.context('./', true, /\.vue$/i)
