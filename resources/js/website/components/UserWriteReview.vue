@@ -42,6 +42,9 @@
     <b-overlay variant="dark" :show="isLoading" blur="" fixed no-wrap></b-overlay>
     <b-modal :visible="!isLoggedIn" hide-footer hide-header no-close-on-backdrop content-class="bg-transparent border-0" body-class="d-flex justify-content-center">
       <div>
+        <a class="position-absolute text-secondary" style="right:80px;top: 40px;z-index:1" href="/">
+          <i class="fa fa-close "></i>
+        </a>
         <user-login v-show="authMode == 'login'" :hideRegisterLink="true" :targetWindowReload="`/brand/${this.slug}/write-review`" :socialLoginStatus="socialLoginStatus"></user-login>
         <user-register v-show="authMode == 'register'" :hideLoginLink="true" :targetWindowReload="`/brand/${this.slug}/write-review`" :socialLoginStatus="socialLoginStatus"></user-register>
         <b-card body-class="py-2" style="margin-top:-4px;border-top-left-radius:unset;border-top-right-radius:unset">

@@ -1,3 +1,10 @@
+# 23-Okt-21
+## 0.13
+### ADDED
+- Close button on modal review page
+### FIXED
+- no show empty state or content in user dashboard review
+- centering summary dashboard
 # 22-Okt-21
 ## 0.12
 ### CHANGED

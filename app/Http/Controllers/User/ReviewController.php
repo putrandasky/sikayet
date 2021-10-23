@@ -23,7 +23,7 @@ class ReviewController extends Controller
             'company_respond',
             'review_type',
             'review_status'])->latest()->get();
-        $data['review_types'] = Models\Reviewtype::get();
+        $data['review_types'] = Models\ReviewType::get();
 
         // $review = Models\Review::userId($user->id)
         return $data;
